@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "daybook-shell-v12";
+const CACHE_NAME = "daybook-shell-v2.2";
 const APP_SHELL = [
   "./",
   "./index.html",

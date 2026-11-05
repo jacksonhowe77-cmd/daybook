@@ -1,8 +1,9 @@
 "use strict";
 
-const CACHE_NAME = "daybook-shell-v11";
+const CACHE_NAME = "daybook-shell-v12";
 const APP_SHELL = [
-  "./app.html",
+  "./",
+  "./index.html",
   "./notebook.webmanifest",
   "./notebook-icon.svg"
 ];
@@ -49,20 +50,22 @@ self.addEventListener("push", event => {
       icon: "./notebook-icon.svg",
       badge: "./notebook-icon.svg",
       tag: payload.tag || "daybook-push",
-      data: { url: payload.url || "./app.html" }
+      data: { url: new URL(payload.url || "./index.html", self.registration.scope).href }
     })
   );
 });
 
 self.addEventListener("notificationclick", event => {
   event.notification.close();
-  const requestedDestination = new URL(event.notification.data?.url || "./app.html", self.location.origin);
+  const requestedDestination = new URL(event.notification.data?.url || "./index.html", self.registration.scope);
   const destination = requestedDestination.origin === self.location.origin
     ? requestedDestination.href
-    : new URL("./app.html", self.location.origin).href;
+    : new URL("./index.html", self.registration.scope).href;
   event.waitUntil(
     self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(clients => {
-      const existing = clients.find(client => new URL(client.url).href === new URL("./app.html", self.location.origin).href);
+      const appUrl = new URL("./", self.registration.scope).href;
+      const indexUrl = new URL("./index.html", self.registration.scope).href;
+      const existing = clients.find(client => new URL(client.url).href === appUrl || new URL(client.url).href === indexUrl);
       if (existing) return existing.navigate(destination).then(() => existing.focus());
       return self.clients.openWindow(destination);
     })

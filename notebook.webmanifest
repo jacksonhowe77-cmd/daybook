@@ -1,10 +1,10 @@
 {
-  "id": "./app.html",
+  "id": "/daybook/",
   "name": "Daybook — class notebook",
   "short_name": "Daybook",
   "description": "Class schedule, calendar, and study notebook.",
-  "start_url": "./app.html",
-  "scope": "./",
+  "start_url": "/daybook/",
+  "scope": "/daybook/",
   "display": "standalone",
   "background_color": "#f5f1e8",
   "theme_color": "#f5f1e8",

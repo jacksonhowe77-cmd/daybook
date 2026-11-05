@@ -48,6 +48,36 @@
       --primary-text: #202320;
       --red: #e2a99d;
     }
+    :root[data-palette="green"] {
+      --paper: #eef3eb; --sheet: #fcfefb; --sheet-alt: #f5f8f2; --soft: #e3ebe1;
+      --line: #d4dfd1; --line-soft: #e7ede5; --hover: #f0f5ed;
+      --accent: #477a58; --accent-dark: #315d40;
+    }
+    :root[data-palette="blue"] {
+      --paper: #eef2f6; --sheet: #fcfdff; --sheet-alt: #f4f7fa; --soft: #e3eaf1;
+      --line: #d2dbe5; --line-soft: #e8edf2; --hover: #f0f4f8;
+      --accent: #52718f; --accent-dark: #3c5975;
+    }
+    :root[data-palette="pink"] {
+      --paper: #f7eff1; --sheet: #fffcfd; --sheet-alt: #faf4f6; --soft: #efe3e7;
+      --line: #e4d4da; --line-soft: #f0e7eb; --hover: #f9f1f4;
+      --accent: #a45f74; --accent-dark: #82475b;
+    }
+    :root[data-theme="dark"][data-palette="green"] {
+      --paper: #202721; --sheet: #292f29; --sheet-alt: #252b25; --soft: #383f38;
+      --line: #485148; --line-soft: #3a423a; --hover: #333a33;
+      --accent: #8fbd98; --accent-dark: #b7d8bd;
+    }
+    :root[data-theme="dark"][data-palette="blue"] {
+      --paper: #20252b; --sheet: #292f37; --sheet-alt: #252b32; --soft: #383f48;
+      --line: #48515a; --line-soft: #3a424a; --hover: #333a42;
+      --accent: #91b6d7; --accent-dark: #b4d1e9;
+    }
+    :root[data-theme="dark"][data-palette="pink"] {
+      --paper: #2a2226; --sheet: #342a2f; --sheet-alt: #2e252a; --soft: #44363d;
+      --line: #57434c; --line-soft: #46363d; --hover: #3c3036;
+      --accent: #dda0b3; --accent-dark: #edbdcb;
+    }
 
     * { box-sizing: border-box; }
     body { margin: 0; min-width: 0; background: var(--paper); color: var(--ink); }
@@ -97,12 +127,16 @@
     .next-class strong { color: var(--ink); font-weight: 600; }
 
     .schedule-list { border-top: 1px solid var(--line); }
+    .day-group { border-top: 1px solid var(--line); }
+    .day-group:first-child { border-top: 0; }
+    .day-group summary { padding: 11px 18px; color: var(--accent-dark); font-size: 13px; font-weight: 650; cursor: pointer; }
     .schedule-item { display: grid; grid-template-columns: 90px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); }
     .schedule-item:last-child { border-bottom: 0; }
     .schedule-time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
     .schedule-name { font-size: 14px; font-weight: 600; }
     .schedule-room { margin-top: 3px; color: var(--muted); font-size: 12px; }
     .text-button { padding: 4px; border: 0; background: none; color: var(--muted); font-size: 12px; text-decoration: underline; cursor: pointer; }
+    .schedule-actions { display: flex; gap: 8px; }
     .empty { padding: 18px; color: var(--muted); font-size: 14px; }
 
     .calendar-card { padding-bottom: 14px; }
@@ -138,7 +172,10 @@
     .study-timer { margin: 14px 0 12px; font-family: Georgia, "Times New Roman", serif; font-size: 42px; font-variant-numeric: tabular-nums; text-align: center; }
     .study-controls { display: flex; justify-content: center; gap: 8px; }
     .study-note { margin: 11px 0 0; color: var(--muted); font-size: 12px; text-align: center; }
+    .study-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 17px; }
+    .study-settings input { width: 100%; }
     .calendar-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .calendar-actions select { min-height: 31px; padding: 4px 7px; border: 1px solid var(--line); border-radius: 4px; background: var(--sheet); color: var(--ink); }
     .study-card { max-width: 560px; margin: 0 auto; }
 
     dialog { width: min(520px, calc(100vw - 28px)); max-height: min(86vh, 760px); padding: 0; overflow: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--sheet); color: var(--ink); }
@@ -159,6 +196,18 @@
     .notice.error { color: var(--red); }
     .settings-card { max-width: 620px; }
     .settings-body { display: grid; gap: 18px; padding: 4px 18px 18px; }
+    .settings-group { display: grid; gap: 10px; }
+    .settings-group + .settings-group { padding-top: 16px; border-top: 1px solid var(--line); }
+    .settings-group h3 { margin: 0; font-size: 13px; font-weight: 650; }
+    .notification-heading { display: flex; align-items: center; gap: 8px; }
+    .notification-icon { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+    .notification-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 38px; }
+    .switch { position: relative; display: inline-flex; flex: none; align-items: center; width: 44px; height: 25px; padding: 0; border: 0; border-radius: 20px; background: var(--line); cursor: pointer; transition: background 150ms ease; }
+    .switch::after { width: 19px; height: 19px; margin-left: 3px; border-radius: 50%; background: var(--sheet); content: ""; transition: transform 150ms ease; }
+    .switch[aria-checked="true"] { background: var(--accent); }
+    .switch[aria-checked="true"]::after { transform: translateX(19px); }
+    .switch:disabled { cursor: not-allowed; opacity: .55; }
+    .notification-options { display: grid; gap: 2px; padding-left: 12px; border-left: 2px solid var(--line-soft); }
     .settings-description { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
     .privacy-note { margin: 0; padding: 13px 15px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); font-size: 12px; line-height: 1.5; }
     .toast { position: fixed; right: 18px; bottom: 18px; z-index: 4; max-width: min(380px, calc(100vw - 36px)); padding: 12px 15px; border: 1px solid var(--line); border-radius: 5px; background: var(--sheet); font-size: 13px; }
@@ -168,6 +217,7 @@
       .shell { padding: 18px 16px 32px; }
       .layout { padding-top: 16px; }
       .schedule-item { grid-template-columns: 78px minmax(0, 1fr) auto; gap: 8px; padding-right: 12px; padding-left: 12px; }
+      .schedule-actions { gap: 4px; }
     }
     @media (max-width: 600px) {
       body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
@@ -240,10 +290,12 @@
             <span class="countdown" id="class-countdown"></span>
             <span class="countdown-caption" id="countdown-caption"></span>
           </div>
-          <div class="class-progress" id="class-progress" role="progressbar" aria-label="Class time remaining" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="No active class" hidden>
+          <div class="class-progress" id="class-progress" role="progressbar" aria-label="Class time elapsed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="No active class" hidden>
             <div class="class-progress-fill" id="class-progress-fill"></div>
           </div>
           <div class="next-class" id="next-class" hidden></div>
+          <button class="text-button" id="today-schedule-toggle" type="button" aria-expanded="false" aria-controls="today-full-schedule" hidden>Show the rest of today's classes</button>
+          <div class="schedule-list" id="today-full-schedule" hidden></div>
         </section>
       </section>
 
@@ -251,7 +303,11 @@
         <section class="card" aria-labelledby="schedule-heading">
           <div class="card-head">
             <div><p class="eyebrow">Weekly timetable</p><h2 id="schedule-heading">Class schedule</h2></div>
-            <button class="button small" id="manage-classes-button" type="button">Add class</button>
+            <div class="calendar-actions">
+              <label class="field-label" for="class-sort-select">Sort</label>
+              <select id="class-sort-select" aria-label="Sort classes"><option value="day">By day</option><option value="name">By name</option></select>
+              <button class="button small" id="manage-classes-button" type="button">Add class</button>
+            </div>
           </div>
           <div class="schedule-list" id="schedule-list"></div>
         </section>
@@ -284,16 +340,16 @@
         <section class="card study-card" aria-labelledby="focus-heading">
           <p class="eyebrow">Focus session</p>
           <h2 class="section-title" id="focus-heading">Study timer</h2>
-          <div class="field" style="margin-top: 12px">
-            <label for="focus-subject">What are you studying?</label>
-            <select id="focus-subject"><option value="">Choose a class</option></select>
-          </div>
           <div class="study-timer" id="study-timer" aria-live="polite">25:00</div>
           <div class="study-controls">
             <button class="button primary" id="focus-start" type="button">Start</button>
             <button class="button" id="focus-reset" type="button">Reset</button>
           </div>
           <p class="study-note" id="focus-note">25 minutes of focus, then a 5-minute break.</p>
+          <div class="study-settings">
+            <div class="field"><label for="focus-minutes">Study time (minutes)</label><input id="focus-minutes" type="number" min="1" max="180" value="25"></div>
+            <div class="field"><label for="break-minutes">Break time (minutes)</label><input id="break-minutes" type="number" min="1" max="60" value="5"></div>
+          </div>
         </section>
       </section>
 
@@ -301,8 +357,21 @@
         <section class="card settings-card" aria-labelledby="settings-heading">
           <div class="card-head"><div><p class="eyebrow">Make Daybook yours</p><h2 id="settings-heading">Settings</h2></div></div>
           <div class="settings-body">
-            <div class="field"><label for="theme-select">Appearance</label><select id="theme-select"><option value="light">Light</option><option value="dark">Dark</option><option value="system">Use device setting</option></select></div>
-            <div class="field"><span class="field-label">Notifications</span><div><button class="button" id="notifications-button" type="button">Enable notifications</button></div><p class="settings-description" id="notification-note">Device notifications need permission. Reminders are checked while this app is open; delivery while it is closed requires a push service.</p></div>
+            <div class="settings-group">
+              <h3>Appearance</h3>
+              <div class="field"><label for="theme-select">Theme</label><select id="theme-select"><option value="light">Light</option><option value="dark">Dark</option><option value="system">Use device setting</option></select></div>
+              <div class="field"><label for="palette-select">App color</label><select id="palette-select"><option value="original">Original</option><option value="green">Green</option><option value="blue">Blue</option><option value="pink">Pink</option></select></div>
+            </div>
+            <div class="settings-group">
+              <div class="notification-heading"><svg class="notification-icon" id="notification-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><h3>Notifications</h3></div>
+              <div class="notification-toggle-row"><span id="notification-master-label">Device notifications</span><button class="switch" id="notifications-button" type="button" role="switch" aria-label="Device notifications" aria-checked="false"></button></div>
+              <div class="notification-options" id="notification-options">
+                <div class="notification-toggle-row"><span>Calendar reminders</span><button class="switch notification-category" type="button" role="switch" aria-label="Calendar reminders" aria-checked="true" data-notification-category="calendar"></button></div>
+                <div class="notification-toggle-row"><span>Class end alerts</span><button class="switch notification-category" type="button" role="switch" aria-label="Class end alerts" aria-checked="true" data-notification-category="classes"></button></div>
+                <div class="notification-toggle-row"><span>Study timer alerts</span><button class="switch notification-category" type="button" role="switch" aria-label="Study timer alerts" aria-checked="true" data-notification-category="study"></button></div>
+              </div>
+              <p class="settings-description" id="notification-note" hidden></p>
+            </div>
             <p class="settings-description">Your timetable and calendar stay on this device.</p>
           </div>
         </section>
@@ -312,7 +381,7 @@
 
   <dialog id="class-dialog">
     <form id="class-form">
-      <div class="dialog-head"><h2>Add a class</h2><button class="button small" type="button" data-close="class-dialog">Close</button></div>
+      <div class="dialog-head"><h2 id="class-dialog-title">Add a class</h2><button class="button small" type="button" data-close="class-dialog">Close</button></div>
       <div class="dialog-body">
         <div class="field"><label for="class-name-input">Class name</label><input id="class-name-input" name="name" required maxlength="60" placeholder="Biology"></div>
         <div class="field"><label for="class-room-input">Room or teacher (optional)</label><input id="class-room-input" name="room" maxlength="60" placeholder="Room 204"></div>
@@ -333,7 +402,7 @@
       <div class="dialog-body">
         <div class="field"><label for="event-title-input">What is it?</label><input id="event-title-input" name="title" required maxlength="100" placeholder="History test"></div>
         <div class="field-row">
-          <div class="field"><label for="event-type-input">Type</label><select id="event-type-input" name="type"><option value="Test">Test</option><option value="Assignment">Assignment</option><option value="Project">Project</option><option value="Study">Study plan</option><option value="Other">Other</option></select></div>
+          <div class="field"><label for="event-type-input">Type</label><select id="event-type-input" name="type"><option value="Test">Test</option><option value="Assignment">Assignment</option><option value="Project">Project</option><option value="Study">Study plan</option><option value="Club">Club</option><option value="Event">Event</option><option value="Activity">Activity</option><option value="Meeting">Meeting</option><option value="Other">Other</option></select></div>
           <div class="field"><label for="event-subject-input">Class</label><input id="event-subject-input" name="subject" maxlength="60" placeholder="History"></div>
         </div>
         <div class="field-row">
@@ -419,19 +488,42 @@
       let focusInterval = null;
       let toastTimeout = null;
       let workerRegistration = null;
+      let todayScheduleExpanded = false;
 
       function loadState() {
         try {
           const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+          const settings = parsed.notificationSettings && typeof parsed.notificationSettings === "object"
+            ? parsed.notificationSettings
+            : {};
+          const categories = settings.categories && typeof settings.categories === "object"
+            ? settings.categories
+            : {};
+          const permissionGranted = "Notification" in window && Notification.permission === "granted";
           return {
             classes: Array.isArray(parsed.classes) ? parsed.classes : [],
             events: Array.isArray(parsed.events) ? parsed.events : [],
             notified: Array.isArray(parsed.notified) ? parsed.notified : [],
-            theme: ["light", "dark", "system"].includes(parsed.theme) ? parsed.theme : "light"
+            theme: ["light", "dark", "system"].includes(parsed.theme) ? parsed.theme : "light",
+            palette: ["original", "green", "blue", "pink"].includes(parsed.palette) ? parsed.palette : "original",
+            notificationSettings: {
+              enabled: permissionGranted && (typeof settings.enabled === "boolean" ? settings.enabled : true),
+              categories: {
+                calendar: typeof categories.calendar === "boolean" ? categories.calendar : true,
+                classes: typeof categories.classes === "boolean" ? categories.classes : true,
+                study: typeof categories.study === "boolean" ? categories.study : true
+              }
+            },
+            focusMinutes: Number.isInteger(parsed.focusMinutes) && parsed.focusMinutes >= 1 && parsed.focusMinutes <= 180 ? parsed.focusMinutes : 25,
+            breakMinutes: Number.isInteger(parsed.breakMinutes) && parsed.breakMinutes >= 1 && parsed.breakMinutes <= 60 ? parsed.breakMinutes : 5
           };
         } catch (error) {
           console.error("Could not read Daybook data", error);
-          return { classes: [], events: [], notified: [] };
+          return {
+            classes: [], events: [], notified: [], theme: "light", palette: "original",
+            notificationSettings: { enabled: false, categories: { calendar: true, classes: true, study: true } },
+            focusMinutes: 25, breakMinutes: 5
+          };
         }
       }
 
@@ -498,14 +590,15 @@
           const start = new Date(now);
           start.setHours(...active.start.split(":").map(Number), 0, 0);
           const total = Math.max(1, end.getTime() - start.getTime());
-          const percentRemaining = Math.max(0, Math.min(100, remaining * 1000 / total * 100));
+          const elapsed = Math.max(0, now.getTime() - start.getTime());
+          const percentElapsed = Math.max(0, Math.min(100, elapsed / total * 100));
           const remainingText = formatDuration(remaining);
           $("class-countdown").textContent = remainingText;
           $("countdown-caption").textContent = "until this class ends";
           progress.hidden = false;
-          progress.setAttribute("aria-valuenow", String(Math.round(percentRemaining)));
-          progress.setAttribute("aria-valuetext", `${remainingText} remaining`);
-          $("class-progress-fill").style.width = `${percentRemaining}%`;
+          progress.setAttribute("aria-valuenow", String(Math.round(percentElapsed)));
+          progress.setAttribute("aria-valuetext", `${Math.round(percentElapsed)}% of class elapsed; ${remainingText} remaining`);
+          $("class-progress-fill").style.width = `${percentElapsed}%`;
         } else if (next) {
           stateLabel.textContent = "UP NEXT";
           currentName.textContent = next.name;
@@ -533,6 +626,30 @@
         } else {
           nextRow.hidden = true;
         }
+        renderTodaySchedule(classes, minutes);
+      }
+
+      function renderTodaySchedule(classes, currentMinutes) {
+        const remaining = classes.filter(item => timeMinutes(item.end) > currentMinutes);
+        const toggle = $("today-schedule-toggle");
+        const list = $("today-full-schedule");
+        toggle.hidden = remaining.length === 0;
+        if (!remaining.length) {
+          todayScheduleExpanded = false;
+          toggle.setAttribute("aria-expanded", "false");
+          list.hidden = true;
+          return;
+        }
+        toggle.textContent = todayScheduleExpanded ? "Hide today's remaining classes" : "Show the rest of today's classes";
+        toggle.setAttribute("aria-expanded", String(todayScheduleExpanded));
+        list.hidden = !todayScheduleExpanded;
+        list.innerHTML = remaining.map(item => {
+          const active = currentMinutes >= timeMinutes(item.start) && currentMinutes < timeMinutes(item.end);
+          return `<div class="schedule-item">
+            <div class="schedule-time">${escapeHtml(formatTime(item.start))}–${escapeHtml(formatTime(item.end))}</div>
+            <div><div class="schedule-name">${escapeHtml(item.name)}</div><div class="schedule-room">${active ? "In progress" : "Upcoming"}${item.room ? ` · ${escapeHtml(item.room)}` : ""}</div></div>
+          </div>`;
+        }).join("");
       }
 
       function formatDuration(seconds) {
@@ -544,32 +661,30 @@
 
       function renderClasses() {
         const list = $("schedule-list");
-        const sorted = state.classes.slice().sort((a, b) => {
-          const dayA = Math.min(...a.days.map(day => (day - 1 + 7) % 7));
-          const dayB = Math.min(...b.days.map(day => (day - 1 + 7) % 7));
-          return dayA - dayB || timeMinutes(a.start) - timeMinutes(b.start);
-        });
-        if (!sorted.length) {
+        if (!state.classes.length) {
           list.innerHTML = '<div class="empty">Add your weekly classes to see your timetable and class countdown.</div>';
           renderToday();
-          renderSubjects();
           return;
         }
-        list.innerHTML = sorted.map(item => `<div class="schedule-item">
-          <div class="schedule-time">${escapeHtml(formatTime(item.start))}–${escapeHtml(formatTime(item.end))}</div>
-          <div><div class="schedule-name">${escapeHtml(item.name)}</div><div class="schedule-room">${escapeHtml(item.days.map(day => DAY_LABELS[day]).join(", "))}${item.room ? ` · ${escapeHtml(item.room)}` : ""}</div></div>
-          <button type="button" class="text-button" data-delete-class="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.name)}">Remove</button>
-        </div>`).join("");
+        const sortBy = $("class-sort-select").value;
+        const days = [1, 2, 3, 4, 5, 6, 0];
+        list.innerHTML = days.map(day => {
+          const dayClasses = state.classes.filter(item => item.days.includes(day)).sort((a, b) =>
+            sortBy === "name"
+              ? a.name.localeCompare(b.name) || timeMinutes(a.start) - timeMinutes(b.start)
+              : timeMinutes(a.start) - timeMinutes(b.start) || a.name.localeCompare(b.name)
+          );
+          if (!dayClasses.length) return "";
+          return `<details class="day-group" open>
+            <summary>${DAY_LABELS[day]} <span class="settings-description">(${dayClasses.length})</span></summary>
+            ${dayClasses.map(item => `<div class="schedule-item">
+              <div class="schedule-time">${escapeHtml(formatTime(item.start))}–${escapeHtml(formatTime(item.end))}</div>
+              <div><div class="schedule-name">${escapeHtml(item.name)}</div><div class="schedule-room">${escapeHtml(item.room || "No room or teacher listed")}</div></div>
+              <div class="schedule-actions"><button type="button" class="text-button" data-edit-class="${escapeHtml(item.id)}" aria-label="Edit ${escapeHtml(item.name)}">Edit</button><button type="button" class="text-button" data-delete-class="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.name)}">Remove</button></div>
+            </div>`).join("")}
+          </details>`;
+        }).join("");
         renderToday();
-        renderSubjects();
-      }
-
-      function renderSubjects() {
-        const select = $("focus-subject");
-        const previous = select.value;
-        const names = [...new Set(state.classes.map(item => item.name))].sort((a, b) => a.localeCompare(b));
-        select.innerHTML = '<option value="">Choose a class</option>' + names.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("");
-        if (names.includes(previous)) select.value = previous;
       }
 
       function monthDate(year, month, day) {
@@ -636,6 +751,12 @@
         $("focus-start").textContent = focusRunning ? "Pause" : "Start";
       }
 
+      function updateFocusNote() {
+        const focusText = `${state.focusMinutes} ${state.focusMinutes === 1 ? "minute" : "minutes"}`;
+        const breakText = `${state.breakMinutes} ${state.breakMinutes === 1 ? "minute" : "minutes"}`;
+        $("focus-note").textContent = `${focusText} of focus, then a ${breakText} break.`;
+      }
+
       function openDialog(id) {
         const dialog = $(id);
         if (typeof dialog.showModal === "function") dialog.showModal();
@@ -655,6 +776,24 @@
         $("repeat-until-field").hidden = true;
         setNotice("event-notice", "");
         openDialog("event-dialog");
+      }
+
+      function openClassDialog(item = null) {
+        const form = $("class-form");
+        form.reset();
+        form.dataset.editingId = item ? item.id : "";
+        $("class-dialog-title").textContent = item ? "Edit class" : "Add a class";
+        if (item) {
+          $("class-name-input").value = item.name;
+          $("class-room-input").value = item.room || "";
+          $("class-start-input").value = formatTime(item.start);
+          $("class-end-input").value = formatTime(item.end);
+          form.querySelectorAll('input[name="days"]').forEach(input => {
+            input.checked = item.days.includes(Number(input.value));
+          });
+        }
+        setNotice("class-notice", "");
+        openDialog("class-dialog");
       }
 
       function activateTab(tab, moveFocus = false) {
@@ -688,8 +827,14 @@
         const isDark = state.theme === "dark"
           || (state.theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
         document.documentElement.dataset.theme = isDark ? "dark" : "light";
-        document.querySelector('meta[name="theme-color"]').content = isDark ? "#202320" : "#f5f1e8";
+        document.documentElement.dataset.palette = state.palette;
+        const themeColors = {
+          light: { original: "#f5f1e8", green: "#eef3eb", blue: "#eef2f6", pink: "#f7eff1" },
+          dark: { original: "#202320", green: "#202721", blue: "#20252b", pink: "#2a2226" }
+        };
+        document.querySelector('meta[name="theme-color"]').content = themeColors[isDark ? "dark" : "light"][state.palette];
         $("theme-select").value = state.theme;
+        $("palette-select").value = state.palette;
       }
 
       function notificationSupported() {
@@ -697,6 +842,14 @@
       }
 
       async function enableNotifications() {
+        if (state.notificationSettings.enabled) {
+          state.notificationSettings.enabled = false;
+          if (saveState()) {
+            renderNotificationButton();
+            showToast("Daybook notifications are off.");
+          }
+          return;
+        }
         if (!("Notification" in window) || !("serviceWorker" in navigator)) {
           showToast("This browser does not support device notifications.");
           return;
@@ -709,16 +862,17 @@
           const permission = await Notification.requestPermission();
           if (permission !== "granted") {
             $("notification-note").textContent = permission === "denied"
-              ? "Notifications are blocked in browser settings. Your calendar and reminders remain available here."
-              : "Notifications are off. Enable them any time from this button.";
+              ? "Notifications are blocked in browser settings. Allow them there to turn on Daybook alerts."
+              : "Notification permission was not granted.";
+            $("notification-note").hidden = false;
             showToast("Notification permission was not granted.");
             renderNotificationButton();
             return;
           }
           workerRegistration = await navigator.serviceWorker.register("./service-worker.js");
           await navigator.serviceWorker.ready;
-          $("notification-note").textContent = "Device notifications are enabled. Scheduled reminders are delivered while Daybook is open; closed-app push needs a push service.";
-          await sendNotification("Daybook notifications are on", "Your device can now show Daybook reminders.", "daybook-notifications-enabled");
+          state.notificationSettings.enabled = true;
+          if (!saveState()) return;
           showToast("Device notifications enabled.");
           renderNotificationButton();
           scheduleReminders();
@@ -730,15 +884,32 @@
 
       function renderNotificationButton() {
         const button = $("notifications-button");
+        const note = $("notification-note");
+        const icon = $("notification-icon");
+        button.setAttribute("aria-checked", String(state.notificationSettings.enabled));
+        icon.innerHTML = state.notificationSettings.enabled
+          ? '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>'
+          : '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h11M10 21h4M3 3l18 18"/>';
+        document.querySelectorAll(".notification-category").forEach(toggle => {
+          const category = toggle.dataset.notificationCategory;
+          toggle.setAttribute("aria-checked", String(state.notificationSettings.categories[category]));
+        });
         if (!notificationSupported()) {
-          button.textContent = "Notifications unavailable";
-          button.disabled = true;
-        } else if (Notification.permission === "granted") {
-          button.textContent = "Notifications on";
+          note.textContent = "This browser does not support device notifications.";
+          note.hidden = false;
           button.disabled = true;
         } else if (Notification.permission === "denied") {
-          button.textContent = "Notifications blocked";
-          button.disabled = true;
+          note.textContent = "Notifications are blocked in browser settings. Allow them there to turn on Daybook alerts.";
+          note.hidden = false;
+          button.disabled = !state.notificationSettings.enabled;
+        } else if (state.notificationSettings.enabled) {
+          note.textContent = "";
+          note.hidden = true;
+          button.disabled = false;
+        } else {
+          note.textContent = "Turn on device notifications to receive calendar, class, and study alerts.";
+          note.hidden = false;
+          button.disabled = false;
         }
       }
 
@@ -748,7 +919,7 @@
       }
 
       async function sendNotification(title, body, tag) {
-        if (!("Notification" in window) || Notification.permission !== "granted") return;
+        if (!state.notificationSettings.enabled || !("Notification" in window) || Notification.permission !== "granted") return;
         try {
           const registration = workerRegistration || await navigator.serviceWorker.ready;
           await registration.showNotification(title, {
@@ -756,7 +927,7 @@
             tag,
             icon: "./notebook-icon.svg",
             badge: "./notebook-icon.svg",
-            data: { url: "./app.html" }
+            data: { url: "./index.html" }
           });
         } catch (error) {
           console.error("Could not show a device notification", error);
@@ -765,7 +936,8 @@
       }
 
       function scheduleReminders() {
-        if (!("Notification" in window) || Notification.permission !== "granted") return;
+        if (!state.notificationSettings.enabled || !state.notificationSettings.categories.calendar
+          || !("Notification" in window) || Notification.permission !== "granted") return;
         const now = Date.now();
         for (const event of state.events) {
           const minutes = Number(event.reminder);
@@ -788,7 +960,8 @@
       }
 
       function checkClassEndNotifications(now) {
-        if (!("Notification" in window) || Notification.permission !== "granted") return;
+        if (!state.notificationSettings.enabled || !state.notificationSettings.categories.classes
+          || !("Notification" in window) || Notification.permission !== "granted") return;
         const todayKey = dateKey(now);
         const endMinute = now.getHours() * 60 + now.getMinutes();
         for (const item of todaysClasses(now)) {
@@ -839,8 +1012,18 @@
 
       function setupEvents() {
         $("notifications-button").addEventListener("click", enableNotifications);
+        document.querySelectorAll(".notification-category").forEach(toggle => toggle.addEventListener("click", () => {
+          const category = toggle.dataset.notificationCategory;
+          state.notificationSettings.categories[category] = !state.notificationSettings.categories[category];
+          if (saveState()) renderNotificationButton();
+        }));
         $("theme-select").addEventListener("change", () => {
           state.theme = $("theme-select").value;
+          applyTheme();
+          saveState();
+        });
+        $("palette-select").addEventListener("change", () => {
+          state.palette = $("palette-select").value;
           applyTheme();
           saveState();
         });
@@ -854,9 +1037,12 @@
           if (!repeats) $("event-until-input").value = "";
         });
         $("manage-classes-button").addEventListener("click", () => {
-          $("class-form").reset();
-          setNotice("class-notice", "");
-          openDialog("class-dialog");
+          openClassDialog();
+        });
+        $("class-sort-select").addEventListener("change", renderClasses);
+        $("today-schedule-toggle").addEventListener("click", () => {
+          todayScheduleExpanded = !todayScheduleExpanded;
+          renderToday();
         });
         document.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", () => closeDialog(button.dataset.close)));
 
@@ -878,18 +1064,24 @@
             setNotice("class-notice", "Class end time must be later than its start time.", true);
             return;
           }
-          state.classes.push({
-            id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
+          const item = {
+            id: event.currentTarget.dataset.editingId || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`),
             name: String(form.get("name")).trim(),
             room: String(form.get("room")).trim(),
             start: start.value,
             end: end.value,
             days
-          });
+          };
+          if (event.currentTarget.dataset.editingId) {
+            state.classes = state.classes.map(existing => existing.id === item.id ? item : existing);
+          } else {
+            state.classes.push(item);
+          }
           if (saveState()) {
             closeDialog("class-dialog");
             renderClasses();
-            showToast("Class added to your weekly schedule.");
+            showToast(event.currentTarget.dataset.editingId ? "Class changes saved." : "Class added to your weekly schedule.");
+            event.currentTarget.dataset.editingId = "";
           }
         });
 
@@ -933,6 +1125,12 @@
         });
 
         $("schedule-list").addEventListener("click", event => {
+          const editButton = event.target.closest("[data-edit-class]");
+          if (editButton) {
+            const item = state.classes.find(classItem => classItem.id === editButton.dataset.editClass);
+            if (item) openClassDialog(item);
+            return;
+          }
           const button = event.target.closest("[data-delete-class]");
           if (!button) return;
           state.classes = state.classes.filter(item => item.id !== button.dataset.deleteClass);
@@ -981,33 +1179,54 @@
             if (focusSeconds === 0) {
               clearInterval(focusInterval);
               focusRunning = false;
-              const subject = $("focus-subject").value || "Your study session";
               if (focusPhase === "focus") {
                 focusPhase = "break";
-                focusSeconds = 5 * 60;
-                $("focus-note").textContent = "Focus session complete. Take a 5-minute break.";
-                showToast(`${subject} focus session complete. Take a five-minute break.`);
-                void sendNotification("Study session complete", `${subject} focus session is finished. Take a five-minute break.`, `focus-${Date.now()}`);
+                focusSeconds = state.breakMinutes * 60;
+                $("focus-note").textContent = `Focus session complete. Take a ${state.breakMinutes}-minute break.`;
+                showToast(`Focus session complete. Take a ${state.breakMinutes}-minute break.`);
+                if (state.notificationSettings.categories.study) {
+                  void sendNotification("Study session complete", `Your focus session is finished. Take a ${state.breakMinutes}-minute break.`, `focus-${Date.now()}`);
+                }
               } else {
                 focusPhase = "focus";
-                focusSeconds = 25 * 60;
-                $("focus-note").textContent = "Break finished. You're ready for another 25-minute focus session.";
+                focusSeconds = state.focusMinutes * 60;
+                $("focus-note").textContent = `Break finished. You're ready for another ${state.focusMinutes}-minute focus session.`;
                 showToast("Break finished. Start another focus session when you're ready.");
-                void sendNotification("Break finished", "Start another focus session when you're ready.", `break-${Date.now()}`);
+                if (state.notificationSettings.categories.study) {
+                  void sendNotification("Break finished", "Start another focus session when you're ready.", `break-${Date.now()}`);
+                }
               }
               renderFocusTimer();
             }
           }, 1000);
           renderFocusTimer();
-          $("focus-note").textContent = `Focusing on ${$("focus-subject").value || "your study session"}.`;
+          $("focus-note").textContent = "Focus session in progress.";
         });
         $("focus-reset").addEventListener("click", () => {
           clearInterval(focusInterval);
           focusRunning = false;
           focusPhase = "focus";
-          focusSeconds = 25 * 60;
-          $("focus-note").textContent = "25 minutes of focus, then a 5-minute break.";
+          focusSeconds = state.focusMinutes * 60;
           renderFocusTimer();
+          updateFocusNote();
+        });
+        [["focus-minutes", "focusMinutes", 180], ["break-minutes", "breakMinutes", 60]].forEach(([inputId, stateKey, maximum]) => {
+          const input = $(inputId);
+          input.value = state[stateKey];
+          input.addEventListener("change", () => {
+            const value = Number(input.value);
+            if (!Number.isInteger(value) || value < 1 || value > maximum) {
+              input.value = state[stateKey];
+              return;
+            }
+            state[stateKey] = value;
+            if (saveState()) {
+              if (!focusRunning) focusSeconds = (focusPhase === "focus" ? state.focusMinutes : state.breakMinutes) * 60;
+              renderFocusTimer();
+              if (!focusRunning) updateFocusNote();
+              if (focusRunning) showToast("The updated duration will be used in the next timer phase.");
+            }
+          });
         });
       }
 
@@ -1018,9 +1237,11 @@
         applyTheme();
         setDefaultDates();
         renderNotificationButton();
+        focusSeconds = state.focusMinutes * 60;
         renderClasses();
         renderCalendar();
         renderFocusTimer();
+        updateFocusNote();
         scheduleReminders();
         setInterval(() => {
           renderToday();

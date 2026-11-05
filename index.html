@@ -63,6 +63,21 @@
       --line: #e4d4da; --line-soft: #f0e7eb; --hover: #f9f1f4;
       --accent: #a45f74; --accent-dark: #82475b;
     }
+    :root[data-palette="purple"] {
+      --paper: #f2eff6; --sheet: #fdfbff; --sheet-alt: #f7f4fa; --soft: #e9e3f0;
+      --line: #dcd4e5; --line-soft: #ede8f2; --hover: #f4f0f8;
+      --accent: #735f91; --accent-dark: #584674;
+    }
+    :root[data-palette="teal"] {
+      --paper: #edf4f2; --sheet: #fbfefc; --sheet-alt: #f3f8f6; --soft: #e0ebe7;
+      --line: #cfdfda; --line-soft: #e5eeeb; --hover: #eff6f3;
+      --accent: #4d7d73; --accent-dark: #355f56;
+    }
+    :root[data-palette="amber"] {
+      --paper: #f6f1e8; --sheet: #fffdf9; --sheet-alt: #faf6ef; --soft: #eee5d7;
+      --line: #e1d6c3; --line-soft: #f0e9dd; --hover: #f7f2e9;
+      --accent: #927047; --accent-dark: #705432;
+    }
     :root[data-theme="dark"][data-palette="green"] {
       --paper: #202721; --sheet: #292f29; --sheet-alt: #252b25; --soft: #383f38;
       --line: #485148; --line-soft: #3a423a; --hover: #333a33;
@@ -77,6 +92,21 @@
       --paper: #2a2226; --sheet: #342a2f; --sheet-alt: #2e252a; --soft: #44363d;
       --line: #57434c; --line-soft: #46363d; --hover: #3c3036;
       --accent: #dda0b3; --accent-dark: #edbdcb;
+    }
+    :root[data-theme="dark"][data-palette="purple"] {
+      --paper: #25222b; --sheet: #2e2a36; --sheet-alt: #292530; --soft: #3e3848;
+      --line: #4e4759; --line-soft: #403a49; --hover: #373241;
+      --accent: #b6a1d2; --accent-dark: #d1c1e4;
+    }
+    :root[data-theme="dark"][data-palette="teal"] {
+      --paper: #202725; --sheet: #292f2d; --sheet-alt: #252b29; --soft: #37413e;
+      --line: #45524e; --line-soft: #394440; --hover: #323b38;
+      --accent: #91b9ae; --accent-dark: #b6d5cc;
+    }
+    :root[data-theme="dark"][data-palette="amber"] {
+      --paper: #29251f; --sheet: #332e27; --sheet-alt: #2e2923; --soft: #443b30;
+      --line: #554a3a; --line-soft: #463e32; --hover: #3c352b;
+      --accent: #c9aa78; --accent-dark: #e2c89d;
     }
 
     * { box-sizing: border-box; }
@@ -121,7 +151,7 @@
     .countdown-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
     .countdown { color: var(--accent-dark); font-size: 20px; font-variant-numeric: tabular-nums; font-weight: 650; }
     .countdown-caption { color: var(--muted); font-size: 13px; }
-    .class-progress { height: 9px; margin-top: 13px; overflow: hidden; border-radius: 6px; background: var(--soft); }
+    .class-progress { height: 9px; margin-top: 13px; overflow: hidden; border-radius: 6px; background: var(--soft); direction: ltr; }
     .class-progress-fill { width: 0; height: 100%; border-radius: inherit; background: var(--accent); transition: width 450ms linear; }
     .next-class { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
     .next-class strong { color: var(--ink); font-weight: 600; }
@@ -360,7 +390,7 @@
             <div class="settings-group">
               <h3>Appearance</h3>
               <div class="field"><label for="theme-select">Theme</label><select id="theme-select"><option value="light">Light</option><option value="dark">Dark</option><option value="system">Use device setting</option></select></div>
-              <div class="field"><label for="palette-select">App color</label><select id="palette-select"><option value="original">Original</option><option value="green">Green</option><option value="blue">Blue</option><option value="pink">Pink</option></select></div>
+              <div class="field"><label for="palette-select">App color</label><select id="palette-select"><option value="original">Original</option><option value="green">Green</option><option value="blue">Blue</option><option value="pink">Pink</option><option value="purple">Purple</option><option value="teal">Teal</option><option value="amber">Amber</option></select></div>
             </div>
             <div class="settings-group">
               <div class="notification-heading"><svg class="notification-icon" id="notification-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><h3>Notifications</h3></div>
@@ -505,7 +535,7 @@
             events: Array.isArray(parsed.events) ? parsed.events : [],
             notified: Array.isArray(parsed.notified) ? parsed.notified : [],
             theme: ["light", "dark", "system"].includes(parsed.theme) ? parsed.theme : "light",
-            palette: ["original", "green", "blue", "pink"].includes(parsed.palette) ? parsed.palette : "original",
+            palette: ["original", "green", "blue", "pink", "purple", "teal", "amber"].includes(parsed.palette) ? parsed.palette : "original",
             notificationSettings: {
               enabled: permissionGranted && (typeof settings.enabled === "boolean" ? settings.enabled : true),
               categories: {
@@ -590,15 +620,15 @@
           const start = new Date(now);
           start.setHours(...active.start.split(":").map(Number), 0, 0);
           const total = Math.max(1, end.getTime() - start.getTime());
-          const elapsed = Math.max(0, now.getTime() - start.getTime());
-          const percentElapsed = Math.max(0, Math.min(100, elapsed / total * 100));
+          const percentRemaining = remaining * 1000 / total * 100;
+          const percentComplete = Math.max(0, Math.min(100, 100 - percentRemaining));
           const remainingText = formatDuration(remaining);
           $("class-countdown").textContent = remainingText;
           $("countdown-caption").textContent = "until this class ends";
           progress.hidden = false;
-          progress.setAttribute("aria-valuenow", String(Math.round(percentElapsed)));
-          progress.setAttribute("aria-valuetext", `${Math.round(percentElapsed)}% of class elapsed; ${remainingText} remaining`);
-          $("class-progress-fill").style.width = `${percentElapsed}%`;
+          progress.setAttribute("aria-valuenow", String(Math.round(percentComplete)));
+          progress.setAttribute("aria-valuetext", `${Math.round(percentComplete)}% of class elapsed; ${remainingText} remaining`);
+          $("class-progress-fill").style.width = `${percentComplete}%`;
         } else if (next) {
           stateLabel.textContent = "UP NEXT";
           currentName.textContent = next.name;
@@ -832,7 +862,13 @@
           light: { original: "#f5f1e8", green: "#eef3eb", blue: "#eef2f6", pink: "#f7eff1" },
           dark: { original: "#202320", green: "#202721", blue: "#20252b", pink: "#2a2226" }
         };
-        document.querySelector('meta[name="theme-color"]').content = themeColors[isDark ? "dark" : "light"][state.palette];
+        const paletteColors = {
+          original: ["#f5f1e8", "#202320"], green: ["#eef3eb", "#202721"],
+          blue: ["#eef2f6", "#20252b"], pink: ["#f7eff1", "#2a2226"],
+          purple: ["#f2eff6", "#25222b"], teal: ["#edf4f2", "#202725"],
+          amber: ["#f6f1e8", "#29251f"]
+        };
+        document.querySelector('meta[name="theme-color"]').content = paletteColors[state.palette][isDark ? 1 : 0];
         $("theme-select").value = state.theme;
         $("palette-select").value = state.palette;
       }

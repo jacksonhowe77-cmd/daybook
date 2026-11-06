@@ -6,7 +6,13 @@ A lightweight, offline-first class schedule notebook, calendar, and study timer.
 
 - **Class Timetable:** Track weekly classes with room info, group tags, and 12h/24h time formatting.
 - **Today Dashboard:** Real-time class countdowns, progress bars, and daily schedule overview.
-- **Calendar & Tasks:** Schedule tests, track assignment deadlines, and manage to-dos.
+- **Calendar & Tasks:** Schedule recurring events, track deadlines, view the next seven days, and manage to-dos.
+- **Quick Add:** Create homework, projects, calendar dates, and to-dos from any tab.
+- **Homework & Projects:** Attach and view images, track project subtasks, and automatically highlight work due soon.
+- **Deadline Reminders:** Choose multiple device reminders for calendar events, homework, and projects.
+- **Pinned Notes & Recently Completed:** Keep color-coded notes on the homepage and restore completed tasks.
+- **Find & Arrange:** Search across your notebook and choose the order and visibility of homepage sections.
+- **Calendar Planning:** Drag dates to reschedule them and see deadline countdowns on the homepage.
 - **Study Timer:** Configurable focus and break timer.
 - **PWA & Offline:** Works offline and supports installation as a web app.
 - **Import & Export:** Batch import class schedules via JSON, export calendar to `.ics`, and download full JSON data backups.

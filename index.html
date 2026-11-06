@@ -55,7 +55,7 @@
     .brand p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
     .top-actions { display: flex; align-items: center; gap: 9px; }
     .date-label { color: var(--muted); font-size: 13px; }
-    .button { min-height: 38px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 5px; background: var(--sheet); cursor: pointer; }
+    .button { min-height: 38px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 5px; background: var(--sheet); color: inherit; text-decoration: none; cursor: pointer; }
     .button:hover { border-color: var(--button-hover-border); }
     .button.primary { border-color: var(--accent-dark); background: var(--accent); color: var(--primary-text); }
     .button.primary:hover { background: var(--accent-dark); }
@@ -96,10 +96,17 @@
     .schedule-item.no-room { grid-template-columns: 90px minmax(0, 1fr) auto; }
     .schedule-item.no-room .schedule-name { text-align: center; }
     .schedule-time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+    .class-schedule-item { display: grid; gap: 7px; padding: 12px 18px; border-bottom: 1px solid var(--line); }
+    .class-schedule-item:last-child { border-bottom: 0; }
+    .class-schedule-top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .class-schedule-top .schedule-time { color: var(--accent-dark); font-weight: 600; }
+    .class-schedule-details { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; align-items: center; }
+    .schedule-days { color: var(--muted); font-size: 13px; }
     .schedule-name { font-size: 14px; font-weight: 600; }
     .schedule-room { margin-top: 3px; color: var(--muted); font-size: 12px; }
     .text-button { padding: 4px; border: 0; background: none; color: var(--muted); font-size: 12px; text-decoration: underline; cursor: pointer; }
     .schedule-actions { display: flex; gap: 8px; }
+    .class-import-notice { padding: 0 18px 12px; }
     .empty { padding: 18px; color: var(--muted); font-size: 14px; }
 
     .calendar-card { padding-bottom: 14px; }
@@ -241,6 +248,8 @@
       .shell { padding: 18px 16px 32px 22px; }
       .layout { padding-top: 16px; }
       .schedule-item { grid-template-columns: 78px minmax(0, 1fr) auto; gap: 8px; padding-right: 12px; padding-left: 12px; }
+      .class-schedule-item { padding-right: 12px; padding-left: 12px; }
+      .class-schedule-details { grid-template-columns: 78px minmax(0, 1fr); gap: 8px; }
       .schedule-actions { gap: 4px; }
     }
     @media (max-width: 600px) {
@@ -263,9 +272,11 @@
       .selected-date { padding-right: 13px; padding-left: 13px; }
       .event-list { padding-right: 13px; padding-left: 13px; }
       .field-row { grid-template-columns: 1fr; }
+      .class-schedule-details { grid-template-columns: 56px minmax(0, 1fr); gap: 6px; }
     }
     @media (max-width: 380px) {
       .schedule-item { grid-template-columns: 68px minmax(0, 1fr) auto; gap: 6px; padding-right: 8px; padding-left: 8px; }
+      .class-schedule-details { grid-template-columns: 48px minmax(0, 1fr); gap: 5px; }
       .schedule-time { font-size: 11px; }
       .calendar-actions { gap: 5px; }
       .calendar-actions .button { padding-right: 7px; padding-left: 7px; }
@@ -302,16 +313,6 @@
 
     <main class="layout">
       <section class="tab-panel" id="panel-today" role="tabpanel" aria-labelledby="tab-today" tabindex="0">
-        <section class="priority-section" aria-label="Upcoming priorities">
-          <section class="card" aria-labelledby="priority-heading">
-            <p class="eyebrow">Important first</p><h2 class="section-title" id="priority-heading">Upcoming dates &amp; to-dos</h2>
-            <div class="priority-list" id="priority-list"></div>
-          </section>
-          <details class="card" id="homework-projects">
-            <summary><strong>Homework &amp; projects</strong> <span class="priority-meta" id="homework-project-count">0 items</span></summary>
-            <div class="group-body" id="homework-project-list"></div>
-          </details>
-        </section>
         <section class="card today-card" aria-labelledby="today-heading">
           <div class="today-head">
             <div><p class="eyebrow">Your day</p><h2 id="today-heading">Today's classes</h2></div>
@@ -331,6 +332,16 @@
           <button class="text-button" id="today-schedule-toggle" type="button" aria-expanded="false" aria-controls="today-full-schedule" hidden>Show the rest of today's classes</button>
           <div class="schedule-list" id="today-full-schedule" hidden></div>
         </section>
+        <section class="priority-section" aria-label="Upcoming priorities">
+          <section class="card" aria-labelledby="priority-heading">
+            <p class="eyebrow">Important first</p><h2 class="section-title" id="priority-heading">Upcoming dates &amp; to-dos</h2>
+            <div class="priority-list" id="priority-list"></div>
+          </section>
+          <details class="card" id="homework-projects">
+            <summary><strong>Homework &amp; projects</strong> <span class="priority-meta" id="homework-project-count">0 items</span></summary>
+            <div class="group-body" id="homework-project-list"></div>
+          </details>
+        </section>
       </section>
 
       <section class="tab-panel" id="panel-classes" role="tabpanel" aria-labelledby="tab-classes" tabindex="0" hidden>
@@ -341,8 +352,12 @@
               <label class="field-label" for="class-sort-select">Sort</label>
               <select id="class-sort-select" aria-label="Sort classes"><option value="day">By day</option><option value="name">By name</option></select>
               <button class="button small" id="manage-classes-button" type="button">Add class</button>
+              <button class="button small" id="import-classes-button" type="button">Import JSON</button>
+              <input id="import-classes-input" type="file" accept=".json,application/json" hidden>
+              <a class="button small" href="./classes-example.json" download>Example JSON</a>
             </div>
           </div>
+          <p class="notice class-import-notice" id="class-import-notice" role="status" aria-live="polite"></p>
           <div class="schedule-list" id="schedule-list"></div>
         </section>
       </section>
@@ -581,7 +596,12 @@
       };
       const classPeriod = field => document.querySelector(`[data-period-control="${field}"] [aria-pressed="true"]`)?.dataset.period || "am";
       const parseClassTime = (value, field) => {
-        const raw = String(value || "").trim();
+        let raw = String(value || "").trim();
+        const compact = raw.match(/^(\d{3,4})\s*(am|pm)?$/i);
+        if (compact) {
+          const digits = compact[1];
+          raw = `${digits.slice(0, -2)}:${digits.slice(-2)}${compact[2] ? ` ${compact[2]}` : ""}`;
+        }
         const parsed = parseTime(raw);
         return parsed && (/\b(am|pm)\b/i.test(raw) || parsed.hours > 12)
           ? parsed
@@ -913,11 +933,17 @@
                 day, start: item.start, end: item.end, room: item.room || ""
               }))).sort((a, b) => ((a.day - 1 + 7) % 7) - ((b.day - 1 + 7) % 7) || timeMinutes(a.start) - timeMinutes(b.start));
               const room = [...new Set(records.map(item => item.room).filter(Boolean))].join(", ");
-              const noRoom = !room;
-              return `<div class="schedule-item${noRoom ? " no-room" : ""}">
-                <div class="schedule-time">${schedules.map(item => `${DAY_LABELS[item.day]} ${escapeHtml(formatTime(item.start))}–${escapeHtml(formatTime(item.end))}`).join("<br>")}</div>
-                <div><div class="schedule-name">${escapeHtml(records[0].name)}</div>${room ? `<div class="schedule-room">${escapeHtml(room)}</div>` : ""}</div>
-                <div class="schedule-actions"><button type="button" class="text-button" data-edit-class="${escapeHtml(records[0].id)}" aria-label="Edit ${escapeHtml(records[0].name)}">Edit</button><button type="button" class="text-button" data-delete-class-group="${escapeHtml(records.map(item => item.id).join(","))}" aria-label="Remove ${escapeHtml(records[0].name)}">Remove</button></div>
+              const times = [...new Set(schedules.map(item => `${formatTime(item.start)}–${formatTime(item.end)}`))];
+              const days = [...new Set(schedules.map(item => item.day))].sort((a, b) => ((a - 1 + 7) % 7) - ((b - 1 + 7) % 7));
+              return `<div class="class-schedule-item">
+                <div class="class-schedule-top">
+                  <div class="schedule-time">${times.map(escapeHtml).join(" · ")}</div>
+                  <div class="schedule-actions"><button type="button" class="text-button" data-edit-class="${escapeHtml(records[0].id)}" aria-label="Edit ${escapeHtml(records[0].name)}">Edit</button><button type="button" class="text-button" data-delete-class-group="${escapeHtml(records.map(item => item.id).join(","))}" aria-label="Remove ${escapeHtml(records[0].name)}">Remove</button></div>
+                </div>
+                <div class="class-schedule-details">
+                  <div class="schedule-days">${days.map(day => DAY_LABELS[day]).join(", ")}</div>
+                  <div><div class="schedule-name">${escapeHtml(records[0].name)}</div>${room ? `<div class="schedule-room">${escapeHtml(room)}</div>` : ""}</div>
+                </div>
               </div>`;
             }).join("")
           }</div></details>`;
@@ -1109,6 +1135,21 @@
 
       function setupTimeInputs() {
         document.querySelectorAll("[data-time-input]").forEach(input => {
+          input.addEventListener("keydown", event => {
+            if (event.key !== "Backspace" && event.key !== "Delete") return;
+            const start = input.selectionStart;
+            const end = input.selectionEnd;
+            if (start === null || end === null) return;
+            const deletesColon = start !== end
+              ? input.value.slice(start, end).includes(":")
+              : event.key === "Backspace" ? input.value[start - 1] === ":" : input.value[start] === ":";
+            if (!deletesColon) return;
+            event.preventDefault();
+            const deleteStart = start === end && event.key === "Backspace" ? start - 1 : start;
+            const deleteEnd = start === end ? deleteStart + 1 : end;
+            input.value = input.value.slice(0, deleteStart) + input.value.slice(deleteEnd);
+            input.setSelectionRange(deleteStart, deleteStart);
+          });
           input.addEventListener("input", () => {
             if (input.value.includes(":")) return;
             const cursor = input.selectionStart ?? input.value.length;
@@ -1399,6 +1440,50 @@
         $("class-days").innerHTML = DAYS.map(day => `<label class="day-option"><input type="checkbox" name="days" value="${day.value}">${day.label}</label>`).join("");
       }
 
+      function normalizeImportedClasses(data) {
+        const source = Array.isArray(data) ? data
+          : Array.isArray(data?.classes) ? data.classes
+            : data?.format === "daybook-backup" && Array.isArray(data.data?.classes) ? data.data.classes
+              : null;
+        if (!source || !source.length) throw new Error("The JSON must contain a non-empty classes array.");
+
+        const dayNumbers = new Map([
+          ["sun", 0], ["sunday", 0], ["mon", 1], ["monday", 1], ["tue", 2], ["tues", 2], ["tuesday", 2],
+          ["wed", 3], ["wednesday", 3], ["thu", 4], ["thur", 4], ["thurs", 4], ["thursday", 4],
+          ["fri", 5], ["friday", 5], ["sat", 6], ["saturday", 6]
+        ]);
+        return source.map((item, index) => {
+          const row = index + 1;
+          if (!item || typeof item !== "object" || Array.isArray(item)) throw new Error(`Class ${row} must be an object.`);
+          const name = typeof item.name === "string" ? item.name.trim() : "";
+          if (!name || name.length > 60) throw new Error(`Class ${row} needs a name of 1–60 characters.`);
+          if (!Array.isArray(item.days) || !item.days.length) throw new Error(`Class ${row} needs at least one day.`);
+          const days = [...new Set(item.days.map(day => {
+            if (typeof day === "number" && Number.isInteger(day) && day >= 0 && day <= 6) return day;
+            return typeof day === "string" ? dayNumbers.get(day.trim().toLowerCase()) : undefined;
+          }))];
+          if (days.some(day => day === undefined)) throw new Error(`Class ${row} has an invalid day. Use day names or numbers 0–6 (Sunday–Saturday).`);
+          const start = parseTime(item.start);
+          const end = parseTime(item.end);
+          if (!start || !end) throw new Error(`Class ${row} needs valid start and end times, such as "08:30" or "8:30 AM".`);
+          if (timeMinutes(end.value) <= timeMinutes(start.value)) throw new Error(`Class ${row} ends before or at its start time.`);
+          const optionalText = (value, field, maxLength) => {
+            if (value === undefined || value === null) return "";
+            if (typeof value !== "string" || value.length > maxLength) throw new Error(`Class ${row} has an invalid ${field}.`);
+            return value.trim();
+          };
+          return {
+            id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${index}-${Math.random()}`,
+            name,
+            room: optionalText(item.room, "room", 60),
+            group: optionalText(item.group, "group", 50),
+            start: start.value,
+            end: end.value,
+            days
+          };
+        });
+      }
+
       function setupEvents() {
         $("notifications-button").addEventListener("click", enableNotifications);
         $("dark-mode-button").addEventListener("click", () => {
@@ -1443,6 +1528,30 @@
         $("manage-classes-button").addEventListener("click", () => {
           openClassDialog();
         });
+        $("import-classes-button").addEventListener("click", () => $("import-classes-input").click());
+        $("import-classes-input").addEventListener("change", async event => {
+          const input = event.currentTarget;
+          const file = input.files[0];
+          if (!file) return;
+          try {
+            const imported = normalizeImportedClasses(JSON.parse(await file.text()));
+            const previousClasses = state.classes;
+            state.classes = previousClasses.concat(imported);
+            if (saveState()) {
+              renderClasses();
+              setNotice("class-import-notice", `Imported ${imported.length} ${imported.length === 1 ? "class" : "classes"}.`);
+            } else {
+              state.classes = previousClasses;
+            }
+          } catch (error) {
+            console.error("Could not import class schedule", error);
+            setNotice("class-import-notice", error instanceof SyntaxError
+              ? "This file is not valid JSON."
+              : error.message || "Could not read the class schedule from this file.", true);
+          } finally {
+            input.value = "";
+          }
+        });
         $("class-sort-select").addEventListener("change", renderClasses);
         $("today-schedule-toggle").addEventListener("click", () => {
           todayScheduleExpanded = !todayScheduleExpanded;
@@ -1460,6 +1569,7 @@
             setNotice("class-notice", "Choose at least one class day.", true);
             return;
           }
+
           if (!start || !end) {
             setNotice("class-notice", "Enter the hour and minutes, then select AM or PM.", true);
             return;

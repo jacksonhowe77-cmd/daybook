@@ -27,6 +27,8 @@
       --primary-text: #ffffff;
       --red: #a45d62;
       --purple: #796a91;
+      --paper-rule: rgb(115 159 154 / 28%);
+      --paper-margin: rgb(164 93 98 / 22%);
       font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       font-synthesis: none;
       text-rendering: optimizeLegibility;
@@ -35,7 +37,9 @@
     body {
       margin: 0; min-width: 0; color: var(--ink);
       background-color: var(--paper);
-      background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, #dce8e7 32px, transparent 33px);
+      background-image:
+        linear-gradient(to right, transparent 54px, var(--paper-margin) 55px, transparent 56px),
+        repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--paper-rule) 32px, transparent 33px);
       background-attachment: fixed;
     }
     button, input, select, textarea { font: inherit; }
@@ -43,7 +47,7 @@
     button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
       outline: 2px solid var(--accent); outline-offset: 2px;
     }
-    .shell { max-width: 1040px; min-height: 100vh; margin: 0 auto; padding: 24px 28px 48px 42px; border-right: 1px solid rgb(121 106 145 / 12%); border-left: 2px solid rgb(121 106 145 / 26%); background: rgb(255 253 248 / 82%); box-shadow: 0 0 20px rgb(75 90 85 / 5%); }
+    .shell { max-width: 1040px; min-height: 100vh; margin: 0 auto; padding: 24px 28px 48px 42px; border-right: 1px solid rgb(121 106 145 / 12%); border-left: 2px solid rgb(121 106 145 / 26%); background: transparent; box-shadow: 0 0 20px rgb(75 90 85 / 5%); }
     .topbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
     .brand { display: flex; align-items: center; gap: 12px; }
     .brand-icon { display: block; width: 42px; height: 48px; flex: none; }
@@ -209,14 +213,13 @@
       --primary-text: #14201d;
       --red: #d59a9e;
       --purple: #b2a1cf;
-    }
-    :root[data-theme="dark"] body {
-      background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, #293632 32px, transparent 33px);
+      --paper-rule: rgb(130 174 167 / 23%);
+      --paper-margin: rgb(190 121 126 / 20%);
     }
     :root[data-theme="dark"] .shell {
       border-right-color: rgb(178 161 207 / 12%);
       border-left-color: rgb(178 161 207 / 23%);
-      background: rgb(32 39 36 / 92%);
+      background: transparent;
       box-shadow: 0 0 20px rgb(0 0 0 / 18%);
     }
     :root[data-theme="dark"] .important,

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f1e8">
+  <meta name="theme-color" content="#f5f8f6">
   <meta name="description" content="A quiet notebook for your class schedule, important dates, and study sessions.">
   <link rel="manifest" href="notebook.webmanifest">
   <link rel="icon" href="notebook-icon.svg" type="image/svg+xml">
@@ -11,112 +11,39 @@
   <style>
     :root {
       color-scheme: light;
-      --paper: #f5f1e8;
+      --paper: #f5f8f6;
       --sheet: #fffdf8;
       --sheet-alt: #faf8f3;
       --ink: #292b2a;
       --muted: #77766f;
       --line: #ded9ce;
       --line-soft: #eeebe4;
-      --accent: #52705f;
-      --accent-dark: #3d5848;
+      --accent: #3e827d;
+      --accent-dark: #2e6763;
       --soft: #ece9df;
       --hover: #f6f3eb;
       --button-hover-border: #aaa69b;
       --faded: #b6b2a9;
       --primary-text: #ffffff;
-      --red: #985b50;
+      --red: #a45d62;
+      --purple: #796a91;
       font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       font-synthesis: none;
       text-rendering: optimizeLegibility;
     }
-    :root[data-theme="dark"] {
-      color-scheme: dark;
-      --paper: #202320;
-      --sheet: #292d29;
-      --sheet-alt: #252925;
-      --ink: #f0eee7;
-      --muted: #b4b6ad;
-      --line: #484d47;
-      --line-soft: #3b403a;
-      --accent: #8eae95;
-      --accent-dark: #b5d0ba;
-      --soft: #383e38;
-      --hover: #333832;
-      --button-hover-border: #777e74;
-      --faded: #777d74;
-      --primary-text: #202320;
-      --red: #e2a99d;
-    }
-    :root[data-palette="green"] {
-      --paper: #eef3eb; --sheet: #fcfefb; --sheet-alt: #f5f8f2; --soft: #e3ebe1;
-      --line: #d4dfd1; --line-soft: #e7ede5; --hover: #f0f5ed;
-      --accent: #477a58; --accent-dark: #315d40;
-    }
-    :root[data-palette="blue"] {
-      --paper: #eef2f6; --sheet: #fcfdff; --sheet-alt: #f4f7fa; --soft: #e3eaf1;
-      --line: #d2dbe5; --line-soft: #e8edf2; --hover: #f0f4f8;
-      --accent: #52718f; --accent-dark: #3c5975;
-    }
-    :root[data-palette="pink"] {
-      --paper: #f7eff1; --sheet: #fffcfd; --sheet-alt: #faf4f6; --soft: #efe3e7;
-      --line: #e4d4da; --line-soft: #f0e7eb; --hover: #f9f1f4;
-      --accent: #a45f74; --accent-dark: #82475b;
-    }
-    :root[data-palette="purple"] {
-      --paper: #f2eff6; --sheet: #fdfbff; --sheet-alt: #f7f4fa; --soft: #e9e3f0;
-      --line: #dcd4e5; --line-soft: #ede8f2; --hover: #f4f0f8;
-      --accent: #735f91; --accent-dark: #584674;
-    }
-    :root[data-palette="teal"] {
-      --paper: #edf4f2; --sheet: #fbfefc; --sheet-alt: #f3f8f6; --soft: #e0ebe7;
-      --line: #cfdfda; --line-soft: #e5eeeb; --hover: #eff6f3;
-      --accent: #4d7d73; --accent-dark: #355f56;
-    }
-    :root[data-palette="amber"] {
-      --paper: #f6f1e8; --sheet: #fffdf9; --sheet-alt: #faf6ef; --soft: #eee5d7;
-      --line: #e1d6c3; --line-soft: #f0e9dd; --hover: #f7f2e9;
-      --accent: #927047; --accent-dark: #705432;
-    }
-    :root[data-theme="dark"][data-palette="green"] {
-      --paper: #202721; --sheet: #292f29; --sheet-alt: #252b25; --soft: #383f38;
-      --line: #485148; --line-soft: #3a423a; --hover: #333a33;
-      --accent: #8fbd98; --accent-dark: #b7d8bd;
-    }
-    :root[data-theme="dark"][data-palette="blue"] {
-      --paper: #20252b; --sheet: #292f37; --sheet-alt: #252b32; --soft: #383f48;
-      --line: #48515a; --line-soft: #3a424a; --hover: #333a42;
-      --accent: #91b6d7; --accent-dark: #b4d1e9;
-    }
-    :root[data-theme="dark"][data-palette="pink"] {
-      --paper: #2a2226; --sheet: #342a2f; --sheet-alt: #2e252a; --soft: #44363d;
-      --line: #57434c; --line-soft: #46363d; --hover: #3c3036;
-      --accent: #dda0b3; --accent-dark: #edbdcb;
-    }
-    :root[data-theme="dark"][data-palette="purple"] {
-      --paper: #25222b; --sheet: #2e2a36; --sheet-alt: #292530; --soft: #3e3848;
-      --line: #4e4759; --line-soft: #403a49; --hover: #373241;
-      --accent: #b6a1d2; --accent-dark: #d1c1e4;
-    }
-    :root[data-theme="dark"][data-palette="teal"] {
-      --paper: #202725; --sheet: #292f2d; --sheet-alt: #252b29; --soft: #37413e;
-      --line: #45524e; --line-soft: #394440; --hover: #323b38;
-      --accent: #91b9ae; --accent-dark: #b6d5cc;
-    }
-    :root[data-theme="dark"][data-palette="amber"] {
-      --paper: #29251f; --sheet: #332e27; --sheet-alt: #2e2923; --soft: #443b30;
-      --line: #554a3a; --line-soft: #463e32; --hover: #3c352b;
-      --accent: #c9aa78; --accent-dark: #e2c89d;
-    }
-
     * { box-sizing: border-box; }
-    body { margin: 0; min-width: 0; background: var(--paper); color: var(--ink); }
+    body {
+      margin: 0; min-width: 0; color: var(--ink);
+      background-color: var(--paper);
+      background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, #dce8e7 32px, transparent 33px);
+      background-attachment: fixed;
+    }
     button, input, select, textarea { font: inherit; }
     button { color: inherit; }
     button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
       outline: 2px solid var(--accent); outline-offset: 2px;
     }
-    .shell { max-width: 1040px; margin: 0 auto; padding: 24px 28px 48px; }
+    .shell { max-width: 1040px; min-height: 100vh; margin: 0 auto; padding: 24px 28px 48px 42px; border-right: 1px solid rgb(121 106 145 / 12%); border-left: 2px solid rgb(121 106 145 / 26%); background: rgb(255 253 248 / 82%); box-shadow: 0 0 20px rgb(75 90 85 / 5%); }
     .topbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
     .brand { display: flex; align-items: center; gap: 12px; }
     .brand-icon { display: block; width: 42px; height: 48px; flex: none; }
@@ -162,6 +89,8 @@
     .day-group summary { padding: 11px 18px; color: var(--accent-dark); font-size: 13px; font-weight: 650; cursor: pointer; }
     .schedule-item { display: grid; grid-template-columns: 90px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); }
     .schedule-item:last-child { border-bottom: 0; }
+    .schedule-item.no-room { grid-template-columns: 90px minmax(0, 1fr) auto; }
+    .schedule-item.no-room .schedule-name { text-align: center; }
     .schedule-time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
     .schedule-name { font-size: 14px; font-weight: 600; }
     .schedule-room { margin-top: 3px; color: var(--muted); font-size: 12px; }
@@ -229,11 +158,6 @@
     .settings-group { display: grid; gap: 10px; }
     .settings-group + .settings-group { padding-top: 16px; border-top: 1px solid var(--line); }
     .settings-group h3 { margin: 0; font-size: 13px; font-weight: 650; }
-    .palette-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(82px, 1fr)); gap: 8px; }
-    .palette-choice { display: grid; justify-items: center; gap: 6px; min-height: 76px; padding: 9px 5px 7px; border: 1px solid var(--line); border-radius: 5px; background: var(--sheet); color: var(--muted); font-size: 11px; cursor: pointer; }
-    .palette-choice:hover { border-color: var(--accent); color: var(--ink); }
-    .palette-choice[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); color: var(--ink); font-weight: 650; }
-    .palette-swatch { display: block; width: 34px; height: 25px; border: 1px solid var(--line); border-radius: 4px; background: linear-gradient(135deg, var(--swatch-accent) 0 42%, var(--swatch-paper) 42% 100%); }
     .notification-heading { display: flex; align-items: center; gap: 8px; }
     .notification-icon { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
     .notification-toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 38px; }
@@ -242,21 +166,83 @@
     .switch[aria-checked="true"] { background: var(--accent); }
     .switch[aria-checked="true"]::after { transform: translateX(19px); }
     .switch:disabled { cursor: not-allowed; opacity: .55; }
+    .switch.dark-mode-switch { width: 50px; height: 30px; border-radius: 16px; background: #d1d5d2; }
+    .switch.dark-mode-switch::after { width: 24px; height: 24px; margin-left: 3px; background: #fff; box-shadow: 0 1px 3px rgb(0 0 0 / 24%); }
+    .switch.dark-mode-switch[aria-checked="true"] { background: #34c759; }
+    .switch.dark-mode-switch[aria-checked="true"]::after { transform: translateX(20px); }
     .notification-options { display: grid; gap: 2px; padding-left: 12px; border-left: 2px solid var(--line-soft); }
     .settings-description { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
     .privacy-note { margin: 0; padding: 13px 15px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .important { border-color: #e3c2c2; background: #fff3f1; }
+    .important .eyebrow, .important .priority-label { color: #a45d62; }
+    .priority-section { display: grid; gap: 10px; margin-bottom: 15px; }
+    .priority-section > .card { padding: 15px 18px; }
+    .priority-list { display: grid; gap: 8px; margin-top: 10px; }
+    .priority-row, .task-row, .calendar-entry { padding: 10px 12px; border: 1px solid var(--line-soft); border-radius: 5px; background: var(--sheet); }
+    .priority-row.important, .task-row.important, .calendar-entry.important { border-color: #e3c2c2; background: #fff3f1; }
+    .priority-meta, .task-meta { margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .priority-label { margin-left: 5px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .item-details summary { color: var(--ink); cursor: pointer; font-size: 13px; font-weight: 600; }
+    .item-description { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
+    .group-section { margin: 12px 0; border-top: 1px solid var(--line); }
+    .group-section > summary { padding: 11px 18px; color: var(--accent-dark); font-weight: 650; cursor: pointer; }
+    .group-body { display: grid; gap: 8px; padding: 0 14px 14px; }
+    .group-input { width: 100%; min-height: 38px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--sheet-alt); color: var(--ink); }
+    .period-control { display: flex; gap: 5px; }
+    .period-control button { min-width: 42px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--sheet); cursor: pointer; }
+    .period-control button[aria-pressed="true"] { border-color: var(--accent); background: var(--soft); color: var(--accent-dark); font-weight: 650; }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #151a18;
+      --sheet: #202724;
+      --sheet-alt: #272f2c;
+      --ink: #e8efeb;
+      --muted: #a7b3ad;
+      --line: #46534d;
+      --line-soft: #343e39;
+      --accent: #73b9b0;
+      --accent-dark: #91d0c7;
+      --soft: #34413c;
+      --hover: #2b3531;
+      --button-hover-border: #718079;
+      --faded: #78847e;
+      --primary-text: #14201d;
+      --red: #d59a9e;
+      --purple: #b2a1cf;
+    }
+    :root[data-theme="dark"] body {
+      background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 31px, #293632 32px, transparent 33px);
+    }
+    :root[data-theme="dark"] .shell {
+      border-right-color: rgb(178 161 207 / 12%);
+      border-left-color: rgb(178 161 207 / 23%);
+      background: rgb(32 39 36 / 92%);
+      box-shadow: 0 0 20px rgb(0 0 0 / 18%);
+    }
+    :root[data-theme="dark"] .important,
+    :root[data-theme="dark"] .priority-row.important,
+    :root[data-theme="dark"] .task-row.important,
+    :root[data-theme="dark"] .calendar-entry.important {
+      border-color: #70484c;
+      background: #352729;
+    }
+    :root[data-theme="dark"] .important .eyebrow,
+    :root[data-theme="dark"] .important .priority-label { color: #e0a2a3; }
+    :root[data-theme="dark"] .event-bar.assignment,
+    :root[data-theme="dark"] .event-bar.project { border-left-color: #91a8c4; }
+    :root[data-theme="dark"] dialog::backdrop { background: rgb(0 0 0 / 62%); }
     .toast { position: fixed; right: 18px; bottom: 18px; z-index: 4; max-width: min(380px, calc(100vw - 36px)); padding: 12px 15px; border: 1px solid var(--line); border-radius: 5px; background: var(--sheet); font-size: 13px; }
     [hidden] { display: none !important; }
 
     @media (max-width: 700px) {
-      .shell { padding: 18px 16px 32px; }
+      .shell { padding: 18px 16px 32px 22px; }
       .layout { padding-top: 16px; }
       .schedule-item { grid-template-columns: 78px minmax(0, 1fr) auto; gap: 8px; padding-right: 12px; padding-left: 12px; }
       .schedule-actions { gap: 4px; }
     }
     @media (max-width: 600px) {
       body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
-      .shell { padding: 14px 12px calc(22px + env(safe-area-inset-bottom)); }
+      .shell { padding: 14px 12px calc(22px + env(safe-area-inset-bottom)) 17px; }
       .topbar { flex-wrap: wrap; gap: 10px; padding-bottom: 13px; }
       .brand-icon { width: 36px; height: 42px; }
       .brand p { font-size: 12px; }
@@ -313,6 +299,16 @@
 
     <main class="layout">
       <section class="tab-panel" id="panel-today" role="tabpanel" aria-labelledby="tab-today" tabindex="0">
+        <section class="priority-section" aria-label="Upcoming priorities">
+          <section class="card" aria-labelledby="priority-heading">
+            <p class="eyebrow">Important first</p><h2 class="section-title" id="priority-heading">Upcoming dates &amp; to-dos</h2>
+            <div class="priority-list" id="priority-list"></div>
+          </section>
+          <details class="card" id="homework-projects">
+            <summary><strong>Homework &amp; projects</strong> <span class="priority-meta" id="homework-project-count">0 items</span></summary>
+            <div class="group-body" id="homework-project-list"></div>
+          </details>
+        </section>
         <section class="card today-card" aria-labelledby="today-heading">
           <div class="today-head">
             <div><p class="eyebrow">Your day</p><h2 id="today-heading">Today's classes</h2></div>
@@ -353,6 +349,7 @@
           <div class="card-head">
             <div><p class="eyebrow">Tests, deadlines, and plans</p><h2 id="calendar-heading">Calendar</h2></div>
             <div class="calendar-actions">
+              <button class="button small" id="add-todo-button" type="button">Add to-do</button>
               <button class="button small primary" id="add-event-button" type="button">Add a date</button>
               <button class="button small" id="export-calendar-button" type="button">Export</button>
               <div class="calendar-title">
@@ -368,6 +365,8 @@
           <div id="calendar-grid" class="calendar-grid" role="grid" aria-label="Calendar"></div>
           <div class="selected-date" id="selected-date"></div>
           <div class="event-list" id="event-list"></div>
+          <div class="card-head"><div><p class="eyebrow">Track the little things</p><h2>To-dos</h2></div></div>
+          <div class="event-list" id="todo-list"></div>
         </section>
       </section>
 
@@ -386,6 +385,12 @@
             <div class="field"><label for="break-minutes">Break time (minutes)</label><input id="break-minutes" type="number" min="1" max="60" value="5"></div>
           </div>
         </section>
+        <section class="card study-card study-planning" aria-labelledby="study-planning-heading">
+          <div class="card-head"><div><p class="eyebrow">Plan ahead</p><h2 id="study-planning-heading">Projects &amp; tests</h2></div><button class="button small primary" id="add-project-button" type="button">Add project or test</button></div>
+          <div class="event-list" id="project-list"></div>
+          <div class="card-head"><div><p class="eyebrow">For your classes</p><h2>Homework</h2></div><button class="button small" id="add-homework-button" type="button">Add homework</button></div>
+          <div class="event-list" id="study-homework-list"></div>
+        </section>
       </section>
 
       <section class="tab-panel" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings" tabindex="0" hidden>
@@ -393,17 +398,12 @@
           <div class="card-head"><div><p class="eyebrow">Make Daybook yours</p><h2 id="settings-heading">Settings</h2></div></div>
           <div class="settings-body">
             <div class="settings-group">
-              <h3>Appearance</h3>
-              <div class="field"><label for="theme-select">Theme</label><select id="theme-select"><option value="light">Light</option><option value="dark">Dark</option><option value="system">Use device setting</option></select></div>
-              <div class="field"><span class="field-label">App color</span><div class="palette-choices" id="palette-choices" role="group" aria-label="App color">
-                <button class="palette-choice" type="button" data-palette-choice="original" aria-pressed="false"><span class="palette-swatch" style="--swatch-accent:#52705f;--swatch-paper:#f5f1e8"></span><span>Original</span></button>
-                <button class="palette-choice" type="button" data-palette-choice="green" aria-pressed="false"><span class="palette-swatch" style="--swatch-accent:#477a58;--swatch-paper:#eef3eb"></span><span>Green</span></button>
-                <button class="palette-choice" type="button" data-palette-choice="blue" aria-pressed="false"><span class="palette-swatch" style="--swatch-accent:#52718f;--swatch-paper:#eef2f6"></span><span>Blue</span></button>
-                <button class="palette-choice" type="button" data-palette-choice="pink" aria-pressed="false"><span class="palette-swatch" style="--swatch-accent:#a45f74;--swatch-paper:#f7eff1"></span><span>Pink</span></button>
-                <button class="palette-choice" type="button" data-palette-choice="purple" aria-pressed="false"><span class="palette-swatch" style="--swatch-accent:#735f91;--swatch-paper:#f2eff6"></span><span>Purple</span></button>
-                <button class="palette-choice" type="button" data-palette-choice="teal" aria-pressed="false"><span class="palette-swatch" style="--swatch-accent:#4d7d73;--swatch-paper:#edf4f2"></span><span>Teal</span></button>
-                <button class="palette-choice" type="button" data-palette-choice="amber" aria-pressed="false"><span class="palette-swatch" style="--swatch-accent:#927047;--swatch-paper:#f6f1e8"></span><span>Amber</span></button>
-              </div></div>
+              <h3>Appearance</h3><p class="settings-description">A notebook-paper background with teal accents and a touch of purple.</p>
+              <div class="notification-toggle-row"><span id="dark-mode-label">Dark mode</span><button class="switch dark-mode-switch" id="dark-mode-button" type="button" role="switch" aria-label="Dark mode" aria-labelledby="dark-mode-label" aria-checked="false"></button></div>
+            </div>
+            <div class="settings-group">
+              <h3>Backup</h3><p class="settings-description">Download a copy of your classes, dates, to-dos, projects, and homework.</p>
+              <button class="button" id="export-backup-button" type="button">Download Daybook backup</button>
             </div>
             <div class="settings-group">
               <div class="notification-heading"><svg class="notification-icon" id="notification-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><h3>Notifications</h3></div>
@@ -428,9 +428,10 @@
       <div class="dialog-body">
         <div class="field"><label for="class-name-input">Class name</label><input id="class-name-input" name="name" required maxlength="60" placeholder="Biology"></div>
         <div class="field"><label for="class-room-input">Room or teacher (optional)</label><input id="class-room-input" name="room" maxlength="60" placeholder="Room 204"></div>
+        <div class="field"><label for="class-group-input">Class group (optional)</label><input class="group-input" id="class-group-input" name="group" maxlength="50" list="class-groups" placeholder="Science"></div>
         <div class="field-row">
-          <div class="field"><label for="class-start-input">Starts</label><input id="class-start-input" name="start" type="text" inputmode="text" autocomplete="off" placeholder="8:30 AM or 13:30" required></div>
-            <div class="field"><label for="class-end-input">Ends</label><input id="class-end-input" name="end" type="text" inputmode="text" autocomplete="off" placeholder="9:20 AM or 14:20" required></div>
+          <div class="field"><label for="class-start-input">Starts</label><input id="class-start-input" name="start" type="text" inputmode="numeric" autocomplete="off" placeholder="8:30" required><div class="period-control" data-period-control="start"><button type="button" data-period="am" aria-pressed="true">AM</button><button type="button" data-period="pm" aria-pressed="false">PM</button></div></div>
+          <div class="field"><label for="class-end-input">Ends</label><input id="class-end-input" name="end" type="text" inputmode="numeric" autocomplete="off" placeholder="9:20" required><div class="period-control" data-period-control="end"><button type="button" data-period="am" aria-pressed="true">AM</button><button type="button" data-period="pm" aria-pressed="false">PM</button></div></div>
         </div>
         <div class="field"><span class="field-label">Days</span><div class="day-options" id="class-days"></div></div>
         <p class="notice" id="class-notice" role="status"></p>
@@ -444,6 +445,7 @@
       <div class="dialog-head"><h2>Add to calendar</h2><button class="button small" type="button" data-close="event-dialog">Close</button></div>
       <div class="dialog-body">
         <div class="field"><label for="event-title-input">What is it?</label><input id="event-title-input" name="title" required maxlength="100" placeholder="History test"></div>
+        <div class="field"><label for="event-group-input">Group (optional)</label><input class="group-input" id="event-group-input" name="group" maxlength="50" list="calendar-groups" placeholder="Exams"></div>
         <div class="field-row">
           <div class="field"><label for="event-type-input">Type</label><select id="event-type-input" name="type"><option value="Test">Test</option><option value="Assignment">Assignment</option><option value="Project">Project</option><option value="Study">Study plan</option><option value="Club">Club</option><option value="Event">Event</option><option value="Activity">Activity</option><option value="Meeting">Meeting</option><option value="Other">Other</option></select></div>
           <div class="field"><label for="event-subject-input">Class</label><input id="event-subject-input" name="subject" maxlength="60" placeholder="History"></div>
@@ -456,11 +458,64 @@
         <div class="field" id="repeat-until-field" hidden><label for="event-until-input">Repeat until (optional)</label><input id="event-until-input" name="until" type="date"><span class="settings-description">Leave blank to repeat without an end date.</span></div>
         <div class="field"><label for="event-reminder-input">Device reminder</label><select id="event-reminder-input" name="reminder"><option value="0">No reminder</option><option value="10">10 minutes before</option><option value="60">1 hour before</option><option value="1440" selected>1 day before</option></select></div>
         <div class="field"><label for="event-notes-input">Notes (optional)</label><textarea id="event-notes-input" name="notes" maxlength="500" placeholder="Topics to review, materials to bring…"></textarea></div>
+        <div class="field"><label for="event-description-input">Description (optional)</label><textarea id="event-description-input" name="description" maxlength="1000" placeholder="Add details to reveal from the calendar or home page…"></textarea></div>
+        <label class="day-option"><input name="important" type="checkbox"> Mark important</label>
         <p class="notice" id="event-notice" role="status"></p>
         <div class="dialog-actions"><button class="button" type="button" data-close="event-dialog">Cancel</button><button class="button primary" type="submit">Save date</button></div>
       </div>
     </form>
   </dialog>
+
+  <dialog id="todo-dialog">
+    <form id="todo-form">
+      <div class="dialog-head"><h2>Add a to-do</h2><button class="button small" type="button" data-close="todo-dialog">Close</button></div>
+      <div class="dialog-body">
+        <div class="field"><label for="todo-title-input">To-do</label><input id="todo-title-input" name="title" maxlength="100" required placeholder="Review chapter 4"></div>
+        <div class="field-row"><div class="field"><label for="todo-date-input">Due date</label><input id="todo-date-input" name="date" type="date" required></div><div class="field"><label for="todo-group-input">Group (optional)</label><input class="group-input" id="todo-group-input" name="group" maxlength="50" list="todo-groups" placeholder="Biology"></div></div>
+        <div class="field"><label for="todo-description-input">Description (optional)</label><textarea id="todo-description-input" name="description" maxlength="1000"></textarea></div>
+        <label class="day-option"><input name="important" type="checkbox"> Mark important</label>
+        <p class="notice" id="todo-notice" role="status"></p>
+        <div class="dialog-actions"><button class="button" type="button" data-close="todo-dialog">Cancel</button><button class="button primary" type="submit">Save to-do</button></div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="project-dialog">
+    <form id="project-form">
+      <div class="dialog-head"><h2>Add a project or test</h2><button class="button small" type="button" data-close="project-dialog">Close</button></div>
+      <div class="dialog-body">
+        <div class="field"><label for="project-title-input">Name</label><input id="project-title-input" name="title" maxlength="100" required placeholder="History project"></div>
+        <div class="field-row"><div class="field"><label for="project-type-input">Type</label><select id="project-type-input" name="type"><option value="Project">Project</option><option value="Test">Test</option></select></div><div class="field"><label for="project-date-input">Due date</label><input id="project-date-input" name="date" type="date" required></div></div>
+        <div class="field-row"><div class="field"><label for="project-class-input">Class (optional)</label><input id="project-class-input" name="className" maxlength="60" placeholder="History"></div><div class="field"><label for="project-group-input">Group (optional)</label><input class="group-input" id="project-group-input" name="group" maxlength="50" list="project-groups" placeholder="Science"></div></div>
+        <div class="field"><label for="project-description-input">Description</label><textarea id="project-description-input" name="description" maxlength="1000"></textarea></div>
+        <div class="field"><label for="project-subtasks-input">Subtasks (one per line)</label><textarea id="project-subtasks-input" name="subtasks" maxlength="2000" placeholder="Find sources&#10;Write outline&#10;Review"></textarea></div>
+        <label class="day-option"><input name="important" type="checkbox"> Mark important</label>
+        <p class="notice" id="project-notice" role="status"></p>
+        <div class="dialog-actions"><button class="button" type="button" data-close="project-dialog">Cancel</button><button class="button primary" type="submit">Save project or test</button></div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="homework-dialog">
+    <form id="homework-form">
+      <div class="dialog-head"><h2>Add homework</h2><button class="button small" type="button" data-close="homework-dialog">Close</button></div>
+      <div class="dialog-body">
+        <div class="field"><label for="homework-class-input">Class name</label><input id="homework-class-input" name="className" maxlength="60" required placeholder="Chemistry"></div>
+        <div class="field"><label for="homework-title-input">Homework</label><input id="homework-title-input" name="title" maxlength="100" required placeholder="Practice problems"></div>
+        <div class="field-row"><div class="field"><label for="homework-date-input">Due date</label><input id="homework-date-input" name="date" type="date" required></div><div class="field"><label for="homework-group-input">Group (optional)</label><input class="group-input" id="homework-group-input" name="group" maxlength="50" list="homework-groups" placeholder="Science"></div></div>
+        <div class="field"><label for="homework-description-input">Description</label><textarea id="homework-description-input" name="description" maxlength="1000"></textarea></div>
+        <label class="day-option"><input name="important" type="checkbox"> Mark important</label>
+        <p class="notice" id="homework-notice" role="status"></p>
+        <div class="dialog-actions"><button class="button" type="button" data-close="homework-dialog">Cancel</button><button class="button primary" type="submit">Save homework</button></div>
+      </div>
+    </form>
+  </dialog>
+
+  <datalist id="calendar-groups"></datalist>
+  <datalist id="todo-groups"></datalist>
+  <datalist id="project-groups"></datalist>
+  <datalist id="homework-groups"></datalist>
+  <datalist id="class-groups"></datalist>
 
   <div class="toast" id="toast" role="status" hidden></div>
 
@@ -521,6 +576,36 @@
         const [hours, minutes] = value.split(":").map(Number);
         return new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" }).format(new Date(2000, 0, 1, hours, minutes));
       };
+      const classPeriod = field => document.querySelector(`[data-period-control="${field}"] [aria-pressed="true"]`)?.dataset.period || "am";
+      const parseClassTime = (value, field) => {
+        const raw = String(value || "").trim();
+        const parsed = parseTime(raw);
+        return parsed && (/\b(am|pm)\b/i.test(raw) || parsed.hours > 12)
+          ? parsed
+          : parseTime(`${raw} ${classPeriod(field)}`);
+      };
+      function setClassTime(field, value) {
+        const parsed = parseTime(value);
+        if (!parsed) return;
+        const period = parsed.hours >= 12 ? "pm" : "am";
+        const hour = parsed.hours % 12 || 12;
+        $(`class-${field}-input`).value = `${hour}:${String(parsed.minutes).padStart(2, "0")}`;
+        setClassPeriodButtons(field, period);
+      }
+      function setClassPeriodButtons(field, period) {
+        document.querySelectorAll(`[data-period-control="${field}"] [data-period]`).forEach(button => {
+          button.setAttribute("aria-pressed", String(button.dataset.period === period));
+        });
+      }
+      function chooseClassPeriod(field, period) {
+        const input = $(`class-${field}-input`);
+        const parsed = parseClassTime(input.value, field);
+        setClassPeriodButtons(field, period);
+        if (parsed) {
+          const hour = parsed.hours % 12 || 12;
+          input.value = `${hour}:${String(parsed.minutes).padStart(2, "0")}`;
+        }
+      }
       const today = new Date();
       let state = loadState();
       let shownMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -545,10 +630,17 @@
           const permissionGranted = "Notification" in window && Notification.permission === "granted";
           return {
             classes: Array.isArray(parsed.classes) ? parsed.classes : [],
-            events: Array.isArray(parsed.events) ? parsed.events : [],
+            events: Array.isArray(parsed.events) ? parsed.events.map(item => ({
+              ...item,
+              description: item.description || item.notes || "",
+              important: Boolean(item.important),
+              group: String(item.group || "")
+            })) : [],
+            todos: Array.isArray(parsed.todos) ? parsed.todos.map(item => ({ ...item, important: Boolean(item.important), done: Boolean(item.done), group: String(item.group || "") })) : [],
+            projects: Array.isArray(parsed.projects) ? parsed.projects.map(item => ({ ...item, important: Boolean(item.important), done: Boolean(item.done), subtasks: Array.isArray(item.subtasks) ? item.subtasks : [], group: String(item.group || "") })) : [],
+            homework: Array.isArray(parsed.homework) ? parsed.homework.map(item => ({ ...item, important: Boolean(item.important), done: Boolean(item.done), group: String(item.group || "") })) : [],
+            darkMode: Boolean(parsed.darkMode),
             notified: Array.isArray(parsed.notified) ? parsed.notified : [],
-            theme: ["light", "dark", "system"].includes(parsed.theme) ? parsed.theme : "light",
-            palette: ["original", "green", "blue", "pink", "purple", "teal", "amber"].includes(parsed.palette) ? parsed.palette : "original",
             notificationSettings: {
               enabled: permissionGranted && (typeof settings.enabled === "boolean" ? settings.enabled : true),
               categories: {
@@ -563,7 +655,7 @@
         } catch (error) {
           console.error("Could not read Daybook data", error);
           return {
-            classes: [], events: [], notified: [], theme: "light", palette: "original",
+            classes: [], events: [], todos: [], projects: [], homework: [], darkMode: false, notified: [],
             notificationSettings: { enabled: false, categories: { calendar: true, classes: true, study: true } },
             focusMinutes: 25, breakMinutes: 5
           };
@@ -651,7 +743,7 @@
           const start = new Date(now);
           start.setHours(...next.start.split(":").map(Number), 0, 0);
           $("class-countdown").textContent = formatDuration(Math.max(0, Math.ceil((start.getTime() - now.getTime()) / 1000)));
-          $("countdown-caption").textContent = "until class starts";
+          $("countdown-caption").textContent = "starts in";
         } else {
           stateLabel.textContent = classes.length ? "SCHEDULE CLEAR" : "NO CLASSES ADDED";
           currentName.textContent = classes.length ? "You're all done for today" : "Add your class schedule";
@@ -665,11 +757,93 @@
           nextRow.innerHTML = `Next: <strong>${escapeHtml(next.name)}</strong> at ${escapeHtml(formatTime(next.start))}`;
         } else if (!active && next) {
           nextRow.hidden = false;
-          nextRow.textContent = next.room ? `Room: ${next.room}` : "";
+          nextRow.textContent = `Next class: ${next.name}${next.room ? ` · ${next.room}` : ""}`;
         } else {
           nextRow.hidden = true;
         }
         renderTodaySchedule(classes, minutes);
+      }
+
+      function calendarRecords() {
+        return [
+          ...state.events.map(item => ({ ...item, source: "event" })),
+          ...state.projects.map(item => ({ ...item, source: "project" }))
+        ];
+      }
+
+      function recordsOnDate(date) {
+        return calendarRecords().filter(item => item.source === "event"
+          ? occursOnDate(item, date)
+          : item.date === date);
+      }
+
+      function groupByTitle(items) {
+        const groups = new Map();
+        items.forEach(item => {
+          const key = String(item.title || "").trim().toLocaleLowerCase();
+          if (!groups.has(key)) groups.set(key, []);
+          groups.get(key).push(item);
+        });
+        return [...groups.values()];
+      }
+
+      function renderHomePriorities() {
+        const todayKey = dateKey(new Date());
+        const upcoming = [];
+        for (let offset = 0; offset <= 60; offset++) {
+          const date = new Date();
+          date.setDate(date.getDate() + offset);
+          const key = dateKey(date);
+          recordsOnDate(key).forEach(item => upcoming.push({ ...item, dueDate: key }));
+        }
+        state.todos.filter(item => !item.done && item.date >= todayKey)
+          .forEach(item => upcoming.push({ ...item, source: "todo", dueDate: item.date }));
+        const grouped = groupByTitle(upcoming).map(items => {
+          const sorted = items.slice().sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+          return { ...sorted[0], records: sorted, important: items.some(item => item.important) };
+        }).sort((a, b) => Number(b.important) - Number(a.important) || a.dueDate.localeCompare(b.dueDate));
+        $("priority-list").innerHTML = grouped.length ? grouped.map(item => {
+          const dates = [...new Set(item.records.map(record => record.dueDate))].sort();
+          const description = item.description || item.notes || "";
+          const importantClass = item.important ? " important" : "";
+          return `<article class="priority-row${importantClass}">
+            <div class="priority-label">${escapeHtml(item.source === "todo" ? "To-do" : item.type || "Date")}${item.important ? " · Important" : ""}</div>
+            <strong>${escapeHtml(item.title)}</strong>
+            <div class="priority-meta">${escapeHtml(dates.map(formatDateKey).join(", "))}${item.subject ? ` · ${escapeHtml(item.subject)}` : ""}${item.group ? ` · ${escapeHtml(item.group)}` : ""}</div>
+            ${description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(description)}</p></details>` : ""}
+          </article>`;
+        }).join("") : '<p class="empty">No upcoming dates or to-dos.</p>';
+
+        const work = [...state.homework, ...state.projects].filter(item => !item.done);
+        $("homework-project-count").textContent = `${work.length} ${work.length === 1 ? "item" : "items"}`;
+        const byClass = new Map();
+        work.forEach(item => {
+          const label = item.className || item.group || (item.type === "Test" || item.type === "Project" ? item.type : "Other");
+          if (!byClass.has(label)) byClass.set(label, []);
+          byClass.get(label).push(item);
+        });
+        $("homework-project-list").innerHTML = byClass.size ? [...byClass.entries()].map(([label, items]) =>
+          `<details class="group-section" open><summary>${escapeHtml(label)} (${items.length})</summary><div class="group-body">${
+            groupByTitle(items).map(records => renderWorkItem(records)).join("")
+          }</div></details>`
+        ).join("") : '<p class="empty">No homework or projects yet.</p>';
+      }
+
+      function formatDateKey(key) {
+        if (!key) return "No due date";
+        const date = new Date(`${key}T12:00:00`);
+        return new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric" }).format(date);
+      }
+
+      function renderWorkItem(records) {
+        const item = records[0];
+        const important = records.some(record => record.important);
+        const dates = [...new Set(records.map(record => record.date))].sort();
+        return `<article class="task-row${important ? " important" : ""}">
+          <strong>${escapeHtml(item.title)}</strong>${important ? '<span class="priority-label">Important</span>' : ""}
+          <div class="task-meta">${escapeHtml(item.className || item.type || item.group || "Homework")} · ${escapeHtml(dates.map(formatDateKey).join(", "))}</div>
+          ${item.description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(item.description)}</p></details>` : ""}
+        </article>`;
       }
 
       function renderTodaySchedule(classes, currentMinutes) {
@@ -707,27 +881,61 @@
         if (!state.classes.length) {
           list.innerHTML = '<div class="empty">Add your weekly classes to see your timetable and class countdown.</div>';
           renderToday();
+          refreshGroupLists();
           return;
         }
         const sortBy = $("class-sort-select").value;
-        const days = [1, 2, 3, 4, 5, 6, 0];
-        list.innerHTML = days.map(day => {
-          const dayClasses = state.classes.filter(item => item.days.includes(day)).sort((a, b) =>
-            sortBy === "name"
-              ? a.name.localeCompare(b.name) || timeMinutes(a.start) - timeMinutes(b.start)
-              : timeMinutes(a.start) - timeMinutes(b.start) || a.name.localeCompare(b.name)
-          );
-          if (!dayClasses.length) return "";
-          return `<details class="day-group" open>
-            <summary>${DAY_LABELS[day]} <span class="settings-description">(${dayClasses.length})</span></summary>
-            ${dayClasses.map(item => `<div class="schedule-item">
-              <div class="schedule-time">${escapeHtml(formatTime(item.start))}–${escapeHtml(formatTime(item.end))}</div>
-              <div><div class="schedule-name">${escapeHtml(item.name)}</div><div class="schedule-room">${escapeHtml(item.room || "No room or teacher listed")}</div></div>
-              <div class="schedule-actions"><button type="button" class="text-button" data-edit-class="${escapeHtml(item.id)}" aria-label="Edit ${escapeHtml(item.name)}">Edit</button><button type="button" class="text-button" data-delete-class="${escapeHtml(item.id)}" aria-label="Remove ${escapeHtml(item.name)}">Remove</button></div>
-            </div>`).join("")}
-          </details>`;
+        const byGroup = new Map();
+        state.classes.forEach(item => {
+          const group = item.group?.trim() || "Ungrouped";
+          if (!byGroup.has(group)) byGroup.set(group, []);
+          byGroup.get(group).push(item);
+        });
+        list.innerHTML = [...byGroup.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([groupName, groupItems]) => {
+          const byName = new Map();
+          groupItems.forEach(item => {
+            const key = item.name.trim().toLocaleLowerCase();
+            if (!byName.has(key)) byName.set(key, []);
+            byName.get(key).push(item);
+          });
+          const classes = [...byName.values()].sort((a, b) => {
+            if (sortBy === "name") return a[0].name.localeCompare(b[0].name);
+            const firstDay = records => Math.min(...records.flatMap(item => item.days.map(day => (day - 1 + 7) % 7)));
+            return firstDay(a) - firstDay(b) || timeMinutes(a[0].start) - timeMinutes(b[0].start);
+          });
+          return `<details class="group-section" open><summary>${escapeHtml(groupName)} (${classes.length})</summary><div class="group-body">${
+            classes.map(records => {
+              const schedules = records.flatMap(item => item.days.map(day => ({
+                day, start: item.start, end: item.end, room: item.room || ""
+              }))).sort((a, b) => ((a.day - 1 + 7) % 7) - ((b.day - 1 + 7) % 7) || timeMinutes(a.start) - timeMinutes(b.start));
+              const room = [...new Set(records.map(item => item.room).filter(Boolean))].join(", ");
+              const noRoom = !room;
+              return `<div class="schedule-item${noRoom ? " no-room" : ""}">
+                <div class="schedule-time">${schedules.map(item => `${DAY_LABELS[item.day]} ${escapeHtml(formatTime(item.start))}–${escapeHtml(formatTime(item.end))}`).join("<br>")}</div>
+                <div><div class="schedule-name">${escapeHtml(records[0].name)}</div>${room ? `<div class="schedule-room">${escapeHtml(room)}</div>` : ""}</div>
+                <div class="schedule-actions"><button type="button" class="text-button" data-edit-class="${escapeHtml(records[0].id)}" aria-label="Edit ${escapeHtml(records[0].name)}">Edit</button><button type="button" class="text-button" data-delete-class-group="${escapeHtml(records.map(item => item.id).join(","))}" aria-label="Remove ${escapeHtml(records[0].name)}">Remove</button></div>
+              </div>`;
+            }).join("")
+          }</div></details>`;
         }).join("");
         renderToday();
+        renderHomePriorities();
+        refreshGroupLists();
+      }
+
+      function refreshGroupLists() {
+        const lists = {
+          "calendar-groups": state.events,
+          "todo-groups": state.todos,
+          "project-groups": state.projects,
+          "homework-groups": state.homework,
+          "class-groups": state.classes
+        };
+        Object.entries(lists).forEach(([id, items]) => {
+          $(id).innerHTML = [...new Set(items.map(item => item.group?.trim()).filter(Boolean))]
+            .sort((a, b) => a.localeCompare(b))
+            .map(group => `<option value="${escapeHtml(group)}"></option>`).join("");
+        });
       }
 
       function monthDate(year, month, day) {
@@ -752,39 +960,106 @@
           if (outside) classes.push("muted");
           if (key === dateKey(new Date())) classes.push("today");
           if (key === selectedDate) classes.push("selected");
-          const events = state.events.filter(item => occursOnDate(item, key)).sort((a, b) => (a.time || "").localeCompare(b.time || ""));
-          if (events.length) classes.push("has-events");
-          const bars = events.slice(0, 2).map(item => {
+          const events = recordsOnDate(key).sort((a, b) => (a.time || "").localeCompare(b.time || ""));
+          const uniqueEvents = groupByTitle(events).map(records => ({
+            ...records[0],
+            important: records.some(item => item.important)
+          }));
+          const todos = state.todos.filter(item => item.date === key && !item.done).map(item => ({ ...item, type: "To-do" }));
+          const visibleItems = groupByTitle([...uniqueEvents, ...todos]).map(records => ({
+            ...records[0],
+            important: records.some(item => item.important)
+          }));
+          if (visibleItems.length) classes.push("has-events");
+          const bars = visibleItems.slice(0, 2).map(item => {
             const type = String(item.type || "Other").toLowerCase();
             const cadence = item.repeat === "biweekly" ? "2 wk" : item.repeat;
             const label = `${item.time ? `${formatTime(item.time)} ` : ""}${item.title}${item.repeat && item.repeat !== "none" ? ` (${cadence})` : ""}`;
-            return `<span class="event-bar ${escapeHtml(type)}" title="${escapeHtml(label)}">${escapeHtml(label)}</span>`;
+            return `<span class="event-bar ${item.important ? "important " : ""}${escapeHtml(type)}" title="${escapeHtml(label)}">${escapeHtml(label)}</span>`;
           }).join("");
-          const more = events.length > 2 ? `<span class="event-more">+${events.length - 2} more</span>` : "";
-          const eventNames = events.length ? `: ${events.map(item => item.title).join(", ")}` : "";
+          const more = visibleItems.length > 2 ? `<span class="event-more">+${visibleItems.length - 2} more</span>` : "";
+          const eventNames = visibleItems.length ? `: ${visibleItems.map(item => item.title).join(", ")}` : "";
           cells.push(`<button type="button" role="gridcell" class="${classes.join(" ")}" data-date="${key}" aria-label="${escapeHtml(new Intl.DateTimeFormat(undefined, { dateStyle: "full" }).format(date) + eventNames)}"><span class="day-number">${date.getDate()}</span><span class="day-events">${bars}${more}</span></button>`);
         }
         $("calendar-grid").innerHTML = cells.join("");
         const selected = new Date(`${selectedDate}T12:00:00`);
         $("selected-date").textContent = new Intl.DateTimeFormat(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(selected);
         renderSelectedEvents();
+        renderSelectedTodos();
+        refreshGroupLists();
       }
 
       function renderSelectedEvents() {
-        const items = state.events.filter(event => occursOnDate(event, selectedDate)).sort((a, b) => (a.time || "").localeCompare(b.time || ""));
-        $("event-list").innerHTML = items.length ? items.map(event => `<div class="event-row">
-          <div class="event-time">${escapeHtml(formatTime(event.time))}</div>
-          <div><div class="event-title">${escapeHtml(event.title)}</div><div class="event-subject">${escapeHtml(event.subject || "No class")} · ${escapeHtml(event.type)}${event.notes ? ` · ${escapeHtml(event.notes)}` : ""}</div></div>
-          <button type="button" class="text-button" data-delete-event="${escapeHtml(event.id)}" aria-label="Remove ${escapeHtml(event.title)}">Remove</button>
-        </div>`).join("") : '<div class="empty" style="padding: 5px 0 0">Nothing planned. Add a test, due date, or study plan.</div>';
-        items.forEach((event, index) => {
-          if (!event.repeat || event.repeat === "none") return;
-          const label = $("event-list").children[index].querySelector(".event-title");
-          const repeat = document.createElement("span");
-          repeat.className = "event-repeat";
-          repeat.textContent = ` (${repeatLabels[event.repeat] || "Repeats"})`;
-          label.append(repeat);
-        });
+        const selectedItems = groupByTitle(recordsOnDate(selectedDate));
+        $("event-list").innerHTML = selectedItems.length ? selectedItems.map(records => {
+          const title = records[0].title.trim().toLocaleLowerCase();
+          const matching = calendarRecords().filter(item => item.title.trim().toLocaleLowerCase() === title);
+          const dates = [...new Set(matching.map(item => item.date))].sort();
+          const ids = matching.map(item => `${item.source}:${item.id}`).join(",");
+          const important = matching.some(item => item.important);
+          const item = records[0];
+          const description = matching.map(record => record.description || record.notes || "").find(Boolean) || "";
+          const groups = [...new Set(matching.map(record => record.group).filter(Boolean))];
+          return `<article class="calendar-entry${important ? " important" : ""}">
+            <div class="event-title"><strong>${escapeHtml(item.title)}</strong>${important ? '<span class="priority-label">Important</span>' : ""}</div>
+            <div class="event-subject">${escapeHtml(item.type || "Date")}${item.subject ? ` · ${escapeHtml(item.subject)}` : ""}${groups.length ? ` · ${escapeHtml(groups.join(", "))}` : ""}</div>
+            <div class="event-subject">${dates.map(formatDateKey).map(escapeHtml).join(", ")}${item.repeat && item.repeat !== "none" ? ` · ${escapeHtml(repeatLabels[item.repeat] || "Repeats")}` : ""}</div>
+            ${description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(description)}</p></details>` : ""}
+            <button type="button" class="text-button" data-delete-calendar-group="${escapeHtml(ids)}" aria-label="Remove ${escapeHtml(item.title)}">Remove group</button>
+          </article>`;
+        }).join("") : '<div class="empty" style="padding: 5px 0 0">Nothing planned. Add a date or project.</div>';
+      }
+
+      function renderSelectedTodos() {
+        const grouped = groupByTitle(state.todos);
+        $("todo-list").innerHTML = grouped.length ? grouped.map(records => {
+          const important = records.some(todo => todo.important);
+          const dates = [...new Set(records.map(todo => todo.date))].sort();
+          const groups = [...new Set(records.map(todo => todo.group || "Ungrouped"))].sort();
+          const ids = records.map(todo => todo.id).join(",");
+          return `<article class="task-row${important ? " important" : ""}">
+            <strong>${escapeHtml(records[0].title)}</strong>${important ? '<span class="priority-label">Important</span>' : ""}
+            <div class="task-meta">${escapeHtml(groups.join(", "))} · ${dates.map(formatDateKey).map(escapeHtml).join(", ")}</div>
+            ${records.find(todo => todo.description)?.description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(records.find(todo => todo.description).description)}</p></details>` : ""}
+            <div class="task-meta"><label><input type="checkbox" data-complete-todo-group="${escapeHtml(ids)}" ${records.every(todo => todo.done) ? "checked" : ""}> Done</label> <button type="button" class="text-button" data-delete-todo-group="${escapeHtml(ids)}">Remove group</button></div>
+          </article>`;
+        }).join("") : '<div class="empty" style="padding: 5px 0 0">No to-dos for this date.</div>';
+      }
+
+      function renderStudyLists() {
+        const renderGroups = (items, source) => {
+          if (!items.length) return `<div class="empty">No ${source === "project" ? "projects or tests planned" : "homework added"}.</div>`;
+          const groups = new Map();
+          groupByTitle(items).forEach(records => {
+            const name = [...new Set(records.map(item => item.group?.trim() || (source === "homework" ? item.className : item.type) || "Ungrouped"))].sort().join(", ");
+            if (!groups.has(name)) groups.set(name, []);
+            groups.get(name).push(records);
+          });
+          return [...groups.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([name, records]) =>
+            `<details class="group-section" open><summary>${escapeHtml(name)} (${records.length})</summary><div class="group-body">${records.map(group => renderStudyRecordGroup(group, source)).join("")}</div></details>`
+          ).join("");
+        };
+        $("project-list").innerHTML = renderGroups(state.projects, "project");
+        $("study-homework-list").innerHTML = renderGroups(state.homework, "homework");
+        renderHomePriorities();
+        refreshGroupLists();
+      }
+
+      function renderStudyRecordGroup(records, source) {
+        const all = records;
+        const important = all.some(item => item.important);
+        const item = records[0];
+        const ids = all.map(record => record.id).join(",");
+        const subtasks = source === "project"
+          ? all.flatMap(record => (record.subtasks || []).map((task, index) => ({ ...task, projectId: record.id, index })))
+          : [];
+        return `<article class="task-row${important ? " important" : ""}">
+          <strong>${escapeHtml(item.title)}</strong>${important ? '<span class="priority-label">Important</span>' : ""}
+          <div class="task-meta">${escapeHtml([...new Set(all.map(record => record.className || record.group || record.type || source))].join(", "))} · ${escapeHtml([...new Set(all.map(record => record.date))].map(formatDateKey).join(", "))}</div>
+          ${item.description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(item.description)}</p></details>` : ""}
+          ${subtasks.length ? `<details class="item-details"><summary>Subtasks (${subtasks.filter(task => task.done).length}/${subtasks.length})</summary>${subtasks.map(task => `<label class="item-description"><input type="checkbox" data-subtask-id="${escapeHtml(task.projectId)}" data-subtask-index="${task.index}" ${task.done ? "checked" : ""}> ${escapeHtml(task.title)}</label>`).join("")}</details>` : ""}
+          <div class="task-meta"><button type="button" class="text-button" data-complete-work="${source}:${escapeHtml(ids)}">${all.every(record => record.done) ? "Reopen" : "Mark done"}</button><button type="button" class="text-button" data-delete-work="${source}:${escapeHtml(ids)}">Remove</button></div>
+        </article>`;
       }
 
       function renderFocusTimer() {
@@ -826,11 +1101,14 @@
         form.reset();
         form.dataset.editingId = item ? item.id : "";
         $("class-dialog-title").textContent = item ? "Edit class" : "Add a class";
+        setClassPeriodButtons("start", "am");
+        setClassPeriodButtons("end", "am");
         if (item) {
           $("class-name-input").value = item.name;
           $("class-room-input").value = item.room || "";
-          $("class-start-input").value = formatTime(item.start);
-          $("class-end-input").value = formatTime(item.end);
+          $("class-group-input").value = item.group || "";
+          setClassTime("start", item.start);
+          setClassTime("end", item.end);
           form.querySelectorAll('input[name="days"]').forEach(input => {
             input.checked = item.days.includes(Number(input.value));
           });
@@ -867,25 +1145,28 @@
       }
 
       function applyTheme() {
-        const isDark = state.theme === "dark"
-          || (state.theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-        document.documentElement.dataset.theme = isDark ? "dark" : "light";
-        document.documentElement.dataset.palette = state.palette;
-        const themeColors = {
-          light: { original: "#f5f1e8", green: "#eef3eb", blue: "#eef2f6", pink: "#f7eff1" },
-          dark: { original: "#202320", green: "#202721", blue: "#20252b", pink: "#2a2226" }
+        const theme = state.darkMode ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]').content = state.darkMode ? "#151a18" : "#f5f8f6";
+        $("dark-mode-button").setAttribute("aria-checked", String(state.darkMode));
+      }
+
+      function exportBackup() {
+        const backup = {
+          format: "daybook-backup",
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          data: state
         };
-        const paletteColors = {
-          original: ["#f5f1e8", "#202320"], green: ["#eef3eb", "#202721"],
-          blue: ["#eef2f6", "#20252b"], pink: ["#f7eff1", "#2a2226"],
-          purple: ["#f2eff6", "#25222b"], teal: ["#edf4f2", "#202725"],
-          amber: ["#f6f1e8", "#29251f"]
-        };
-        document.querySelector('meta[name="theme-color"]').content = paletteColors[state.palette][isDark ? 1 : 0];
-        $("theme-select").value = state.theme;
-        document.querySelectorAll("[data-palette-choice]").forEach(button => {
-          button.setAttribute("aria-pressed", String(button.dataset.paletteChoice === state.palette));
-        });
+        const url = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" }));
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `daybook-backup-${dateKey(new Date())}.json`;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        showToast("Daybook JSON backup downloaded.");
       }
 
       function notificationSupported() {
@@ -1027,7 +1308,7 @@
 
       function exportCalendar() {
         const escapeIcs = value => String(value).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
-        const events = state.events.map(event => {
+        const events = calendarRecords().map(event => {
           const time = event.time || "09:00";
           const [year, month, day] = event.date.split("-");
           const [hour, minute] = time.split(":");
@@ -1038,7 +1319,7 @@
           const frequencies = { daily: "DAILY", weekly: "WEEKLY", biweekly: "WEEKLY;INTERVAL=2", monthly: "MONTHLY" };
           const rule = frequencies[event.repeat || "none"];
           const recurrence = rule ? `\nRRULE:FREQ=${rule}${event.until ? `;UNTIL=${event.until.replace(/-/g, "")}T235959` : ""}` : "";
-          return `BEGIN:VEVENT\nUID:${escapeIcs(event.id)}@daybook.local\nDTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "")}\nDTSTART:${start}\nDTEND:${end}${recurrence}\nSUMMARY:${escapeIcs(event.title)}\nDESCRIPTION:${escapeIcs([event.type, event.subject, event.notes].filter(Boolean).join(" - "))}\nEND:VEVENT`;
+          return `BEGIN:VEVENT\nUID:${escapeIcs(event.id)}@daybook.local\nDTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "")}\nDTSTART:${start}\nDTEND:${end}${recurrence}\nSUMMARY:${escapeIcs(event.title)}\nDESCRIPTION:${escapeIcs([event.type, event.subject, event.description, event.notes].filter(Boolean).join(" - "))}\nEND:VEVENT`;
         });
         const content = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Daybook//Class Notebook//EN\nCALSCALE:GREGORIAN\n${events.join("\n")}\nEND:VCALENDAR`;
         const url = URL.createObjectURL(new Blob([content], { type: "text/calendar;charset=utf-8" }));
@@ -1055,6 +1336,9 @@
       function setDefaultDates() {
         const key = dateKey(new Date());
         $("event-date-input").value = key;
+        $("todo-date-input").value = key;
+        $("project-date-input").value = key;
+        $("homework-date-input").value = key;
       }
 
       function setupDayCheckboxes() {
@@ -1063,27 +1347,40 @@
 
       function setupEvents() {
         $("notifications-button").addEventListener("click", enableNotifications);
+        $("dark-mode-button").addEventListener("click", () => {
+          const previous = state.darkMode;
+          state.darkMode = !previous;
+          if (saveState()) applyTheme();
+          else state.darkMode = previous;
+        });
+        $("export-backup-button").addEventListener("click", exportBackup);
         document.querySelectorAll(".notification-category").forEach(toggle => toggle.addEventListener("click", () => {
           const category = toggle.dataset.notificationCategory;
           state.notificationSettings.categories[category] = !state.notificationSettings.categories[category];
           if (saveState()) renderNotificationButton();
         }));
-        $("theme-select").addEventListener("change", () => {
-          state.theme = $("theme-select").value;
-          applyTheme();
-          saveState();
-        });
-        $("palette-choices").addEventListener("click", event => {
-          const button = event.target.closest("[data-palette-choice]");
-          if (!button) return;
-          state.palette = button.dataset.paletteChoice;
-          applyTheme();
-          saveState();
-        });
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-          if (state.theme === "system") applyTheme();
+        document.querySelectorAll("[data-period-control] [data-period]").forEach(button => {
+          button.addEventListener("click", () => chooseClassPeriod(button.closest("[data-period-control]").dataset.periodControl, button.dataset.period));
         });
         $("add-event-button").addEventListener("click", () => openEventDialog(selectedDate));
+        $("add-todo-button").addEventListener("click", () => {
+          $("todo-form").reset();
+          $("todo-date-input").value = selectedDate;
+          setNotice("todo-notice", "");
+          openDialog("todo-dialog");
+        });
+        $("add-project-button").addEventListener("click", () => {
+          $("project-form").reset();
+          $("project-date-input").value = dateKey(new Date());
+          setNotice("project-notice", "");
+          openDialog("project-dialog");
+        });
+        $("add-homework-button").addEventListener("click", () => {
+          $("homework-form").reset();
+          $("homework-date-input").value = dateKey(new Date());
+          setNotice("homework-notice", "");
+          openDialog("homework-dialog");
+        });
         $("event-repeat-input").addEventListener("change", () => {
           const repeats = $("event-repeat-input").value !== "none";
           $("repeat-until-field").hidden = !repeats;
@@ -1103,14 +1400,14 @@
           event.preventDefault();
           const form = new FormData(event.currentTarget);
           const days = form.getAll("days").map(Number);
-          const start = parseTime(form.get("start"));
-          const end = parseTime(form.get("end"));
+          const start = parseClassTime(form.get("start"), "start");
+          const end = parseClassTime(form.get("end"), "end");
           if (!days.length) {
             setNotice("class-notice", "Choose at least one class day.", true);
             return;
           }
           if (!start || !end) {
-            setNotice("class-notice", "Enter each time like 8:30 AM or 13:30.", true);
+            setNotice("class-notice", "Enter the hour and minutes, then select AM or PM.", true);
             return;
           }
           if (end.hours * 60 + end.minutes <= start.hours * 60 + start.minutes) {
@@ -1121,6 +1418,7 @@
             id: event.currentTarget.dataset.editingId || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`),
             name: String(form.get("name")).trim(),
             room: String(form.get("room")).trim(),
+            group: String(form.get("group") || "").trim(),
             start: start.value,
             end: end.value,
             days
@@ -1163,7 +1461,10 @@
             repeat,
             until: repeat === "none" ? "" : until,
             reminder: Number(form.get("reminder")),
-            notes: String(form.get("notes")).trim()
+            notes: String(form.get("notes")).trim(),
+            description: String(form.get("description")).trim(),
+            group: String(form.get("group") || "").trim(),
+            important: form.get("important") === "on"
           };
           state.events.push(item);
           selectedDate = date;
@@ -1172,8 +1473,94 @@
           if (saveState()) {
             closeDialog("event-dialog");
             renderCalendar();
+            renderHomePriorities();
             scheduleReminders();
             showToast("Date added to your calendar.");
+          }
+        });
+
+        $("todo-form").addEventListener("submit", event => {
+          event.preventDefault();
+          const form = new FormData(event.currentTarget);
+          const date = String(form.get("date"));
+          if (!date) {
+            setNotice("todo-notice", "Choose a due date for this to-do.", true);
+            return;
+          }
+          state.todos.push({
+            id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
+            title: String(form.get("title")).trim(),
+            date,
+            group: String(form.get("group") || "").trim(),
+            description: String(form.get("description") || "").trim(),
+            important: form.get("important") === "on",
+            done: false
+          });
+          selectedDate = date;
+          shownMonth = new Date(`${date}T12:00:00`);
+          shownMonth.setDate(1);
+          if (saveState()) {
+            closeDialog("todo-dialog");
+            renderCalendar();
+            renderHomePriorities();
+            showToast("To-do added.");
+          }
+        });
+
+        $("project-form").addEventListener("submit", event => {
+          event.preventDefault();
+          const form = new FormData(event.currentTarget);
+          const date = String(form.get("date"));
+          if (!date) {
+            setNotice("project-notice", "Choose a due date.", true);
+            return;
+          }
+          const item = {
+            id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
+            title: String(form.get("title")).trim(),
+            type: String(form.get("type")),
+            className: String(form.get("className") || "").trim(),
+            date,
+            group: String(form.get("group") || "").trim(),
+            description: String(form.get("description") || "").trim(),
+            important: form.get("important") === "on",
+            done: false,
+            subtasks: String(form.get("subtasks") || "").split(/\r?\n/).map(title => title.trim()).filter(Boolean).map(title => ({ title, done: false }))
+          };
+          state.projects.push(item);
+          selectedDate = date;
+          shownMonth = new Date(`${date}T12:00:00`);
+          shownMonth.setDate(1);
+          if (saveState()) {
+            closeDialog("project-dialog");
+            renderCalendar();
+            renderStudyLists();
+            showToast(`${item.type} added to your study plan and calendar.`);
+          }
+        });
+
+        $("homework-form").addEventListener("submit", event => {
+          event.preventDefault();
+          const form = new FormData(event.currentTarget);
+          const date = String(form.get("date"));
+          if (!date) {
+            setNotice("homework-notice", "Choose a homework due date.", true);
+            return;
+          }
+          state.homework.push({
+            id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
+            className: String(form.get("className")).trim(),
+            title: String(form.get("title")).trim(),
+            date,
+            group: String(form.get("group") || "").trim(),
+            description: String(form.get("description") || "").trim(),
+            important: form.get("important") === "on",
+            done: false
+          });
+          if (saveState()) {
+            closeDialog("homework-dialog");
+            renderStudyLists();
+            showToast("Homework added.");
           }
         });
 
@@ -1184,16 +1571,74 @@
             if (item) openClassDialog(item);
             return;
           }
-          const button = event.target.closest("[data-delete-class]");
+          const button = event.target.closest("[data-delete-class-group]");
           if (!button) return;
-          state.classes = state.classes.filter(item => item.id !== button.dataset.deleteClass);
+          const ids = new Set(button.dataset.deleteClassGroup.split(","));
+          state.classes = state.classes.filter(item => !ids.has(item.id));
           if (saveState()) renderClasses();
         });
         $("event-list").addEventListener("click", event => {
-          const button = event.target.closest("[data-delete-event]");
+          const button = event.target.closest("[data-delete-calendar-group]");
           if (!button) return;
-          state.events = state.events.filter(item => item.id !== button.dataset.deleteEvent);
-          if (saveState()) renderCalendar();
+          const ids = new Set(button.dataset.deleteCalendarGroup.split(","));
+          state.events = state.events.filter(item => !ids.has(`event:${item.id}`));
+          state.projects = state.projects.filter(item => !ids.has(`project:${item.id}`));
+          if (saveState()) {
+            renderCalendar();
+            renderStudyLists();
+          }
+        });
+        $("todo-list").addEventListener("change", event => {
+          const checkbox = event.target.closest("[data-complete-todo-group]");
+          if (!checkbox) return;
+          const ids = new Set(checkbox.dataset.completeTodoGroup.split(","));
+          state.todos.forEach(todo => { if (ids.has(todo.id)) todo.done = checkbox.checked; });
+          if (saveState()) {
+            renderCalendar();
+            renderHomePriorities();
+          }
+        });
+        $("todo-list").addEventListener("click", event => {
+          const button = event.target.closest("[data-delete-todo-group]");
+          if (!button) return;
+          const ids = new Set(button.dataset.deleteTodoGroup.split(","));
+          state.todos = state.todos.filter(todo => !ids.has(todo.id));
+          if (saveState()) {
+            renderCalendar();
+            renderHomePriorities();
+          }
+        });
+        ["project-list", "study-homework-list"].forEach(listId => {
+          $(listId).addEventListener("change", event => {
+            const subtask = event.target.closest("[data-subtask-id]");
+            if (subtask) {
+              const project = state.projects.find(item => item.id === subtask.dataset.subtaskId);
+              const task = project?.subtasks[Number(subtask.dataset.subtaskIndex)];
+              if (!task) return;
+              task.done = subtask.checked;
+              if (saveState()) renderStudyLists();
+              return;
+            }
+          });
+          $(listId).addEventListener("click", event => {
+            const complete = event.target.closest("[data-complete-work]");
+            const remove = event.target.closest("[data-delete-work]");
+            const button = complete || remove;
+            if (!button) return;
+            const [source, ...idParts] = button.dataset[complete ? "completeWork" : "deleteWork"].split(":");
+            const ids = new Set(idParts.join(":").split(","));
+            const collection = source === "project" ? state.projects : state.homework;
+            if (complete) {
+              const nextDone = !collection.filter(record => ids.has(record.id)).every(record => record.done);
+              collection.forEach(item => { if (ids.has(item.id)) item.done = nextDone; });
+            }
+            else if (source === "project") state.projects = state.projects.filter(item => !ids.has(item.id));
+            else state.homework = state.homework.filter(item => !ids.has(item.id));
+            if (saveState()) {
+              renderStudyLists();
+              renderCalendar();
+            }
+          });
         });
         $("calendar-grid").addEventListener("click", event => {
           const button = event.target.closest("[data-date]");
@@ -1293,6 +1738,7 @@
         focusSeconds = state.focusMinutes * 60;
         renderClasses();
         renderCalendar();
+        renderStudyLists();
         renderFocusTimer();
         updateFocusNote();
         scheduleReminders();

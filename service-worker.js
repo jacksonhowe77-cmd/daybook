@@ -1,9 +1,10 @@
 "use strict";
 
-const CACHE_NAME = "daybook-shell-v15";
+const CACHE_NAME = "daybook-shell-v16";
 const APP_SHELL = [
   "./",
   "./index.html",
+  "./classes-example.json",
   "./notebook.webmanifest",
   "./notebook-icon.svg"
 ];

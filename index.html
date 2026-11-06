@@ -433,8 +433,8 @@
         <div class="field"><label for="class-room-input">Room or teacher (optional)</label><input id="class-room-input" name="room" maxlength="60" placeholder="Room 204"></div>
         <div class="field"><label for="class-group-input">Class group (optional)</label><input class="group-input" id="class-group-input" name="group" maxlength="50" list="class-groups" placeholder="Science"></div>
         <div class="field-row">
-          <div class="field"><label for="class-start-input">Starts</label><input id="class-start-input" name="start" type="text" inputmode="numeric" autocomplete="off" placeholder="8:30" required><div class="period-control" data-period-control="start"><button type="button" data-period="am" aria-pressed="true">AM</button><button type="button" data-period="pm" aria-pressed="false">PM</button></div></div>
-          <div class="field"><label for="class-end-input">Ends</label><input id="class-end-input" name="end" type="text" inputmode="numeric" autocomplete="off" placeholder="9:20" required><div class="period-control" data-period-control="end"><button type="button" data-period="am" aria-pressed="true">AM</button><button type="button" data-period="pm" aria-pressed="false">PM</button></div></div>
+          <div class="field"><label for="class-start-input">Starts</label><input id="class-start-input" name="start" type="text" inputmode="numeric" autocomplete="off" placeholder="8:30" data-time-input required><div class="period-control" data-period-control="start"><button type="button" data-period="am" aria-pressed="true">AM</button><button type="button" data-period="pm" aria-pressed="false">PM</button></div></div>
+          <div class="field"><label for="class-end-input">Ends</label><input id="class-end-input" name="end" type="text" inputmode="numeric" autocomplete="off" placeholder="9:20" data-time-input required><div class="period-control" data-period-control="end"><button type="button" data-period="am" aria-pressed="true">AM</button><button type="button" data-period="pm" aria-pressed="false">PM</button></div></div>
         </div>
         <div class="field"><span class="field-label">Days</span><div class="day-options" id="class-days"></div></div>
         <p class="notice" id="class-notice" role="status"></p>
@@ -617,6 +617,7 @@
       let focusRunning = false;
       let focusPhase = "focus";
       let focusInterval = null;
+      let focusDeadline = null;
       let toastTimeout = null;
       let workerRegistration = null;
       let todayScheduleExpanded = false;
@@ -1070,6 +1071,56 @@
         const seconds = focusSeconds % 60;
         $("study-timer").textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
         $("focus-start").textContent = focusRunning ? "Pause" : "Start";
+      }
+
+      function finishFocusPhase() {
+        focusRunning = false;
+        focusDeadline = null;
+        clearInterval(focusInterval);
+        if (focusPhase === "focus") {
+          focusPhase = "break";
+          focusSeconds = state.breakMinutes * 60;
+          $("focus-note").textContent = `Focus session complete. Take a ${state.breakMinutes}-minute break.`;
+          showToast(`Focus session complete. Take a ${state.breakMinutes}-minute break.`);
+          if (state.notificationSettings.categories.study) {
+            void sendNotification("Study session complete", `Your focus session is finished. Take a ${state.breakMinutes}-minute break.`, `focus-${Date.now()}`);
+          }
+        } else {
+          focusPhase = "focus";
+          focusSeconds = state.focusMinutes * 60;
+          $("focus-note").textContent = `Break finished. You're ready for another ${state.focusMinutes}-minute focus session.`;
+          showToast("Break finished. Start another focus session when you're ready.");
+          if (state.notificationSettings.categories.study) {
+            void sendNotification("Break finished", "Start another focus session when you're ready.", `break-${Date.now()}`);
+          }
+        }
+        renderFocusTimer();
+      }
+
+      function updateFocusTimer() {
+        if (!focusRunning || focusDeadline === null) return;
+        focusSeconds = Math.max(0, Math.ceil((focusDeadline - Date.now()) / 1000));
+        if (focusSeconds === 0) {
+          finishFocusPhase();
+          return;
+        }
+        renderFocusTimer();
+      }
+
+      function setupTimeInputs() {
+        document.querySelectorAll("[data-time-input]").forEach(input => {
+          input.addEventListener("input", () => {
+            if (input.value.includes(":")) return;
+            const cursor = input.selectionStart ?? input.value.length;
+            const digitsBeforeCursor = input.value.slice(0, cursor).replace(/\D/g, "").length;
+            const digits = input.value.replace(/\D/g, "").slice(0, 4);
+            const formatted = digits.length >= 2 ? `${digits.slice(0, 2)}:${digits.slice(2)}` : digits;
+            if (input.value === formatted) return;
+            input.value = formatted;
+            const nextCursor = digitsBeforeCursor + (digitsBeforeCursor >= 2 ? 1 : 0);
+            input.setSelectionRange(nextCursor, nextCursor);
+          });
+        });
       }
 
       function updateFocusNote() {
@@ -1668,44 +1719,24 @@
 
         $("focus-start").addEventListener("click", () => {
           if (focusRunning) {
+            updateFocusTimer();
+            if (!focusRunning) return;
             clearInterval(focusInterval);
             focusRunning = false;
+            focusDeadline = null;
             renderFocusTimer();
             return;
           }
           focusRunning = true;
-          focusInterval = setInterval(() => {
-            focusSeconds = Math.max(0, focusSeconds - 1);
-            renderFocusTimer();
-            if (focusSeconds === 0) {
-              clearInterval(focusInterval);
-              focusRunning = false;
-              if (focusPhase === "focus") {
-                focusPhase = "break";
-                focusSeconds = state.breakMinutes * 60;
-                $("focus-note").textContent = `Focus session complete. Take a ${state.breakMinutes}-minute break.`;
-                showToast(`Focus session complete. Take a ${state.breakMinutes}-minute break.`);
-                if (state.notificationSettings.categories.study) {
-                  void sendNotification("Study session complete", `Your focus session is finished. Take a ${state.breakMinutes}-minute break.`, `focus-${Date.now()}`);
-                }
-              } else {
-                focusPhase = "focus";
-                focusSeconds = state.focusMinutes * 60;
-                $("focus-note").textContent = `Break finished. You're ready for another ${state.focusMinutes}-minute focus session.`;
-                showToast("Break finished. Start another focus session when you're ready.");
-                if (state.notificationSettings.categories.study) {
-                  void sendNotification("Break finished", "Start another focus session when you're ready.", `break-${Date.now()}`);
-                }
-              }
-              renderFocusTimer();
-            }
-          }, 1000);
+          focusDeadline = Date.now() + focusSeconds * 1000;
+          focusInterval = setInterval(updateFocusTimer, 1000);
           renderFocusTimer();
           $("focus-note").textContent = "Focus session in progress.";
         });
         $("focus-reset").addEventListener("click", () => {
           clearInterval(focusInterval);
           focusRunning = false;
+          focusDeadline = null;
           focusPhase = "focus";
           focusSeconds = state.focusMinutes * 60;
           renderFocusTimer();
@@ -1734,6 +1765,7 @@
       function startApp() {
         setupDayCheckboxes();
         setupTabNavigation();
+        setupTimeInputs();
         setupEvents();
         applyTheme();
         setDefaultDates();
@@ -1751,6 +1783,7 @@
         }, 1000);
         document.addEventListener("visibilitychange", () => {
           if (!document.hidden) {
+            updateFocusTimer();
             renderToday();
             scheduleReminders();
           }

@@ -29,7 +29,11 @@
       --purple: #796a91;
       --paper-rule: rgb(115 159 154 / 28%);
       --paper-margin: rgb(164 93 98 / 22%);
-      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --note-cream: #fffaf0;
+      --note-pink: #f9eeed;
+      --note-teal: #edf5f2;
+      --note-yellow: #faf6df;
+      font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
       font-synthesis: none;
       text-rendering: optimizeLegibility;
     }
@@ -55,7 +59,7 @@
     .brand p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
     .top-actions { display: flex; align-items: center; gap: 9px; }
     .date-label { color: var(--muted); font-size: 13px; }
-    .button { min-height: 38px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 5px; background: var(--sheet); color: inherit; text-decoration: none; cursor: pointer; }
+    .button { min-height: 38px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 3px; background: var(--sheet); color: inherit; text-decoration: none; cursor: pointer; }
     .button:hover { border-color: var(--button-hover-border); }
     .button.primary { border-color: var(--accent-dark); background: var(--accent); color: var(--primary-text); }
     .button.primary:hover { background: var(--accent-dark); }
@@ -67,12 +71,21 @@
     .tab-icon { display: block; width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
     .tab-button[aria-selected="true"] { border-bottom-color: var(--accent); color: var(--accent-dark); font-weight: 650; }
     .layout { padding-top: 20px; }
-    .tab-panel { min-width: 0; }
-    .card { min-width: 0; border: 1px solid var(--line); border-radius: 7px; background: var(--sheet); }
+    .tab-panel { display: grid; min-width: 0; gap: 16px; align-content: start; }
+    .card { min-width: 0; border: 1px solid var(--line); border-radius: 4px; background: var(--sheet); }
     .card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px 13px; }
     .card-head h2, .section-title { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 19px; font-weight: 500; }
     .eyebrow { margin: 0 0 5px; color: var(--muted); font-size: 11px; font-weight: 650; letter-spacing: .1em; text-transform: uppercase; }
     .today-card { padding: 19px 21px 17px; border-left: 4px solid var(--accent); }
+    .sticky-card { position: relative; border-color: rgb(122 112 86 / 18%); border-radius: 2px; background-color: var(--note-cream); background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 27px, rgb(115 159 154 / 7%) 28px, transparent 29px); box-shadow: 1px 4px 10px rgb(45 46 39 / 8%); }
+    .sticky-card:nth-of-type(4n + 2) { background-color: var(--note-pink); transform: rotate(-.35deg); }
+    .sticky-card:nth-of-type(4n + 3) { background-color: var(--note-teal); transform: rotate(.3deg); }
+    .sticky-card:nth-of-type(4n) { background-color: var(--note-yellow); transform: rotate(-.2deg); }
+    .sticky-card > .card-head, .sticky-card > .eyebrow, .sticky-card > .section-title, .sticky-card > .weekly-preview { position: relative; z-index: 1; }
+    .sticky-card[data-home-section="weekly"] { padding: 15px 18px; }
+    .sticky-card > .eyebrow, .sticky-card > .section-title { margin-right: 15px; margin-left: 15px; }
+    .sticky-card[data-home-section="weekly"] > .weekly-preview { margin-right: 5px; margin-left: 5px; }
+    .priority-section > .sticky-card:first-child { padding: 15px 18px; }
     .today-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
     .today-head h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 22px; font-weight: 500; }
     .live-clock { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
@@ -98,10 +111,10 @@
     .schedule-time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
     .class-schedule-item { display: grid; gap: 7px; padding: 12px 18px; border-bottom: 1px solid var(--line); }
     .class-schedule-item:last-child { border-bottom: 0; }
-    .class-schedule-top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .class-schedule-top .schedule-time { color: var(--accent-dark); font-weight: 600; }
+    .class-schedule-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; }
+    .class-schedule-top .schedule-time { min-width: 0; color: var(--accent-dark); font-weight: 600; }
     .class-schedule-details { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; align-items: center; }
-    .schedule-days { color: var(--muted); font-size: 13px; }
+    .schedule-days { overflow-x: auto; color: var(--muted); font-size: 13px; white-space: nowrap; }
     .schedule-name { font-size: 14px; font-weight: 600; }
     .schedule-room { margin-top: 3px; color: var(--muted); font-size: 12px; }
     .text-button { padding: 4px; border: 0; background: none; color: var(--muted); font-size: 12px; text-decoration: underline; cursor: pointer; }
@@ -154,6 +167,7 @@
     .dialog-head h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 21px; font-weight: 500; }
     .dialog-body { display: grid; gap: 14px; padding: 18px 20px 20px; }
     .field { display: grid; gap: 6px; }
+    fieldset.field { min-width: 0; margin: 0; padding: 0; border: 0; }
     .field label, .field-label { color: var(--muted); font-size: 12px; font-weight: 600; }
     .field input, .field select, .field textarea { width: 100%; min-height: 38px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--sheet-alt); color: var(--ink); }
     .field textarea { min-height: 74px; resize: vertical; }
@@ -161,7 +175,7 @@
     .day-options { display: flex; flex-wrap: wrap; gap: 7px; }
     .day-option { display: flex; align-items: center; gap: 5px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); font-size: 12px; }
     .day-option input { width: auto; min-height: 0; margin: 0; }
-    .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 2px; }
+    .dialog-actions { position: sticky; bottom: 0; display: flex; justify-content: flex-end; gap: 8px; margin: 2px -20px -20px; padding: 12px 20px max(12px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--sheet); }
     .notice { min-height: 18px; color: var(--muted); font-size: 12px; }
     .notice.error { color: var(--red); }
     .settings-card { max-width: 620px; }
@@ -186,22 +200,62 @@
     .privacy-note { margin: 0; padding: 13px 15px; border: 1px solid var(--line); border-radius: 5px; color: var(--muted); font-size: 12px; line-height: 1.5; }
     .important { border-color: #e3c2c2; background: #fff3f1; }
     .important .eyebrow, .important .priority-label { color: #a45d62; }
-    .priority-section { display: grid; gap: 10px; margin-bottom: 15px; }
+    .priority-section { display: grid; gap: 15px; }
     .priority-section > .card { padding: 15px 18px; }
     .priority-list { display: grid; gap: 8px; margin-top: 10px; }
-    .priority-row, .task-row, .calendar-entry { padding: 10px 12px; border: 1px solid var(--line-soft); border-radius: 5px; background: var(--sheet); }
+    .priority-row, .task-row, .calendar-entry { padding: 12px 14px; border: 1px solid var(--line-soft); border-radius: 2px; background: var(--sheet); box-shadow: 1px 3px 7px rgb(45 46 39 / 9%); }
+    .priority-row:nth-child(4n + 1), .task-row:nth-child(4n + 1) { transform: rotate(-.7deg); background-color: var(--note-cream); }
+    .priority-row:nth-child(4n + 2), .task-row:nth-child(4n + 2) { transform: rotate(.6deg); background-color: var(--note-pink); }
+    .priority-row:nth-child(4n + 3), .task-row:nth-child(4n + 3) { transform: rotate(-.35deg); background-color: var(--note-teal); }
+    .priority-row:nth-child(4n), .task-row:nth-child(4n) { transform: rotate(.35deg); background-color: var(--note-yellow); }
+    .priority-row, .task-row { background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 27px, rgb(115 159 154 / 6%) 28px, transparent 29px); transition: opacity 180ms ease, transform 180ms ease, box-shadow 180ms ease; }
     .priority-row.important, .task-row.important, .calendar-entry.important { border-color: #e3c2c2; background: #fff3f1; }
     .priority-meta, .task-meta { margin-top: 3px; color: var(--muted); font-size: 12px; }
     .priority-label { margin-left: 5px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
     .item-details summary { color: var(--ink); cursor: pointer; font-size: 13px; font-weight: 600; }
     .item-description { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; white-space: pre-wrap; }
     .group-section { margin: 12px 0; border-top: 1px solid var(--line); }
-    .group-section > summary { padding: 11px 18px; color: var(--accent-dark); font-weight: 650; cursor: pointer; }
+    .group-section > summary { padding: 11px 18px; border-bottom: 1px dashed var(--line); color: var(--accent-dark); font-weight: 650; cursor: pointer; }
     .group-body { display: grid; gap: 8px; padding: 0 14px 14px; }
     .group-input { width: 100%; min-height: 38px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--sheet-alt); color: var(--ink); }
     .period-control { display: flex; gap: 5px; }
     .period-control button { min-width: 42px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--sheet); cursor: pointer; }
     .period-control button[aria-pressed="true"] { border-color: var(--accent); background: var(--soft); color: var(--accent-dark); font-weight: 650; }
+    .attachment-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .attachment-list a { display: block; max-width: 160px; color: var(--accent-dark); font-size: 12px; }
+    .attachment-list img { display: block; width: auto; max-width: 160px; max-height: 120px; border: 1px solid var(--line); object-fit: cover; }
+    .reminder-choices { display: flex; flex-wrap: wrap; gap: 6px; }
+    .reminder-choices .day-option { min-height: 34px; }
+    .quick-add-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .weekly-preview { display: grid; gap: 5px; margin-top: 12px; }
+    .weekly-day { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 8px; padding: 7px 0; border-top: 1px dashed var(--line); font-size: 13px; }
+    .weekly-day time { color: var(--accent-dark); font-weight: 650; white-space: nowrap; }
+    .weekly-items { color: var(--muted); }
+    .subtask-progress { display: block; width: 100%; height: 6px; margin: 6px 0; accent-color: var(--accent); }
+    .task-row { position: relative; }
+    .completed-task, .task-row.is-completed { opacity: .72; }
+    .completed-task > strong { text-decoration: line-through; }
+    .task-row.is-completed > strong { text-decoration: line-through; }
+    .completed-task::after, .task-row.is-completed::after { position: absolute; top: 5px; right: 9px; color: var(--accent-dark); font-size: 11px; font-weight: 700; content: "✓ DONE"; animation: stamp-in 220ms ease-out; }
+    .pin-note { position: relative; padding: 13px 15px; border: 1px solid var(--line); color: var(--ink); box-shadow: 1px 3px 7px rgb(45 46 39 / 10%); }
+    .pin-note p { margin: 7px 0 0; white-space: pre-wrap; }
+    .pin-note-actions { display: flex; justify-content: flex-end; gap: 8px; }
+    .note-color-cream { background-color: var(--note-cream); }
+    .note-color-pink { background-color: var(--note-pink); }
+    .note-color-teal { background-color: var(--note-teal); }
+    .note-color-yellow { background-color: var(--note-yellow); }
+    :root[data-theme="dark"] .pin-note,
+    :root[data-theme="dark"] .sticky-card { background: var(--sheet-alt); }
+    .home-layout-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px dashed var(--line); }
+    .home-layout-actions { display: flex; align-items: center; gap: 6px; }
+    .home-layout-actions .button { min-width: 34px; padding: 4px 8px; }
+    .search-results { display: grid; gap: 7px; }
+    .search-result { padding: 10px 12px; border-bottom: 1px dashed var(--line); background: transparent; text-align: left; cursor: pointer; }
+    .search-result:hover { background: var(--hover); }
+    .search-result small { display: block; margin-top: 3px; color: var(--muted); }
+    .day-cell.drop-target { outline: 2px dashed var(--accent); outline-offset: -3px; }
+    .event-bar[draggable="true"] { cursor: grab; touch-action: none; }
+    @keyframes stamp-in { from { opacity: 0; transform: scale(1.7) rotate(8deg); } to { opacity: .85; transform: scale(1) rotate(0); } }
     :root[data-theme="dark"] {
       color-scheme: dark;
       --paper: #151a18;
@@ -236,6 +290,8 @@
       border-color: #70484c;
       background: #352729;
     }
+    :root[data-theme="dark"] .priority-row:nth-child(n):not(.important),
+    :root[data-theme="dark"] .task-row:nth-child(n):not(.important) { background: var(--sheet); }
     :root[data-theme="dark"] .important .eyebrow,
     :root[data-theme="dark"] .important .priority-label { color: #e0a2a3; }
     :root[data-theme="dark"] .event-bar.assignment,
@@ -273,6 +329,18 @@
       .event-list { padding-right: 13px; padding-left: 13px; }
       .field-row { grid-template-columns: 1fr; }
       .class-schedule-details { grid-template-columns: 56px minmax(0, 1fr); gap: 6px; }
+      .priority-section > .card { padding-right: 12px; padding-left: 12px; }
+      .weekly-day { grid-template-columns: 88px minmax(0, 1fr); }
+      .dialog-actions { bottom: 0; }
+      .class-schedule-top { grid-template-columns: minmax(0, 1fr) auto; gap: 5px; }
+      .schedule-actions { white-space: nowrap; }
+      .schedule-actions .text-button { padding: 5px 3px; }
+      body { font-size: 16px; }
+      .priority-row, .task-row { padding: 12px 12px; }
+      .tab-button { min-height: 54px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
     @media (max-width: 380px) {
       .schedule-item { grid-template-columns: 68px minmax(0, 1fr) auto; gap: 6px; padding-right: 8px; padding-left: 8px; }
@@ -300,6 +368,8 @@
       </div>
       <div class="top-actions">
         <span class="date-label" id="today-date"></span>
+        <button class="button" id="search-button" type="button" aria-label="Search Daybook"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.5 15.5 5 5"/></svg> Search</button>
+        <button class="button primary" id="quick-add-button" type="button" aria-label="Quick add"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Add</button>
       </div>
     </header>
 
@@ -313,7 +383,7 @@
 
     <main class="layout">
       <section class="tab-panel" id="panel-today" role="tabpanel" aria-labelledby="tab-today" tabindex="0">
-        <section class="card today-card" aria-labelledby="today-heading">
+        <section class="card sticky-card today-card" data-home-section="today" aria-labelledby="today-heading">
           <div class="today-head">
             <div><p class="eyebrow">Your day</p><h2 id="today-heading">Today's classes</h2></div>
             <time class="live-clock" id="live-clock"></time>
@@ -332,16 +402,28 @@
           <button class="text-button" id="today-schedule-toggle" type="button" aria-expanded="false" aria-controls="today-full-schedule" hidden>Show the rest of today's classes</button>
           <div class="schedule-list" id="today-full-schedule" hidden></div>
         </section>
-        <section class="priority-section" aria-label="Upcoming priorities">
-          <section class="card" aria-labelledby="priority-heading">
+        <section class="card sticky-card" data-home-section="weekly" aria-labelledby="weekly-preview-heading">
+          <p class="eyebrow">A little look ahead</p><h2 class="section-title" id="weekly-preview-heading">Next seven days</h2>
+          <div class="weekly-preview" id="weekly-preview"></div>
+        </section>
+        <section class="priority-section" data-home-section="priorities" aria-label="Upcoming priorities">
+          <section class="card sticky-card" aria-labelledby="priority-heading">
             <p class="eyebrow">Important first</p><h2 class="section-title" id="priority-heading">Upcoming dates &amp; to-dos</h2>
             <div class="priority-list" id="priority-list"></div>
           </section>
-          <details class="card" id="homework-projects">
+          <details class="card sticky-card" id="homework-projects">
             <summary><strong>Homework &amp; projects</strong> <span class="priority-meta" id="homework-project-count">0 items</span></summary>
             <div class="group-body" id="homework-project-list"></div>
           </details>
         </section>
+        <section class="card sticky-card home-extras" data-home-section="notes" aria-labelledby="pinned-notes-heading">
+          <div class="card-head"><div><p class="eyebrow">Keep close at hand</p><h2 id="pinned-notes-heading">Pinned notes</h2></div><button class="button small" id="add-note-button" type="button">Add note</button></div>
+          <div class="group-body" id="pinned-notes-list"></div>
+        </section>
+        <details class="card sticky-card home-extras" data-home-section="recent" id="recently-completed">
+          <summary class="card-head"><span><p class="eyebrow">A second chance</p><strong>Recently completed</strong></span><span class="priority-meta" id="recent-count">0 items</span></summary>
+          <div class="group-body" id="recently-completed-list"></div>
+        </details>
       </section>
 
       <section class="tab-panel" id="panel-classes" role="tabpanel" aria-labelledby="tab-classes" tabindex="0" hidden>
@@ -420,14 +502,20 @@
               <div class="notification-toggle-row"><span id="dark-mode-label">Dark mode</span><button class="switch dark-mode-switch" id="dark-mode-button" type="button" role="switch" aria-label="Dark mode" aria-labelledby="dark-mode-label" aria-checked="false"></button></div>
             </div>
             <div class="settings-group">
-              <h3>Backup</h3><p class="settings-description">Download a copy of your classes, dates, to-dos, projects, and homework.</p>
+              <h3>Backup</h3><p class="settings-description">Download your classes, dates, tasks, images, pinned notes, and homepage preferences.</p>
               <button class="button" id="export-backup-button" type="button">Download Daybook backup</button>
+            </div>
+            <div class="settings-group">
+              <h3>Homepage</h3><p class="settings-description">Choose which sections to show and move them into the order that works for you.</p>
+              <div id="homepage-preferences"></div>
             </div>
             <div class="settings-group">
               <div class="notification-heading"><svg class="notification-icon" id="notification-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><h3>Notifications</h3></div>
               <div class="notification-toggle-row"><span id="notification-master-label">Device notifications</span><button class="switch" id="notifications-button" type="button" role="switch" aria-label="Device notifications" aria-checked="false"></button></div>
               <div class="notification-options" id="notification-options">
                 <div class="notification-toggle-row"><span>Calendar reminders</span><button class="switch notification-category" type="button" role="switch" aria-label="Calendar reminders" aria-checked="true" data-notification-category="calendar"></button></div>
+                <div class="notification-toggle-row"><span>Homework reminders</span><button class="switch notification-category" type="button" role="switch" aria-label="Homework reminders" aria-checked="true" data-notification-category="homework"></button></div>
+                <div class="notification-toggle-row"><span>Project reminders</span><button class="switch notification-category" type="button" role="switch" aria-label="Project reminders" aria-checked="true" data-notification-category="projects"></button></div>
                 <div class="notification-toggle-row"><span>Class end alerts</span><button class="switch notification-category" type="button" role="switch" aria-label="Class end alerts" aria-checked="true" data-notification-category="classes"></button></div>
                 <div class="notification-toggle-row"><span>Study timer alerts</span><button class="switch notification-category" type="button" role="switch" aria-label="Study timer alerts" aria-checked="true" data-notification-category="study"></button></div>
               </div>
@@ -474,7 +562,13 @@
         </div>
         <div class="field"><label for="event-repeat-input">Repeat</label><select id="event-repeat-input" name="repeat"><option value="none">Does not repeat</option><option value="daily">Every day</option><option value="weekly">Every week</option><option value="biweekly">Every 2 weeks</option><option value="monthly">Every month</option></select></div>
         <div class="field" id="repeat-until-field" hidden><label for="event-until-input">Repeat until (optional)</label><input id="event-until-input" name="until" type="date"><span class="settings-description">Leave blank to repeat without an end date.</span></div>
-        <div class="field"><label for="event-reminder-input">Device reminder</label><select id="event-reminder-input" name="reminder"><option value="0">No reminder</option><option value="10">10 minutes before</option><option value="60">1 hour before</option><option value="1440" selected>1 day before</option></select></div>
+        <fieldset class="field"><legend class="field-label">Device reminders</legend><div class="reminder-choices">
+          <label class="day-option"><input name="reminders" type="checkbox" value="10080"> 1 week before</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="4320"> 3 days before</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="1440" checked> 1 day before</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="morning"> Deadline day, 8 AM</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="60"> 1 hour before</label>
+        </div></fieldset>
         <div class="field"><label for="event-notes-input">Notes (optional)</label><textarea id="event-notes-input" name="notes" maxlength="500" placeholder="Topics to review, materials to bring…"></textarea></div>
         <div class="field"><label for="event-description-input">Description (optional)</label><textarea id="event-description-input" name="description" maxlength="1000" placeholder="Add details to reveal from the calendar or home page…"></textarea></div>
         <label class="day-option"><input name="important" type="checkbox"> Mark important</label>
@@ -507,6 +601,14 @@
         <div class="field-row"><div class="field"><label for="project-class-input">Class (optional)</label><input id="project-class-input" name="className" maxlength="60" placeholder="History"></div><div class="field"><label for="project-group-input">Group (optional)</label><input class="group-input" id="project-group-input" name="group" maxlength="50" list="project-groups" placeholder="Science"></div></div>
         <div class="field"><label for="project-description-input">Description</label><textarea id="project-description-input" name="description" maxlength="1000"></textarea></div>
         <div class="field"><label for="project-subtasks-input">Subtasks (one per line)</label><textarea id="project-subtasks-input" name="subtasks" maxlength="2000" placeholder="Find sources&#10;Write outline&#10;Review"></textarea></div>
+        <fieldset class="field"><legend class="field-label">Device reminders</legend><div class="reminder-choices">
+          <label class="day-option"><input name="reminders" type="checkbox" value="10080"> 1 week before</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="4320"> 3 days before</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="1440" checked> 1 day before</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="morning"> Deadline day, 8 AM</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="60"> 1 hour before</label>
+        </div></fieldset>
+        <div class="field"><label for="project-images-input">Attach images (optional)</label><input id="project-images-input" name="images" type="file" accept="image/*" multiple><span class="settings-description">Up to 3 images; photos are resized to fit your notebook.</span></div>
         <label class="day-option"><input name="important" type="checkbox"> Mark important</label>
         <p class="notice" id="project-notice" role="status"></p>
         <div class="dialog-actions"><button class="button" type="button" data-close="project-dialog">Cancel</button><button class="button primary" type="submit">Save project or test</button></div>
@@ -522,9 +624,47 @@
         <div class="field"><label for="homework-title-input">Homework</label><input id="homework-title-input" name="title" maxlength="100" required placeholder="Practice problems"></div>
         <div class="field-row"><div class="field"><label for="homework-date-input">Due date</label><input id="homework-date-input" name="date" type="date" required></div><div class="field"><label for="homework-group-input">Group (optional)</label><input class="group-input" id="homework-group-input" name="group" maxlength="50" list="homework-groups" placeholder="Science"></div></div>
         <div class="field"><label for="homework-description-input">Description</label><textarea id="homework-description-input" name="description" maxlength="1000"></textarea></div>
+        <fieldset class="field"><legend class="field-label">Device reminders</legend><div class="reminder-choices">
+          <label class="day-option"><input name="reminders" type="checkbox" value="10080"> 1 week before</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="4320"> 3 days before</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="1440" checked> 1 day before</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="morning"> Deadline day, 8 AM</label>
+          <label class="day-option"><input name="reminders" type="checkbox" value="60"> 1 hour before</label>
+        </div></fieldset>
+        <div class="field"><label for="homework-images-input">Attach images (optional)</label><input id="homework-images-input" name="images" type="file" accept="image/*" multiple><span class="settings-description">Up to 3 images; photos are resized to fit your notebook.</span></div>
         <label class="day-option"><input name="important" type="checkbox"> Mark important</label>
         <p class="notice" id="homework-notice" role="status"></p>
         <div class="dialog-actions"><button class="button" type="button" data-close="homework-dialog">Cancel</button><button class="button primary" type="submit">Save homework</button></div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="quick-add-dialog">
+    <div class="dialog-head"><h2>What would you like to add?</h2><button class="button small" type="button" data-close="quick-add-dialog">Close</button></div>
+    <div class="dialog-body quick-add-options">
+      <button class="button" type="button" data-quick-add="homework">Homework</button>
+      <button class="button" type="button" data-quick-add="project">Project or test</button>
+      <button class="button" type="button" data-quick-add="event">Calendar event</button>
+      <button class="button" type="button" data-quick-add="todo">To-do</button>
+    </div>
+  </dialog>
+
+  <dialog id="search-dialog">
+    <div class="dialog-head"><h2>Search your Daybook</h2><button class="button small" type="button" data-close="search-dialog">Close</button></div>
+    <div class="dialog-body">
+      <div class="field"><label for="global-search-input">Classes, homework, projects, dates, to-dos, and notes</label><input id="global-search-input" type="search" autocomplete="off" placeholder="Try “biology” or “exam”"></div>
+      <div class="search-results" id="search-results" aria-live="polite"></div>
+    </div>
+  </dialog>
+
+  <dialog id="note-dialog">
+    <form id="note-form">
+      <div class="dialog-head"><h2 id="note-dialog-title">Pin a note</h2><button class="button small" type="button" data-close="note-dialog">Close</button></div>
+      <div class="dialog-body">
+        <div class="field"><label for="note-title-input">Title</label><input id="note-title-input" name="title" maxlength="80" required placeholder="Ideas for the week"></div>
+        <div class="field"><label for="note-text-input">Note</label><textarea id="note-text-input" name="text" maxlength="1500" required placeholder="Write a thought to keep on your homepage…"></textarea></div>
+        <div class="field"><label for="note-color-input">Sticky-note color</label><select id="note-color-input" name="color"><option value="cream">Cream</option><option value="pink">Dusty pink</option><option value="teal">Pale teal</option><option value="yellow">Soft yellow</option></select></div>
+        <div class="dialog-actions"><button class="button" type="button" data-close="note-dialog">Cancel</button><button class="button primary" type="submit">Save note</button></div>
       </div>
     </form>
   </dialog>
@@ -542,6 +682,13 @@
       "use strict";
 
       const STORAGE_KEY = "daybook-notebook-v1";
+      const HOMEPAGE_SECTIONS = [
+        { id: "today", label: "Today's classes" },
+        { id: "weekly", label: "Next seven days" },
+        { id: "priorities", label: "Upcoming priorities & homework" },
+        { id: "notes", label: "Pinned notes" },
+        { id: "recent", label: "Recently completed" }
+      ];
       const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
       const DAYS = [
         { value: 1, label: "Mon" }, { value: 2, label: "Tue" }, { value: 3, label: "Wed" },
@@ -573,6 +720,60 @@
         const [year, month, day] = key.split("-").map(Number);
         return Date.UTC(year, month - 1, day) / 86_400_000;
       };
+      const isItemImportant = item => {
+        const isWorkItem = item.source
+          ? item.source === "homework" || item.source === "project"
+          : Boolean(item.className) || item.type === "Project" || item.type === "Test";
+        return Boolean(item.important) || (isWorkItem && !item.done && Boolean(item.date)
+          && dateOrdinal(item.date) - dateOrdinal(dateKey(new Date())) <= 1);
+      };
+      const selectedReminders = formData => formData.getAll("reminders").map(String);
+      async function readImageAttachments(input) {
+        const files = [...input.files];
+        if (files.length > 3) throw new Error("Choose up to 3 images.");
+        const images = [];
+        for (const file of files) {
+          if (!file.type.startsWith("image/")) throw new Error("Choose image files only.");
+          if (file.size > 12 * 1024 * 1024) throw new Error(`${file.name} is too large. Choose an image under 12 MB.`);
+          let data;
+          if (typeof createImageBitmap === "function") {
+            const bitmap = await createImageBitmap(file);
+            const scale = Math.min(1, 1400 / Math.max(bitmap.width, bitmap.height));
+            const canvas = document.createElement("canvas");
+            canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+            canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+            const context = canvas.getContext("2d");
+            if (!context) throw new Error("This browser could not prepare the image.");
+            context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+            bitmap.close();
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/webp", 0.8));
+            if (!blob) throw new Error(`Could not prepare ${file.name}.`);
+            data = await new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result);
+              reader.onerror = () => reject(new Error(`Could not read ${file.name}.`));
+              reader.readAsDataURL(blob);
+            });
+          } else {
+            data = await new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result);
+              reader.onerror = () => reject(new Error(`Could not read ${file.name}.`));
+              reader.readAsDataURL(file);
+            });
+          }
+          images.push({ name: file.name, data });
+        }
+        return images;
+      }
+      function renderAttachments(item) {
+        const images = Array.isArray(item.images) ? item.images.filter(image =>
+          image && typeof image.name === "string" && typeof image.data === "string" && /^data:image\//i.test(image.data)
+        ) : [];
+        return images.length ? `<div class="attachment-list">${images.map(image =>
+          `<a href="${escapeHtml(image.data)}" target="_blank" rel="noopener" aria-label="View ${escapeHtml(image.name)}"><img src="${escapeHtml(image.data)}" alt="${escapeHtml(image.name)}">${escapeHtml(image.name)}</a>`
+        ).join("")}</div>` : "";
+      }
       const repeatLabels = { none: "", daily: "Repeats daily", weekly: "Repeats weekly", biweekly: "Repeats every 2 weeks", monthly: "Repeats monthly" };
       const occursOnDate = (event, key) => {
         if (key < event.date || (event.until && key > event.until)) return false;
@@ -641,6 +842,9 @@
       let toastTimeout = null;
       let workerRegistration = null;
       let todayScheduleExpanded = false;
+      let draggingCalendarEntry = null;
+      let calendarPointerStart = null;
+      let suppressCalendarClick = false;
 
       function loadState() {
         try {
@@ -658,17 +862,22 @@
               ...item,
               description: item.description || item.notes || "",
               important: Boolean(item.important),
+              reminders: Array.isArray(item.reminders) ? item.reminders.map(String) : (Number(item.reminder) > 0 ? [String(item.reminder)] : []),
               group: String(item.group || "")
             })) : [],
             todos: Array.isArray(parsed.todos) ? parsed.todos.map(item => ({ ...item, important: Boolean(item.important), done: Boolean(item.done), group: String(item.group || "") })) : [],
-            projects: Array.isArray(parsed.projects) ? parsed.projects.map(item => ({ ...item, important: Boolean(item.important), done: Boolean(item.done), subtasks: Array.isArray(item.subtasks) ? item.subtasks : [], group: String(item.group || "") })) : [],
-            homework: Array.isArray(parsed.homework) ? parsed.homework.map(item => ({ ...item, important: Boolean(item.important), done: Boolean(item.done), group: String(item.group || "") })) : [],
+            projects: Array.isArray(parsed.projects) ? parsed.projects.map(item => ({ ...item, important: Boolean(item.important), done: Boolean(item.done), reminders: Array.isArray(item.reminders) ? item.reminders.map(String) : [], images: Array.isArray(item.images) ? item.images : [], subtasks: Array.isArray(item.subtasks) ? item.subtasks : [], group: String(item.group || "") })) : [],
+            homework: Array.isArray(parsed.homework) ? parsed.homework.map(item => ({ ...item, important: Boolean(item.important), done: Boolean(item.done), reminders: Array.isArray(item.reminders) ? item.reminders.map(String) : [], images: Array.isArray(item.images) ? item.images : [], group: String(item.group || "") })) : [],
+            notes: Array.isArray(parsed.notes) ? parsed.notes : [],
+            homepagePrefs: normalizeHomepagePrefs(parsed.homepagePrefs),
             darkMode: Boolean(parsed.darkMode),
             notified: Array.isArray(parsed.notified) ? parsed.notified : [],
             notificationSettings: {
               enabled: permissionGranted && (typeof settings.enabled === "boolean" ? settings.enabled : true),
               categories: {
                 calendar: typeof categories.calendar === "boolean" ? categories.calendar : true,
+                homework: typeof categories.homework === "boolean" ? categories.homework : true,
+                projects: typeof categories.projects === "boolean" ? categories.projects : true,
                 classes: typeof categories.classes === "boolean" ? categories.classes : true,
                 study: typeof categories.study === "boolean" ? categories.study : true
               }
@@ -679,11 +888,23 @@
         } catch (error) {
           console.error("Could not read Daybook data", error);
           return {
-            classes: [], events: [], todos: [], projects: [], homework: [], darkMode: false, notified: [],
-            notificationSettings: { enabled: false, categories: { calendar: true, classes: true, study: true } },
+            classes: [], events: [], todos: [], projects: [], homework: [], notes: [], homepagePrefs: normalizeHomepagePrefs(null), darkMode: false, notified: [],
+            notificationSettings: { enabled: false, categories: { calendar: true, homework: true, projects: true, classes: true, study: true } },
             focusMinutes: 25, breakMinutes: 5
           };
         }
+      }
+
+      function normalizeHomepagePrefs(value) {
+        const source = value && typeof value === "object" ? value : {};
+        const savedOrder = Array.isArray(source.order) ? source.order.filter(id => HOMEPAGE_SECTIONS.some(section => section.id === id)) : [];
+        return {
+          order: [...new Set([...savedOrder, ...HOMEPAGE_SECTIONS.map(section => section.id)])],
+          visible: Object.fromEntries(HOMEPAGE_SECTIONS.map(section => [
+            section.id,
+            typeof source.visible?.[section.id] === "boolean" ? source.visible[section.id] : true
+          ]))
+        };
       }
 
       function saveState() {
@@ -771,7 +992,7 @@
         } else {
           stateLabel.textContent = classes.length ? "SCHEDULE CLEAR" : "NO CLASSES ADDED";
           currentName.textContent = classes.length ? "You're all done for today" : "Add your class schedule";
-          detail.textContent = classes.length ? "There are no more classes on your timetable today." : "Your class timer follows the local time on this device.";
+          detail.textContent = classes.length ? "There are no more classes on your timetable today." : "Add your weekly classes to see what is coming up next.";
           countdownRow.hidden = true;
           progress.hidden = true;
         }
@@ -798,7 +1019,7 @@
       function recordsOnDate(date) {
         return calendarRecords().filter(item => item.source === "event"
           ? occursOnDate(item, date)
-          : item.date === date);
+          : item.date === date).filter(item => !item.done);
       }
 
       function groupByTitle(items) {
@@ -820,23 +1041,27 @@
           const key = dateKey(date);
           recordsOnDate(key).forEach(item => upcoming.push({ ...item, dueDate: key }));
         }
+        state.homework.filter(item => !item.done && item.date >= todayKey)
+          .forEach(item => upcoming.push({ ...item, source: "homework", dueDate: item.date }));
         state.todos.filter(item => !item.done && item.date >= todayKey)
           .forEach(item => upcoming.push({ ...item, source: "todo", dueDate: item.date }));
         const grouped = groupByTitle(upcoming).map(items => {
           const sorted = items.slice().sort((a, b) => a.dueDate.localeCompare(b.dueDate));
-          return { ...sorted[0], records: sorted, important: items.some(item => item.important) };
+          return { ...sorted[0], records: sorted, important: items.some(isItemImportant) };
         }).sort((a, b) => Number(b.important) - Number(a.important) || a.dueDate.localeCompare(b.dueDate));
         $("priority-list").innerHTML = grouped.length ? grouped.map(item => {
           const dates = [...new Set(item.records.map(record => record.dueDate))].sort();
           const description = item.description || item.notes || "";
           const importantClass = item.important ? " important" : "";
+          const daysUntil = dateOrdinal(item.dueDate) - dateOrdinal(todayKey);
+          const countdown = daysUntil === 0 ? "Due today" : daysUntil === 1 ? "Due tomorrow" : `In ${daysUntil} days`;
           return `<article class="priority-row${importantClass}">
-            <div class="priority-label">${escapeHtml(item.source === "todo" ? "To-do" : item.type || "Date")}${item.important ? " · Important" : ""}</div>
+            <div class="priority-label">${escapeHtml(item.source === "todo" ? "To-do" : item.source === "homework" ? "Homework" : item.type || "Date")}${item.important ? " · Important" : ""}</div>
             <strong>${escapeHtml(item.title)}</strong>
-            <div class="priority-meta">${escapeHtml(dates.map(formatDateKey).join(", "))}${item.subject ? ` · ${escapeHtml(item.subject)}` : ""}${item.group ? ` · ${escapeHtml(item.group)}` : ""}</div>
+            <div class="priority-meta">${escapeHtml(countdown)} · ${escapeHtml(dates.map(formatDateKey).join(", "))}${item.subject ? ` · ${escapeHtml(item.subject)}` : ""}${item.group ? ` · ${escapeHtml(item.group)}` : ""}</div>
             ${description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(description)}</p></details>` : ""}
           </article>`;
-        }).join("") : '<p class="empty">No upcoming dates or to-dos.</p>';
+        }).join("") : '<p class="empty">Nothing on the calendar yet. Add a date or task when you are ready.</p>';
 
         const work = [...state.homework, ...state.projects].filter(item => !item.done);
         $("homework-project-count").textContent = `${work.length} ${work.length === 1 ? "item" : "items"}`;
@@ -847,10 +1072,101 @@
           byClass.get(label).push(item);
         });
         $("homework-project-list").innerHTML = byClass.size ? [...byClass.entries()].map(([label, items]) =>
-          `<details class="group-section" open><summary>${escapeHtml(label)} (${items.length})</summary><div class="group-body">${
+          `<details class="group-section"><summary>${escapeHtml(label)} (${items.length})</summary><div class="group-body">${
             groupByTitle(items).map(records => renderWorkItem(records)).join("")
           }</div></details>`
-        ).join("") : '<p class="empty">No homework or projects yet.</p>';
+        ).join("") : '<p class="empty">Homework and project notes will gather here as you add them.</p>';
+        renderWeeklyPreview();
+        renderPinnedNotes();
+        renderRecentlyCompleted();
+      }
+
+      function renderPinnedNotes() {
+        $("pinned-notes-list").innerHTML = state.notes.length ? state.notes.map(note =>
+          `<article class="pin-note note-color-${escapeHtml(["cream", "pink", "teal", "yellow"].includes(note.color) ? note.color : "cream")}">
+            <div class="pin-note-actions"><button type="button" class="text-button" data-edit-note="${escapeHtml(note.id)}">Edit</button><button type="button" class="text-button" data-delete-note="${escapeHtml(note.id)}">Delete</button></div>
+            <strong>${escapeHtml(note.title)}</strong><p>${escapeHtml(note.text)}</p>
+          </article>`
+        ).join("") : '<p class="empty">Pin a note to keep a thought close at hand.</p>';
+      }
+
+      function renderRecentlyCompleted() {
+        const completed = [
+          ...state.todos.map(item => ({ ...item, source: "todo" })),
+          ...state.homework.map(item => ({ ...item, source: "homework" })),
+          ...state.projects.map(item => ({ ...item, source: "project" }))
+        ].filter(item => item.done).sort((a, b) => Number(b.completedAt || 0) - Number(a.completedAt || 0));
+        $("recent-count").textContent = `${completed.length} ${completed.length === 1 ? "item" : "items"}`;
+        $("recently-completed-list").innerHTML = completed.length ? completed.map(item =>
+          `<article class="task-row completed-task"><strong>${escapeHtml(item.title)}</strong>
+            <div class="task-meta">${escapeHtml(item.source === "homework" ? item.className || "Homework" : item.source === "project" ? item.type || "Project" : item.group || "To-do")}${item.date ? ` · ${escapeHtml(formatDateKey(item.date))}` : ""}</div>
+            <button type="button" class="text-button" data-restore-item="${item.source}:${escapeHtml(item.id)}">Restore</button>
+          </article>`
+        ).join("") : '<p class="empty">Completed items will stay here so you can restore them if needed.</p>';
+      }
+
+      function applyHomepagePrefs() {
+        const container = $("panel-today");
+        const prefs = state.homepagePrefs;
+        prefs.order.forEach(id => {
+          const section = container.querySelector(`[data-home-section="${id}"]`);
+          if (!section) return;
+          section.hidden = !prefs.visible[id];
+          container.append(section);
+        });
+      }
+
+      function renderHomepagePreferences() {
+        $("homepage-preferences").innerHTML = state.homepagePrefs.order.map((id, index) => {
+          const section = HOMEPAGE_SECTIONS.find(item => item.id === id);
+          if (!section) return "";
+          return `<div class="home-layout-row">
+            <label class="day-option"><input type="checkbox" data-home-visible="${id}" ${state.homepagePrefs.visible[id] ? "checked" : ""}> ${escapeHtml(section.label)}</label>
+            <div class="home-layout-actions"><button class="button small" type="button" data-home-move="${id}" data-direction="-1" aria-label="Move ${escapeHtml(section.label)} up" ${index === 0 ? "disabled" : ""}>↑</button><button class="button small" type="button" data-home-move="${id}" data-direction="1" aria-label="Move ${escapeHtml(section.label)} down" ${index === state.homepagePrefs.order.length - 1 ? "disabled" : ""}>↓</button></div>
+          </div>`;
+        }).join("");
+      }
+
+      function renderSearchResults(query) {
+        const normalized = query.trim().toLocaleLowerCase();
+        if (!normalized) {
+          $("search-results").innerHTML = '<p class="empty">Start typing to search your Daybook.</p>';
+          return;
+        }
+        const sources = [
+          ...state.classes.map(item => ({ ...item, source: "class", searchable: `${item.name} ${item.room || ""} ${item.group || ""}` })),
+          ...state.events.map(item => ({ ...item, source: "calendar", searchable: `${item.title} ${item.type} ${item.subject || ""} ${item.description || ""} ${item.notes || ""}` })),
+          ...state.todos.map(item => ({ ...item, source: "todo", searchable: `${item.title} ${item.group || ""} ${item.description || ""}` })),
+          ...state.homework.map(item => ({ ...item, source: "homework", searchable: `${item.title} ${item.className || ""} ${item.group || ""} ${item.description || ""}` })),
+          ...state.projects.map(item => ({ ...item, source: "project", searchable: `${item.title} ${item.type || ""} ${item.className || ""} ${item.group || ""} ${item.description || ""}` })),
+          ...state.notes.map(item => ({ ...item, source: "note", searchable: `${item.title} ${item.text}` }))
+        ];
+        const matches = sources.filter(item => item.searchable.toLocaleLowerCase().includes(normalized)).slice(0, 30);
+        $("search-results").innerHTML = matches.length ? matches.map(item => {
+          const kind = { class: "Class", calendar: item.type || "Calendar event", todo: "To-do", homework: "Homework", project: item.type || "Project", note: "Pinned note" }[item.source];
+          const detail = item.date ? formatDateKey(item.date) : item.room || item.group || "";
+          return `<button type="button" class="search-result" data-search-source="${item.source}" data-search-id="${escapeHtml(item.id)}" ${item.date ? `data-search-date="${escapeHtml(item.date)}"` : ""}><strong>${escapeHtml(item.title || item.name)}</strong><small>${escapeHtml(kind)}${detail ? ` · ${escapeHtml(detail)}` : ""}</small></button>`;
+        }).join("") : '<p class="empty">No matches. Try a class name, assignment, or note title.</p>';
+      }
+
+      function renderWeeklyPreview() {
+        const today = new Date();
+        const days = [];
+        for (let offset = 0; offset < 7; offset++) {
+          const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() + offset, 12);
+          const key = dateKey(date);
+          const items = [
+            ...recordsOnDate(key).filter(item => !item.done),
+            ...state.homework.filter(item => !item.done && item.date === key),
+            ...state.todos.filter(item => !item.done && item.date === key)
+          ];
+          const titles = [...new Set(items.map(item => `${item.title} (${item.type || (item.source === "project" ? "Project" : item.source === "homework" || item.className ? "Homework" : "To-do")})`))];
+          const label = offset === 0 ? "Today" : offset === 1 ? "Tomorrow" : new Intl.DateTimeFormat(undefined, { weekday: "short" }).format(date);
+          days.push(`<div class="weekly-day"><time datetime="${key}">${label} · ${date.getDate()}</time><span class="weekly-items">${titles.length
+            ? `${titles.slice(0, 3).map(escapeHtml).join(" · ")}${titles.length > 3 ? ` · +${titles.length - 3} more` : ""}`
+            : "Nothing due — enjoy the breathing room."}</span></div>`);
+        }
+        $("weekly-preview").innerHTML = days.join("");
       }
 
       function formatDateKey(key) {
@@ -861,12 +1177,13 @@
 
       function renderWorkItem(records) {
         const item = records[0];
-        const important = records.some(record => record.important);
+        const important = records.some(isItemImportant);
         const dates = [...new Set(records.map(record => record.date))].sort();
         return `<article class="task-row${important ? " important" : ""}">
           <strong>${escapeHtml(item.title)}</strong>${important ? '<span class="priority-label">Important</span>' : ""}
           <div class="task-meta">${escapeHtml(item.className || item.type || item.group || "Homework")} · ${escapeHtml(dates.map(formatDateKey).join(", "))}</div>
           ${item.description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(item.description)}</p></details>` : ""}
+          ${renderAttachments(item)}
         </article>`;
       }
 
@@ -903,7 +1220,7 @@
       function renderClasses() {
         const list = $("schedule-list");
         if (!state.classes.length) {
-          list.innerHTML = '<div class="empty">Add your weekly classes to see your timetable and class countdown.</div>';
+          list.innerHTML = '<div class="empty">Add your weekly classes to build your timetable and class countdown.</div>';
           renderToday();
           refreshGroupLists();
           return;
@@ -927,7 +1244,7 @@
             const firstDay = records => Math.min(...records.flatMap(item => item.days.map(day => (day - 1 + 7) % 7)));
             return firstDay(a) - firstDay(b) || timeMinutes(a[0].start) - timeMinutes(b[0].start);
           });
-          return `<details class="group-section" open><summary>${escapeHtml(groupName)} (${classes.length})</summary><div class="group-body">${
+          return `<details class="group-section"><summary>${escapeHtml(groupName)} (${classes.length})</summary><div class="group-body">${
             classes.map(records => {
               const schedules = records.flatMap(item => item.days.map(day => ({
                 day, start: item.start, end: item.end, room: item.room || ""
@@ -990,22 +1307,25 @@
           if (outside) classes.push("muted");
           if (key === dateKey(new Date())) classes.push("today");
           if (key === selectedDate) classes.push("selected");
-          const events = recordsOnDate(key).sort((a, b) => (a.time || "").localeCompare(b.time || ""));
-          const uniqueEvents = groupByTitle(events).map(records => ({
+          const calendarItems = recordsOnDate(key).sort((a, b) => (a.time || "").localeCompare(b.time || ""));
+          const todos = state.todos.filter(item => item.date === key && !item.done).map(item => ({ ...item, source: "todo", type: "To-do" }));
+          const visibleGroups = new Map();
+          [...calendarItems, ...todos].forEach(item => {
+            const groupKey = `${item.source}:${String(item.title || "").trim().toLocaleLowerCase()}`;
+            if (!visibleGroups.has(groupKey)) visibleGroups.set(groupKey, []);
+            visibleGroups.get(groupKey).push(item);
+          });
+          const visibleItems = [...visibleGroups.values()].map(records => ({
             ...records[0],
-            important: records.some(item => item.important)
-          }));
-          const todos = state.todos.filter(item => item.date === key && !item.done).map(item => ({ ...item, type: "To-do" }));
-          const visibleItems = groupByTitle([...uniqueEvents, ...todos]).map(records => ({
-            ...records[0],
-            important: records.some(item => item.important)
+            important: records.some(isItemImportant),
+            recordIds: records.map(item => item.id)
           }));
           if (visibleItems.length) classes.push("has-events");
           const bars = visibleItems.slice(0, 2).map(item => {
             const type = String(item.type || "Other").toLowerCase();
             const cadence = item.repeat === "biweekly" ? "2 wk" : item.repeat;
             const label = `${item.time ? `${formatTime(item.time)} ` : ""}${item.title}${item.repeat && item.repeat !== "none" ? ` (${cadence})` : ""}`;
-            return `<span class="event-bar ${item.important ? "important " : ""}${escapeHtml(type)}" title="${escapeHtml(label)}">${escapeHtml(label)}</span>`;
+            return `<span class="event-bar ${item.important ? "important " : ""}${escapeHtml(type)}" draggable="true" data-drag-source="${escapeHtml(item.source)}" data-drag-id="${escapeHtml(item.recordIds[0])}" data-drag-date="${key}" title="${escapeHtml(label)}">${escapeHtml(label)}</span>`;
           }).join("");
           const more = visibleItems.length > 2 ? `<span class="event-more">+${visibleItems.length - 2} more</span>` : "";
           const eventNames = visibleItems.length ? `: ${visibleItems.map(item => item.title).join(", ")}` : "";
@@ -1019,6 +1339,39 @@
         refreshGroupLists();
       }
 
+      function shiftDateKey(key, days) {
+        const date = new Date(`${key}T12:00:00`);
+        date.setDate(date.getDate() + days);
+        return dateKey(date);
+      }
+
+      function moveCalendarEntry(source, id, fromDate, toDate) {
+        if (fromDate === toDate) return;
+        const collection = source === "event" ? state.events : source === "project" ? state.projects : state.todos;
+        const item = collection.find(record => record.id === id);
+        if (!item) return;
+        const previousDate = item.date;
+        const previousUntil = item.until;
+        const previousNotified = state.notified;
+        const offset = dateOrdinal(toDate) - dateOrdinal(fromDate);
+        item.date = source === "event" ? shiftDateKey(item.date, offset) : toDate;
+        if (source === "event" && item.until) item.until = shiftDateKey(item.until, offset);
+        state.notified = state.notified.filter(key => !key.startsWith(`${id}:`) && !key.startsWith(`${source}:${id}:`));
+        if (saveState()) {
+          selectedDate = toDate;
+          const date = new Date(`${toDate}T12:00:00`);
+          shownMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+          renderCalendar();
+          renderHomePriorities();
+          scheduleReminders();
+          showToast(`${item.title} moved to ${formatDateKey(toDate)}.`);
+        } else {
+          item.date = previousDate;
+          item.until = previousUntil;
+          state.notified = previousNotified;
+        }
+      }
+
       function renderSelectedEvents() {
         const selectedItems = groupByTitle(recordsOnDate(selectedDate));
         $("event-list").innerHTML = selectedItems.length ? selectedItems.map(records => {
@@ -1026,15 +1379,17 @@
           const matching = calendarRecords().filter(item => item.title.trim().toLocaleLowerCase() === title);
           const dates = [...new Set(matching.map(item => item.date))].sort();
           const ids = matching.map(item => `${item.source}:${item.id}`).join(",");
-          const important = matching.some(item => item.important);
+          const important = matching.some(isItemImportant);
           const item = records[0];
           const description = matching.map(record => record.description || record.notes || "").find(Boolean) || "";
           const groups = [...new Set(matching.map(record => record.group).filter(Boolean))];
+          const imageRecord = matching.find(record => Array.isArray(record.images));
           return `<article class="calendar-entry${important ? " important" : ""}">
             <div class="event-title"><strong>${escapeHtml(item.title)}</strong>${important ? '<span class="priority-label">Important</span>' : ""}</div>
             <div class="event-subject">${escapeHtml(item.type || "Date")}${item.subject ? ` · ${escapeHtml(item.subject)}` : ""}${groups.length ? ` · ${escapeHtml(groups.join(", "))}` : ""}</div>
             <div class="event-subject">${dates.map(formatDateKey).map(escapeHtml).join(", ")}${item.repeat && item.repeat !== "none" ? ` · ${escapeHtml(repeatLabels[item.repeat] || "Repeats")}` : ""}</div>
             ${description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(description)}</p></details>` : ""}
+            ${imageRecord ? renderAttachments(imageRecord) : ""}
             <button type="button" class="text-button" data-delete-calendar-group="${escapeHtml(ids)}" aria-label="Remove ${escapeHtml(item.title)}">Remove group</button>
           </article>`;
         }).join("") : '<div class="empty" style="padding: 5px 0 0">Nothing planned. Add a date or project.</div>';
@@ -1043,15 +1398,16 @@
       function renderSelectedTodos() {
         const grouped = groupByTitle(state.todos);
         $("todo-list").innerHTML = grouped.length ? grouped.map(records => {
-          const important = records.some(todo => todo.important);
+          const important = records.some(isItemImportant);
           const dates = [...new Set(records.map(todo => todo.date))].sort();
           const groups = [...new Set(records.map(todo => todo.group || "Ungrouped"))].sort();
           const ids = records.map(todo => todo.id).join(",");
-          return `<article class="task-row${important ? " important" : ""}">
+          const completed = records.every(todo => todo.done);
+          return `<article class="task-row${important ? " important" : ""}${completed ? " is-completed" : ""}">
             <strong>${escapeHtml(records[0].title)}</strong>${important ? '<span class="priority-label">Important</span>' : ""}
             <div class="task-meta">${escapeHtml(groups.join(", "))} · ${dates.map(formatDateKey).map(escapeHtml).join(", ")}</div>
             ${records.find(todo => todo.description)?.description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(records.find(todo => todo.description).description)}</p></details>` : ""}
-            <div class="task-meta"><label><input type="checkbox" data-complete-todo-group="${escapeHtml(ids)}" ${records.every(todo => todo.done) ? "checked" : ""}> Done</label> <button type="button" class="text-button" data-delete-todo-group="${escapeHtml(ids)}">Remove group</button></div>
+            <div class="task-meta"><label><input type="checkbox" data-complete-todo-group="${escapeHtml(ids)}" ${completed ? "checked" : ""}> ${completed ? "Done ✓" : "Done"}</label> <button type="button" class="text-button" data-delete-todo-group="${escapeHtml(ids)}">Remove group</button></div>
           </article>`;
         }).join("") : '<div class="empty" style="padding: 5px 0 0">No to-dos for this date.</div>';
       }
@@ -1077,18 +1433,21 @@
 
       function renderStudyRecordGroup(records, source) {
         const all = records;
-        const important = all.some(item => item.important);
+        const important = all.some(isItemImportant);
         const item = records[0];
         const ids = all.map(record => record.id).join(",");
         const subtasks = source === "project"
           ? all.flatMap(record => (record.subtasks || []).map((task, index) => ({ ...task, projectId: record.id, index })))
           : [];
-        return `<article class="task-row${important ? " important" : ""}">
+        const completedSubtasks = subtasks.filter(task => task.done).length;
+        const completed = all.every(record => record.done);
+        return `<article class="task-row${important ? " important" : ""}${completed ? " completed-task" : ""}">
           <strong>${escapeHtml(item.title)}</strong>${important ? '<span class="priority-label">Important</span>' : ""}
           <div class="task-meta">${escapeHtml([...new Set(all.map(record => record.className || record.group || record.type || source))].join(", "))} · ${escapeHtml([...new Set(all.map(record => record.date))].map(formatDateKey).join(", "))}</div>
           ${item.description ? `<details class="item-details"><summary>Show description</summary><p class="item-description">${escapeHtml(item.description)}</p></details>` : ""}
-          ${subtasks.length ? `<details class="item-details"><summary>Subtasks (${subtasks.filter(task => task.done).length}/${subtasks.length})</summary>${subtasks.map(task => `<label class="item-description"><input type="checkbox" data-subtask-id="${escapeHtml(task.projectId)}" data-subtask-index="${task.index}" ${task.done ? "checked" : ""}> ${escapeHtml(task.title)}</label>`).join("")}</details>` : ""}
-          <div class="task-meta"><button type="button" class="text-button" data-complete-work="${source}:${escapeHtml(ids)}">${all.every(record => record.done) ? "Reopen" : "Mark done"}</button><button type="button" class="text-button" data-delete-work="${source}:${escapeHtml(ids)}">Remove</button></div>
+          ${renderAttachments(item)}
+          ${subtasks.length ? `<details class="item-details"><summary>Subtasks (${completedSubtasks}/${subtasks.length})</summary><progress class="subtask-progress" max="${subtasks.length}" value="${completedSubtasks}" aria-label="${completedSubtasks} of ${subtasks.length} subtasks complete"></progress>${subtasks.map(task => `<label class="item-description"><input type="checkbox" data-subtask-id="${escapeHtml(task.projectId)}" data-subtask-index="${task.index}" ${task.done ? "checked" : ""}> ${escapeHtml(task.title)}</label>`).join("")}</details>` : ""}
+          <div class="task-meta"><button type="button" class="text-button" data-complete-work="${source}:${escapeHtml(ids)}">${completed ? "Reopen" : "Mark done"}</button><button type="button" class="text-button" data-delete-work="${source}:${escapeHtml(ids)}">Remove</button></div>
         </article>`;
       }
 
@@ -1185,10 +1544,22 @@
       function openEventDialog(date = selectedDate) {
         $("event-form").reset();
         $("event-date-input").value = date;
-        $("event-reminder-input").value = "1440";
         $("repeat-until-field").hidden = true;
         setNotice("event-notice", "");
         openDialog("event-dialog");
+      }
+
+      function openNoteDialog(note = null) {
+        const form = $("note-form");
+        form.reset();
+        form.dataset.editingId = note?.id || "";
+        $("note-dialog-title").textContent = note ? "Edit pinned note" : "Pin a note";
+        if (note) {
+          $("note-title-input").value = note.title;
+          $("note-text-input").value = note.text;
+          $("note-color-input").value = ["cream", "pink", "teal", "yellow"].includes(note.color) ? note.color : "cream";
+        }
+        openDialog("note-dialog");
       }
 
       function openClassDialog(item = null) {
@@ -1334,7 +1705,7 @@
           note.hidden = true;
           button.disabled = false;
         } else {
-          note.textContent = "Turn on device notifications to receive calendar, class, and study alerts.";
+          note.textContent = "Turn on device notifications to receive calendar, deadline, class, and study alerts.";
           note.hidden = false;
           button.disabled = false;
         }
@@ -1363,24 +1734,57 @@
       }
 
       function scheduleReminders() {
-        if (!state.notificationSettings.enabled || !state.notificationSettings.categories.calendar
-          || !("Notification" in window) || Notification.permission !== "granted") return;
+        if (!state.notificationSettings.enabled || !("Notification" in window) || Notification.permission !== "granted") return;
         const now = Date.now();
-        for (const event of state.events) {
-          const minutes = Number(event.reminder);
-          if (!minutes) continue;
-          for (let offset = -2; offset <= 2; offset++) {
-            const occurrenceDate = new Date();
-            occurrenceDate.setDate(occurrenceDate.getDate() + offset);
-            const occurrenceKey = dateKey(occurrenceDate);
-            if (!occursOnDate(event, occurrenceKey)) continue;
-            const dueAt = createReminderDate({ ...event, date: occurrenceKey });
-            const sendAt = dueAt.getTime() - minutes * 60_000;
-            const notificationId = `${event.id}:${occurrenceKey}:${event.time || "09:00"}`;
-            if (sendAt <= now && dueAt.getTime() > now && !state.notified.includes(notificationId)) {
-              state.notified.push(notificationId);
-              saveState();
-              void sendNotification(`Coming up: ${event.title}`, `${event.type}${event.subject ? ` - ${event.subject}` : ""} is due ${event.time ? `at ${formatTime(event.time)}` : "today"}.`, notificationId);
+        const todayKey = dateKey(new Date());
+        const horizon = new Date();
+        horizon.setDate(horizon.getDate() + 8);
+        const horizonKey = dateKey(horizon);
+        const reminderLabel = value => ({
+          "10080": "in one week", "4320": "in three days", "1440": "tomorrow",
+          morning: "today", "60": "in one hour"
+        })[value] || `in ${Math.max(1, Math.round(Number(value) / 60))} minutes`;
+        const sources = [
+          { key: "event", category: "calendar", items: state.events },
+          { key: "homework", category: "homework", items: state.homework },
+          { key: "project", category: "projects", items: state.projects }
+        ].filter(source => state.notificationSettings.categories[source.category]);
+        for (const source of sources) {
+          for (const item of source.items) {
+            if (item.done) continue;
+            const reminders = Array.isArray(item.reminders) ? item.reminders : [];
+            if (!reminders.length) continue;
+            const dates = source.key === "event"
+              ? Array.from({ length: 10 }, (_, index) => {
+                const date = new Date();
+                date.setDate(date.getDate() + index - 8);
+                return dateKey(date);
+              }).filter(key => occursOnDate(item, key))
+              : item.date >= todayKey && item.date <= horizonKey ? [item.date] : [];
+            for (const occurrenceKey of dates) {
+              const dueAt = source.key === "event"
+                ? createReminderDate({ ...item, date: occurrenceKey })
+                : new Date(`${occurrenceKey}T08:00:00`);
+              const oldId = source.key === "event" && `${item.id}:${occurrenceKey}:${item.time || "09:00"}`;
+              if (oldId && state.notified.includes(oldId)) continue;
+              for (const reminder of reminders) {
+                if (reminder !== "morning" && (!Number.isFinite(Number(reminder)) || Number(reminder) <= 0)) continue;
+                const sendAt = reminder === "morning"
+                  ? new Date(`${occurrenceKey}T08:00:00`).getTime()
+                  : dueAt.getTime() - Number(reminder) * 60_000;
+                const notificationId = `${source.key}:${item.id}:${occurrenceKey}:${reminder}`;
+                const deadlinePassed = reminder === "morning"
+                  ? occurrenceKey < todayKey
+                  : dueAt.getTime() <= now;
+                if (sendAt > now || deadlinePassed || state.notified.includes(notificationId)) continue;
+                state.notified.push(notificationId);
+                if (!saveState()) {
+                  state.notified.pop();
+                  continue;
+                }
+                const kind = source.key === "event" ? item.type || "Calendar event" : source.key === "homework" ? "Homework" : item.type || "Project";
+                void sendNotification(`${kind} coming up: ${item.title}`, `Due ${reminderLabel(reminder)}${item.className || item.subject ? ` · ${item.className || item.subject}` : ""}.`, notificationId);
+              }
             }
           }
         }
@@ -1486,6 +1890,131 @@
 
       function setupEvents() {
         $("notifications-button").addEventListener("click", enableNotifications);
+        $("search-button").addEventListener("click", () => {
+          $("global-search-input").value = "";
+          $("search-results").innerHTML = '<p class="empty">Start typing to search your Daybook.</p>';
+          openDialog("search-dialog");
+          $("global-search-input").focus();
+        });
+        $("global-search-input").addEventListener("input", event => renderSearchResults(event.currentTarget.value));
+        $("search-results").addEventListener("click", event => {
+          const result = event.target.closest("[data-search-source]");
+          if (!result) return;
+          closeDialog("search-dialog");
+          const source = result.dataset.searchSource;
+          if (source === "class") {
+            activateTab($("tab-classes"));
+            return;
+          }
+          if (source === "note") {
+            activateTab($("tab-today"));
+            $("pinned-notes-list").scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+          }
+          if (source === "calendar" || source === "todo") {
+            const date = result.dataset.searchDate;
+            if (date) {
+              selectedDate = date;
+              const selected = new Date(`${date}T12:00:00`);
+              shownMonth = new Date(selected.getFullYear(), selected.getMonth(), 1);
+              renderCalendar();
+            }
+            activateTab($("tab-calendar"));
+            return;
+          }
+          activateTab($("tab-study"));
+        });
+        $("add-note-button").addEventListener("click", () => openNoteDialog());
+        $("note-form").addEventListener("submit", event => {
+          event.preventDefault();
+          const form = new FormData(event.currentTarget);
+          const editingId = event.currentTarget.dataset.editingId;
+          const previous = state.notes.find(note => note.id === editingId);
+          const note = {
+            id: editingId || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`),
+            title: String(form.get("title")).trim(),
+            text: String(form.get("text")).trim(),
+            color: String(form.get("color"))
+          };
+          if (previous) state.notes = state.notes.map(item => item.id === editingId ? note : item);
+          else state.notes.push(note);
+          if (saveState()) {
+            closeDialog("note-dialog");
+            renderPinnedNotes();
+            showToast(previous ? "Pinned note updated." : "Note pinned to your homepage.");
+          } else if (previous) {
+            state.notes = state.notes.map(item => item.id === editingId ? previous : item);
+          } else {
+            state.notes.pop();
+          }
+        });
+        $("pinned-notes-list").addEventListener("click", event => {
+          const edit = event.target.closest("[data-edit-note]");
+          const remove = event.target.closest("[data-delete-note]");
+          if (edit) {
+            const note = state.notes.find(item => item.id === edit.dataset.editNote);
+            if (note) openNoteDialog(note);
+            return;
+          }
+          if (!remove) return;
+          const index = state.notes.findIndex(item => item.id === remove.dataset.deleteNote);
+          if (index < 0) return;
+          const [note] = state.notes.splice(index, 1);
+          if (saveState()) {
+            renderPinnedNotes();
+            renderSearchResults($("global-search-input").value);
+            showToast("Pinned note removed.");
+          } else {
+            state.notes.splice(index, 0, note);
+          }
+        });
+        $("homepage-preferences").addEventListener("change", event => {
+          const checkbox = event.target.closest("[data-home-visible]");
+          if (!checkbox) return;
+          const id = checkbox.dataset.homeVisible;
+          const previous = state.homepagePrefs.visible[id];
+          state.homepagePrefs.visible[id] = checkbox.checked;
+          if (saveState()) applyHomepagePrefs();
+          else checkbox.checked = previous;
+        });
+        $("homepage-preferences").addEventListener("click", event => {
+          const button = event.target.closest("[data-home-move]");
+          if (!button) return;
+          const previousOrder = state.homepagePrefs.order.slice();
+          const order = previousOrder.slice();
+          const index = order.indexOf(button.dataset.homeMove);
+          const destination = index + Number(button.dataset.direction);
+          if (index < 0 || destination < 0 || destination >= order.length) return;
+          [order[index], order[destination]] = [order[destination], order[index]];
+          state.homepagePrefs.order = order;
+          if (saveState()) {
+            applyHomepagePrefs();
+            renderHomepagePreferences();
+          } else {
+            state.homepagePrefs.order = previousOrder;
+            renderHomepagePreferences();
+          }
+        });
+        $("recently-completed-list").addEventListener("click", event => {
+          const button = event.target.closest("[data-restore-item]");
+          if (!button) return;
+          const [source, id] = button.dataset.restoreItem.split(":");
+          const collection = source === "todo" ? state.todos : source === "homework" ? state.homework : state.projects;
+          const item = collection.find(record => record.id === id);
+          if (!item) return;
+          const completedAt = item.completedAt;
+          item.done = false;
+          delete item.completedAt;
+          if (saveState()) {
+            renderStudyLists();
+            renderCalendar();
+            renderHomePriorities();
+            showToast("Item restored.");
+          } else {
+            item.done = true;
+            if (completedAt !== undefined) item.completedAt = completedAt;
+          }
+        });
         $("dark-mode-button").addEventListener("click", () => {
           const previous = state.darkMode;
           state.darkMode = !previous;
@@ -1496,7 +2025,10 @@
         document.querySelectorAll(".notification-category").forEach(toggle => toggle.addEventListener("click", () => {
           const category = toggle.dataset.notificationCategory;
           state.notificationSettings.categories[category] = !state.notificationSettings.categories[category];
-          if (saveState()) renderNotificationButton();
+          if (saveState()) {
+            renderNotificationButton();
+            scheduleReminders();
+          }
         }));
         document.querySelectorAll("[data-period-control] [data-period]").forEach(button => {
           button.addEventListener("click", () => chooseClassPeriod(button.closest("[data-period-control]").dataset.periodControl, button.dataset.period));
@@ -1520,6 +2052,15 @@
           setNotice("homework-notice", "");
           openDialog("homework-dialog");
         });
+        $("quick-add-button").addEventListener("click", () => openDialog("quick-add-dialog"));
+        document.querySelectorAll("[data-quick-add]").forEach(button => button.addEventListener("click", () => {
+          closeDialog("quick-add-dialog");
+          const action = button.dataset.quickAdd;
+          if (action === "homework") $("add-homework-button").click();
+          else if (action === "project") $("add-project-button").click();
+          else if (action === "event") $("add-event-button").click();
+          else if (action === "todo") $("add-todo-button").click();
+        }));
         $("event-repeat-input").addEventListener("change", () => {
           const repeats = $("event-repeat-input").value !== "none";
           $("repeat-until-field").hidden = !repeats;
@@ -1624,7 +2165,7 @@
             time,
             repeat,
             until: repeat === "none" ? "" : until,
-            reminder: Number(form.get("reminder")),
+            reminders: selectedReminders(form),
             notes: String(form.get("notes")).trim(),
             description: String(form.get("description")).trim(),
             group: String(form.get("group") || "").trim(),
@@ -1671,12 +2212,19 @@
           }
         });
 
-        $("project-form").addEventListener("submit", event => {
+        $("project-form").addEventListener("submit", async event => {
           event.preventDefault();
           const form = new FormData(event.currentTarget);
           const date = String(form.get("date"));
           if (!date) {
             setNotice("project-notice", "Choose a due date.", true);
+            return;
+          }
+          let images;
+          try {
+            images = await readImageAttachments($("project-images-input"));
+          } catch (error) {
+            setNotice("project-notice", error.message || "Could not read the selected images.", true);
             return;
           }
           const item = {
@@ -1689,6 +2237,8 @@
             description: String(form.get("description") || "").trim(),
             important: form.get("important") === "on",
             done: false,
+            reminders: selectedReminders(form),
+            images,
             subtasks: String(form.get("subtasks") || "").split(/\r?\n/).map(title => title.trim()).filter(Boolean).map(title => ({ title, done: false }))
           };
           state.projects.push(item);
@@ -1699,16 +2249,26 @@
             closeDialog("project-dialog");
             renderCalendar();
             renderStudyLists();
+            scheduleReminders();
             showToast(`${item.type} added to your study plan and calendar.`);
+          } else {
+            state.projects.pop();
           }
         });
 
-        $("homework-form").addEventListener("submit", event => {
+        $("homework-form").addEventListener("submit", async event => {
           event.preventDefault();
           const form = new FormData(event.currentTarget);
           const date = String(form.get("date"));
           if (!date) {
             setNotice("homework-notice", "Choose a homework due date.", true);
+            return;
+          }
+          let images;
+          try {
+            images = await readImageAttachments($("homework-images-input"));
+          } catch (error) {
+            setNotice("homework-notice", error.message || "Could not read the selected images.", true);
             return;
           }
           state.homework.push({
@@ -1719,12 +2279,17 @@
             group: String(form.get("group") || "").trim(),
             description: String(form.get("description") || "").trim(),
             important: form.get("important") === "on",
-            done: false
+            done: false,
+            reminders: selectedReminders(form),
+            images
           });
           if (saveState()) {
             closeDialog("homework-dialog");
             renderStudyLists();
+            scheduleReminders();
             showToast("Homework added.");
+          } else {
+            state.homework.pop();
           }
         });
 
@@ -1756,10 +2321,22 @@
           const checkbox = event.target.closest("[data-complete-todo-group]");
           if (!checkbox) return;
           const ids = new Set(checkbox.dataset.completeTodoGroup.split(","));
-          state.todos.forEach(todo => { if (ids.has(todo.id)) todo.done = checkbox.checked; });
+          const previous = state.todos.filter(todo => ids.has(todo.id)).map(todo => ({ item: todo, done: todo.done, completedAt: todo.completedAt }));
+          state.todos.forEach(todo => {
+            if (!ids.has(todo.id)) return;
+            todo.done = checkbox.checked;
+            if (todo.done) todo.completedAt = Date.now();
+            else delete todo.completedAt;
+          });
           if (saveState()) {
             renderCalendar();
             renderHomePriorities();
+          } else {
+            previous.forEach(record => {
+              record.item.done = record.done;
+              if (record.completedAt === undefined) delete record.item.completedAt;
+              else record.item.completedAt = record.completedAt;
+            });
           }
         });
         $("todo-list").addEventListener("click", event => {
@@ -1792,25 +2369,125 @@
             const [source, ...idParts] = button.dataset[complete ? "completeWork" : "deleteWork"].split(":");
             const ids = new Set(idParts.join(":").split(","));
             const collection = source === "project" ? state.projects : state.homework;
+            const previous = complete
+              ? collection.filter(record => ids.has(record.id)).map(record => ({ item: record, done: record.done, completedAt: record.completedAt }))
+              : [];
             if (complete) {
               const nextDone = !collection.filter(record => ids.has(record.id)).every(record => record.done);
-              collection.forEach(item => { if (ids.has(item.id)) item.done = nextDone; });
+              collection.forEach(item => {
+                if (!ids.has(item.id)) return;
+                item.done = nextDone;
+                if (nextDone) item.completedAt = Date.now();
+                else delete item.completedAt;
+              });
             }
             else if (source === "project") state.projects = state.projects.filter(item => !ids.has(item.id));
             else state.homework = state.homework.filter(item => !ids.has(item.id));
             if (saveState()) {
               renderStudyLists();
               renderCalendar();
+            } else if (complete) {
+              previous.forEach(record => {
+                record.item.done = record.done;
+                if (record.completedAt === undefined) delete record.item.completedAt;
+                else record.item.completedAt = record.completedAt;
+              });
             }
           });
         });
         $("calendar-grid").addEventListener("click", event => {
+          if (suppressCalendarClick) {
+            suppressCalendarClick = false;
+            event.preventDefault();
+            return;
+          }
           const button = event.target.closest("[data-date]");
           if (!button) return;
           selectedDate = button.dataset.date;
           const date = new Date(`${selectedDate}T12:00:00`);
           shownMonth = new Date(date.getFullYear(), date.getMonth(), 1);
           renderCalendar();
+        });
+        $("calendar-grid").addEventListener("dragstart", event => {
+          const entry = event.target.closest("[data-drag-source]");
+          if (!entry) return;
+          calendarPointerStart = null;
+          draggingCalendarEntry = {
+            source: entry.dataset.dragSource,
+            id: entry.dataset.dragId,
+            date: entry.dataset.dragDate
+          };
+          event.dataTransfer.effectAllowed = "move";
+          event.dataTransfer.setData("text/plain", entry.dataset.dragId);
+        });
+        $("calendar-grid").addEventListener("dragover", event => {
+          const cell = event.target.closest("[data-date]");
+          if (!cell || !draggingCalendarEntry) return;
+          event.preventDefault();
+          event.dataTransfer.dropEffect = "move";
+          cell.classList.add("drop-target");
+        });
+        $("calendar-grid").addEventListener("dragleave", event => {
+          const cell = event.target.closest("[data-date]");
+          if (cell && !cell.contains(event.relatedTarget)) cell.classList.remove("drop-target");
+        });
+        $("calendar-grid").addEventListener("drop", event => {
+          const cell = event.target.closest("[data-date]");
+          if (!cell || !draggingCalendarEntry) return;
+          event.preventDefault();
+          const moved = draggingCalendarEntry;
+          draggingCalendarEntry = null;
+          moveCalendarEntry(moved.source, moved.id, moved.date, cell.dataset.date);
+        });
+        $("calendar-grid").addEventListener("pointerdown", event => {
+          const entry = event.target.closest("[data-drag-source]");
+          if (!entry) return;
+          calendarPointerStart = {
+            source: entry.dataset.dragSource,
+            id: entry.dataset.dragId,
+            date: entry.dataset.dragDate,
+            x: event.clientX,
+            y: event.clientY,
+            pointerId: event.pointerId,
+            moved: false,
+            target: null
+          };
+        });
+        $("calendar-grid").addEventListener("pointermove", event => {
+          if (!calendarPointerStart || event.pointerId !== calendarPointerStart.pointerId) return;
+          if (!calendarPointerStart.moved
+            && Math.hypot(event.clientX - calendarPointerStart.x, event.clientY - calendarPointerStart.y) < 7) return;
+          calendarPointerStart.moved = true;
+          draggingCalendarEntry = calendarPointerStart;
+          const target = document.elementFromPoint(event.clientX, event.clientY)?.closest("[data-date]");
+          if (calendarPointerStart.target && calendarPointerStart.target !== target) {
+            calendarPointerStart.target.classList.remove("drop-target");
+          }
+          calendarPointerStart.target = target || null;
+          if (target) target.classList.add("drop-target");
+          event.preventDefault();
+        });
+        $("calendar-grid").addEventListener("pointerup", event => {
+          if (!calendarPointerStart || event.pointerId !== calendarPointerStart.pointerId) return;
+          const started = calendarPointerStart;
+          calendarPointerStart = null;
+          if (!started.moved) return;
+          event.preventDefault();
+          const target = document.elementFromPoint(event.clientX, event.clientY)?.closest("[data-date]") || started.target;
+          document.querySelectorAll(".drop-target").forEach(cell => cell.classList.remove("drop-target"));
+          draggingCalendarEntry = null;
+          suppressCalendarClick = true;
+          setTimeout(() => { suppressCalendarClick = false; }, 0);
+          if (target) moveCalendarEntry(started.source, started.id, started.date, target.dataset.date);
+        });
+        $("calendar-grid").addEventListener("pointercancel", () => {
+          calendarPointerStart = null;
+          draggingCalendarEntry = null;
+          document.querySelectorAll(".drop-target").forEach(cell => cell.classList.remove("drop-target"));
+        });
+        $("calendar-grid").addEventListener("dragend", () => {
+          draggingCalendarEntry = null;
+          document.querySelectorAll(".drop-target").forEach(cell => cell.classList.remove("drop-target"));
         });
         $("calendar-grid").addEventListener("dblclick", event => {
           const button = event.target.closest("[data-date]");
@@ -1886,15 +2563,27 @@
         renderStudyLists();
         renderFocusTimer();
         updateFocusNote();
+        renderHomepagePreferences();
+        applyHomepagePrefs();
         scheduleReminders();
+        let renderedDate = dateKey(new Date());
+        const refreshDateSensitiveViews = () => {
+          const currentDate = dateKey(new Date());
+          if (currentDate === renderedDate) return;
+          renderedDate = currentDate;
+          renderCalendar();
+          renderStudyLists();
+        };
         setInterval(() => {
           renderToday();
+          refreshDateSensitiveViews();
           scheduleReminders();
         }, 1000);
         document.addEventListener("visibilitychange", () => {
           if (!document.hidden) {
             updateFocusTimer();
             renderToday();
+            refreshDateSensitiveViews();
             scheduleReminders();
           }
         });

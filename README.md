@@ -7,7 +7,9 @@ A lightweight, offline-first class schedule notebook, calendar, and study timer.
 - **Class Timetable:** Track weekly classes with room info, group tags, and 12h/24h time formatting.
 - **Today Dashboard:** Real-time class countdowns, progress bars, and daily schedule overview.
 - **Calendar & Tasks:** Schedule tests, track assignment deadlines, and manage to-dos.
+- **Projects & Homework:** Track deadlines, attach images and PDFs, and get multiple deadline reminders.
 - **Study Timer:** Configurable focus and break timer.
+- **Quick access:** Search across your classes and plans or add items from any tab.
 - **PWA & Offline:** Works offline and supports installation as a web app.
 - **Import & Export:** Batch import class schedules via JSON, export calendar to `.ics`, and download full JSON data backups.
 
@@ -68,10 +70,16 @@ Import a `.json` file on the **Classes** tab using **Import JSON**.
 
 See [`classes-example.json`](./classes-example.json) for a sample file.
 
+## Notifications and attachments
+
+Notifications require browser permission and are checked while Daybook is open. Because this app is offline-first and has no notification server, it cannot schedule future alerts while the browser is closed. Project and homework reminders are available at the due time, 5, 10, or 30 minutes, 1, 3, or 12 hours, 1 or 2 days, and 1 week before.
+
+Images and PDFs attached to projects or homework are stored in the browser's local IndexedDB on that device. They are not included in the downloadable JSON backup.
+
 ## Data Export
 
 - **iCalendar (.ics):** Export events from the Calendar tab for Apple Calendar, Google Calendar, or Outlook.
-- **JSON Backup:** Download a full data snapshot from **Settings > Download Daybook backup**.
+- **JSON Backup:** Download a data snapshot from **Settings > Download Daybook backup**.
 
 ## License
 
